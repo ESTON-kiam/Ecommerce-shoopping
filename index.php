@@ -52,6 +52,8 @@ $result = $conn->query($query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern eCommerce - Your Ultimate Shopping Destination</title>
+    <link href="assets/img/logo.jpeg" rel="icon">
+    <link href="assets/img/logo.jpeg" rel="apple-touch-icon">
     <meta name="description" content="Discover amazing products at great prices on our modern eCommerce platform">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="assets/css/index.css">
@@ -84,7 +86,7 @@ $result = $conn->query($query);
 <div class="filters">
     <div class="filters-content">
         <div class="results-count">
-            <?php echo $result->num_rows; ?> products found
+            <!--<?php echo $result->num_rows; ?> products found -->
             <?php if ($search): ?>
                 for "<?php echo htmlspecialchars($search); ?>"
             <?php endif; ?>

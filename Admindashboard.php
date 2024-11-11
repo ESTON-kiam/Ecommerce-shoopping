@@ -192,7 +192,7 @@ $total_products = $conn->query("SELECT COUNT(*) as count FROM products")->fetch_
             <ul>
                 <li><a href="Admindashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
                 <li><a href="adminaddproducts.php"><i class="fas fa-box"></i>Add Products</a></li>
-                <li><a href="adminproductview.php"><i class="fas fa-box"></i>Products</li>
+                <li><a href="adminproductview.php"><i class="fas fa-box"></i>Products</a></li>
                 <li><a href="orders.php"><i class="fas fa-shopping-cart"></i> Orders</a></li>
                 <li><a href="customers.php"><i class="fas fa-users"></i> Customers</a></li>
                 <li><a href="reports.php"><i class="fas fa-chart-bar"></i> Reports</a></li>

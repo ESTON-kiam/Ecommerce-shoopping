@@ -1,4 +1,35 @@
 
+/* Styling for the continue shopping button */
+.continue-shopping {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.continue-shopping:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 12px rgba(0, 86, 179, 0.3);
+}
+
+.continue-shopping:focus {
+    outline: none;
+    background-color: #0056b3;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+}
+
+.continue-shopping:active {
+    background-color: #004085;
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+}
+
         :root {
             --primary-color: #ff6600;
             --secondary-color: #2c3e50;

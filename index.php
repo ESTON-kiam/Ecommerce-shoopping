@@ -82,11 +82,11 @@ $result = $conn->query($query);
     </div>
 </header>
 
-<!-- Filters Section -->
+
 <div class="filters">
     <div class="filters-content">
         <div class="results-count">
-            <!--<?php echo $result->num_rows; ?> products found -->
+            <!--<?php echo $result->num_rows; ?> 
             <?php if ($search): ?>
                 for "<?php echo htmlspecialchars($search); ?>"
             <?php endif; ?>
@@ -116,7 +116,7 @@ $result = $conn->query($query);
                     <span class="product-category"><?php echo htmlspecialchars($row['category']); ?></span>
                     <h2 class="product-name"><?php echo htmlspecialchars($row['name']); ?></h2>
                     <p class="product-description"><?php echo htmlspecialchars($row['description']); ?></p>
-                    <div class="product-price">Ksh <?php echo number_format($row['price'], 2); ?></div>
+                    <div class="product-price">Ksh <?php echo number_format($row['price'], 1); ?></div>
                     <button class="add-to-cart" onclick="addToCart(<?php echo $row['id']; ?>)">
                         Add to Cart
                     </button>
@@ -209,3 +209,69 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WI
 
 $conn->close();
 ?>
+<script>
+    function addToCart(productId) {
+  fetch('<?php echo $_SERVER["SCRIPT_NAME"]; ?>', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest'
+    },
+    body: JSON.stringify({ action: 'add_to_cart', productId: productId })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      alert('Product added to cart! Total items: ' + data.cartCount);
+      updateCartCount(data.cartCount);
+    } else {
+      alert(data.message);
+    }
+  })
+  .catch(error => console.error('Error:', error));
+}
+
+function removeFromCart(productId) {
+  fetch('<?php echo $_SERVER["SCRIPT_NAME"]; ?>', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest'
+    },
+    body: JSON.stringify({ action: 'remove_from_cart', productId: productId })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      alert('Product removed from cart! Total items: ' + data.cartCount);
+      updateCartCount(data.cartCount);
+      document.querySelector(`[data-product-id="${productId}"] .remove-from-cart`).style.display = 'none';
+    } else {
+      alert(data.message);
+    }
+  })
+  .catch(error => console.error('Error:', error));
+}
+
+function updateCartCount(count) {
+  document.querySelector('.header-icons span').innerText = 'Cart (' + count + ')';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Add event listeners for "Add to Cart" buttons
+  document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', () => {
+      const productId = button.closest('.product-card').dataset.productId;
+      addToCart(productId);
+    });
+  });
+
+  // Add event listeners for "Remove from Cart" buttons
+  document.querySelectorAll('.remove-from-cart').forEach(button => {
+    button.addEventListener('click', () => {
+      const productId = button.closest('.product-card').dataset.productId;
+      removeFromCart(productId);
+    });
+  });
+});
+</script>

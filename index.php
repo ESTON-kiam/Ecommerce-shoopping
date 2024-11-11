@@ -15,11 +15,11 @@ if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = array();
 }
 
-// Get search parameter
+
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 $sort = isset($_GET['sort']) ? $_GET['sort'] : 'default';
 
-// Prepare the base query
+
 $query = "SELECT id, category, name, description, price, image FROM products WHERE 1=1";
 
 
@@ -28,7 +28,7 @@ if ($search) {
     $query .= " AND (name LIKE '%$search%' OR description LIKE '%$search%' OR category LIKE '%$search%')";
 }
 
-// Add sorting
+
 switch ($sort) {
     case 'price_asc':
         $query .= " ORDER BY price ASC";

@@ -15,19 +15,15 @@ if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = array();
 }
 
-
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 $sort = isset($_GET['sort']) ? $_GET['sort'] : 'default';
 
-
 $query = "SELECT id, category, name, description, price, image FROM products WHERE 1=1";
-
 
 if ($search) {
     $search = $conn->real_escape_string($search);
     $query .= " AND (name LIKE '%$search%' OR description LIKE '%$search%' OR category LIKE '%$search%')";
 }
-
 
 switch ($sort) {
     case 'price_asc':
@@ -70,10 +66,18 @@ $result = $conn->query($query);
             <input type="text" name="search" placeholder="Search products..." value="<?php echo htmlspecialchars($search); ?>" />
         </form>
         <div class="header-icons">
-            <a href="account.php">
-                <i class="fas fa-user"></i>
-                <span>Account</span>
-            </a>
+            <div class="account-dropdown">
+                <a href="#" class="account-link">
+                    <i class="fas fa-user"></i>
+                    <span>Account</span>
+                </a>
+                <div class="dropdown-content">
+                    <a href="signin.php">Sign In</a>
+                    <a href="myaccount.php">My Account</a>
+                    <a href="orders.php">Orders</a>
+                    <a href="saveditems.php">Saved Items</a>
+                </div>
+            </div>
             <a href="cart.php">
                 <i class="fas fa-shopping-cart"></i>
                 <span>Cart (<?php echo count($_SESSION['cart']); ?>)</span>
@@ -82,11 +86,9 @@ $result = $conn->query($query);
     </div>
 </header>
 
-
 <div class="filters">
     <div class="filters-content">
         <div class="results-count">
-            <!--<?php echo $result->num_rows; ?> 
             <?php if ($search): ?>
                 for "<?php echo htmlspecialchars($search); ?>"
             <?php endif; ?>
@@ -102,7 +104,6 @@ $result = $conn->query($query);
     </div>
 </div>
 
-<!-- Products Section -->
 <div class="products">
     <?php if ($result->num_rows > 0): ?>
         <?php while($row = $result->fetch_assoc()): ?>
@@ -132,7 +133,6 @@ $result = $conn->query($query);
     <?php endif; ?>
 </div>
 
-<!-- Footer Section -->
 <footer class="footer">
     <div class="footer-content">
         <div class="footer-section">
@@ -179,7 +179,6 @@ $result = $conn->query($query);
 </footer>
 
 <?php
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
     header('Content-Type: application/json');
     
@@ -187,12 +186,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WI
     $productId = isset($input['productId']) ? (int)$input['productId'] : 0;
     
     if ($productId > 0) {
-       
-        if (!isset($_SESSION['cart'][$productId])) {
-            $_SESSION['cart'][$productId] = 1;
-        } else {
-            $_SESSION['cart'][$productId]++;
-        }
+        
+        $_SESSION['cart'][$productId] = 1; 
         
         echo json_encode([
             'success' => true,
@@ -211,67 +206,37 @@ $conn->close();
 ?>
 <script>
     function addToCart(productId) {
-  fetch('<?php echo $_SERVER["SCRIPT_NAME"]; ?>', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Requested-With': 'XMLHttpRequest'
-    },
-    body: JSON.stringify({ action: 'add_to_cart', productId: productId })
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      alert('Product added to cart! Total items: ' + data.cartCount);
-      updateCartCount(data.cartCount);
-    } else {
-      alert(data.message);
+        fetch('<?php echo $_SERVER["SCRIPT_NAME"]; ?>', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: JSON.stringify({ action: 'add_to_cart', productId: productId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Product added to cart! Total items: ' + data.cartCount);
+                updateCartCount(data.cartCount);
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
     }
-  })
-  .catch(error => console.error('Error:', error));
-}
 
-function removeFromCart(productId) {
-  fetch('<?php echo $_SERVER["SCRIPT_NAME"]; ?>', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Requested-With': 'XMLHttpRequest'
-    },
-    body: JSON.stringify({ action: 'remove_from_cart', productId: productId })
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      alert('Product removed from cart! Total items: ' + data.cartCount);
-      updateCartCount(data.cartCount);
-      document.querySelector(`[data-product-id="${productId}"] .remove-from-cart`).style.display = 'none';
-    } else {
-      alert(data.message);
+    function updateCartCount(count) {
+        document.querySelector('.header-icons span').innerText = 'Cart (' + count + ')';
     }
-  })
-  .catch(error => console.error('Error:', error));
-}
 
-function updateCartCount(count) {
-  document.querySelector('.header-icons span').innerText = 'Cart (' + count + ')';
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  // Add event listeners for "Add to Cart" buttons
-  document.querySelectorAll('.add-to-cart').forEach(button => {
-    button.addEventListener('click', () => {
-      const productId = button.closest('.product-card').dataset.productId;
-      addToCart(productId);
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const productId = button.closest('.product-card').dataset.productId;
+                addToCart(productId);
+            });
+        });
     });
-  });
-
-  // Add event listeners for "Remove from Cart" buttons
-  document.querySelectorAll('.remove-from-cart').forEach(button => {
-    button.addEventListener('click', () => {
-      const productId = button.closest('.product-card').dataset.productId;
-      removeFromCart(productId);
-    });
-  });
-});
 </script>

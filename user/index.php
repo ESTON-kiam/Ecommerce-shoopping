@@ -1,7 +1,5 @@
 <?php
-
 session_start();
-
 
 $servername = "localhost";
 $username = "root";
@@ -13,36 +11,38 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = trim($_POST['email']);
+$error = '';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $conn->real_escape_string($_POST['email']);
     $password = $_POST['password'];
     
-    $errors = [];
+    $sql = "SELECT * FROM customers WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
     
-    if (empty($email)) $errors[] = "Email is required";
-    if (empty($password)) $errors[] = "Password is required";
-    
-    if (empty($errors)) {
-        $stmt = $conn->prepare("SELECT id, first_name, password FROM customers WHERE email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        
-        if ($result->num_rows == 1) {
-            $customer = $result->fetch_assoc();
-            if (password_verify($password, $customer['password'])) {
-                $_SESSION['customer_id'] = $customer['id'];
-                $_SESSION['customer_name'] = $customer['first_name'];
-                header("Location: index.php");
-                exit();
-            } else {
-                $errors[] = "Invalid email or password";
-            }
+    if ($result->num_rows > 0) {
+        $customer = $result->fetch_assoc();
+        // Verify password using password_verify if passwords are hashed
+        // For plain text passwords (not recommended), use direct comparison
+        if (password_verify($password, $customer['password']) || $password === $customer['password']) {
+            $_SESSION['customers'] = [
+                'id' => $customer['id'],
+                'first_name' => $customer['first_name'],
+                'last_name' => $customer['last_name'],
+                'email' => $customer['email']
+            ];
+            header("Location: index.php");
+            exit();
         } else {
-            $errors[] = "Invalid email or password";
+            $error = "Invalid password";
         }
-        $stmt->close();
+    } else {
+        $error = "Email not found";
     }
+    $stmt->close();
 }
 ?>
 
@@ -51,64 +51,202 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Customer Login - ModernCart</title>
+    <link href="assets/img/logo.jpeg" rel="icon">
+    <link href="assets/img/logo.jpeg" rel="apple-touch-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body {
-            background-color: #f8f9fa;
-            padding: 50px 0;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
-        .form-container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            max-width: 500px;
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            color: #1a202c;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .logo i {
+            color: #667eea;
+        }
+
+        .login-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h1 {
+            color: #1a202c;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        .error-message {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            display: <?php echo $error ? 'block' : 'none'; ?>;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 0.75rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .login-button:hover {
+            background: #5a67d8;
+        }
+
+        .additional-links {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .additional-links a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin: 0 0.5rem;
+        }
+
+        .additional-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 640px) {
+            .login-box {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="form-container">
-            <h2 class="mb-4">Login</h2>
-            
-            <?php if(isset($_SESSION['success_message'])): ?>
-                <div class="alert alert-success">
-                    <?php 
-                    echo $_SESSION['success_message'];
-                    unset($_SESSION['success_message']);
-                    ?>
-                </div>
-            <?php endif; ?>
-            
-            <?php if(isset($errors) && !empty($errors)): ?>
-                <div class="alert alert-danger">
-                    <?php foreach($errors as $error): ?>
-                        <p class="mb-0"><?php echo $error; ?></p>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
+    <header class="header">
+        <div class="header-content">
+            <a href="index.php" class="logo">
+                <i class="fas fa-shopping-bag"></i>
+                ModernCart
+            </a>
+        </div>
+    </header>
 
-            <form action="" method="POST">
-                <div class="mb-3">
-                    <label>Email</label>
-                    <input type="email" name="email" class="form-control" required>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <h1>Welcome Back</h1>
+                <p>Sign in to your account</p>
+            </div>
+
+            <div class="error-message">
+                <?php echo htmlspecialchars($error); ?>
+            </div>
+
+            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required autocomplete="email">
                 </div>
-                
-                <div class="mb-3">
-                    <label>Password</label>
-                    <input type="password" name="password" class="form-control" required>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required autocomplete="current-password">
                 </div>
-                
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Login</button>
-                    <a href="http://localhost:8000/user/customerreg.php" class="btn btn-link">New customer? Register</a>
-                </div>
+
+                <button type="submit" class="login-button">Sign In</button>
             </form>
+
+            <div class="additional-links">
+                <a href="forgot-password.php">Forgot Password?</a>
+                <span>•</span>
+                <a href="http://localhost:8000/user/customerreg.php">Create Account</a>
+            </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

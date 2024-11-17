@@ -1,4 +1,5 @@
 <?php
+session_name('admin_session');
 session_start();
 
 $servername = "localhost";
@@ -46,7 +47,7 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
     <style>
-        /* Global Styling */
+        
         body {
             font-family: 'Roboto', sans-serif;
             display: flex;
@@ -57,7 +58,7 @@ $conn->close();
             background: linear-gradient(135deg, #5cb85c, #2e8b57);
         }
 
-        /* Container Styling */
+        
         .login-container {
             background-color: #fff;
             padding: 30px;
@@ -68,14 +69,14 @@ $conn->close();
             text-align: center;
         }
 
-        /* Header Styling */
+        
         h2 {
             margin-bottom: 20px;
             color: #333;
             font-weight: 700;
         }
 
-        /* Form and Input Styling */
+        
         form {
             display: flex;
             flex-direction: column;
@@ -96,7 +97,7 @@ $conn->close();
             box-shadow: 0 0 8px rgba(92, 184, 92, 0.3);
         }
 
-        /* Button Styling */
+       
         button {
             padding: 12px;
             font-size: 16px;
@@ -112,14 +113,14 @@ $conn->close();
             background-color: #4cae4c;
         }
 
-        /* Error Message Styling */
+       
         .error {
             color: #ff4d4d;
             font-weight: 500;
             margin-bottom: 20px;
         }
 
-        /* Register Link Styling */
+        
         .register-link {
             display: block;
             margin-top: 15px;
@@ -131,7 +132,7 @@ $conn->close();
             color: #4cae4c;
         }
 
-        /* Media Query for Small Screens */
+      
         @media (max-width: 400px) {
             .login-container {
                 padding: 20px;
@@ -149,7 +150,7 @@ $conn->close();
             <input type="text" id="username" name="username" placeholder="Username" required>
             <input type="password" id="password" name="password" placeholder="Password" required>
             <button type="submit">Login</button>
-            <a href="adminregistration.php" class="register-link">Register as Admin</a>
+            <a href="http://localhost:8000/admin/adminregistration.php" class="register-link">Register as Admin</a>
         </form>
     </div>
 
@@ -160,10 +161,10 @@ $conn->close();
 
             if (username === "" || password === "") {
                 alert("Both fields are required.");
-                return false; // Prevent form submission
+                return false; 
             }
             
-            return true; // Allow form submission
+            return true; 
         }
     </script>
 </body>

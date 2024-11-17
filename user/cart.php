@@ -1,5 +1,15 @@
 <?php
 session_start();
+//session_set_cookie_params([
+   // 'lifetime' => 1800,
+    //'path' => '/',
+    //'domain' => '',
+    //'secure' => false, 
+    //'httponly' => true,
+   //'samesite' => 'Strict'
+//]);
+
+
 
 $servername = "localhost";
 $username = "root";
@@ -16,6 +26,11 @@ $sort = isset($_GET['sort']) ? $_GET['sort'] : 'default';
 
 $query = "SELECT id, category, name, description, price, image FROM products WHERE 1=1";
 
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = array();
+}
+
+$isLoggedIn = isset($_SESSION['customers']) && isset($_SESSION['customers']['first_name']);
 
 if ($search) {
     $search = $conn->real_escape_string($search);
@@ -73,13 +88,35 @@ foreach ($products as $product) {
             ModernCart
         </a>
         <form class="search-bar" method="GET">
-            <input type="text" name="search" placeholder="Search products..." value="" />
+            <input type="text" name="search" placeholder="Search products..." value="<?php echo htmlspecialchars($search); ?>" />
         </form>
         <div class="header-icons">
-            <a href="account.php">
-                <i class="fas fa-user"></i>
-                <span>Account</span>
-            </a>
+            <div class="account-dropdown">
+                <a href="<?php echo $isLoggedIn ? 'account.php' : 'customerlogin.php'; ?>" class="account-link">
+                    <i class="fas fa-user"></i>
+                    <span>
+                        <?php 
+                        if ($isLoggedIn) {
+                            echo htmlspecialchars($_SESSION['customers']['first_name']);
+                        } else {
+                            echo 'Account';
+                        }
+                        ?>
+                    </span>
+                </a>
+                <?php if ($isLoggedIn): ?>
+                    <div class="dropdown-content">
+                        <a href="myaccount.php">My Account</a>
+                        <a href="orders.php">Orders</a>
+                        <a href="saveditems.php">Saved Items</a>
+                        <a href="customerlogout.php">Sign Out</a>
+                    </div>
+                <?php else: ?>
+                    <div class="dropdown-content">
+                        <a href="customerlogin.php">Sign In</a>
+                    </div>
+                <?php endif; ?>
+            </div>
             <a href="cart.php">
                 <i class="fas fa-shopping-cart"></i>
                 <span>Cart (<?php echo count($_SESSION['cart']); ?>)</span>
@@ -87,7 +124,6 @@ foreach ($products as $product) {
         </div>
     </div>
 </header>
-
 <main class="container">
     <h1>Your Cart</h1>
     <?php if (count($cartItems) > 0): ?>
@@ -119,13 +155,31 @@ foreach ($products as $product) {
 
    <?php else : ?>
    <p>Your cart is empty. Start shopping now!</p>
+   <button class="go-shopping-btn" style="
+    background-color: #ff6600; 
+    color: #fff; 
+    padding: 15px 30px; 
+    border: none; 
+    border-radius: 8px; 
+    font-size: 18px; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+    cursor: pointer; 
+    transition: background-color 0.3s, transform 0.2s; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+" 
+    onmouseover="this.style.backgroundColor='#ff4500'; this.style.transform='scale(1.05)';" 
+    onmouseout="this.style.backgroundColor='#ff6600'; this.style.transform='scale(1)';">
+    <a href="index.php" style="color: #fff; text-decoration: none;">Go Shopping</a>
+</button>
+
    <?php endif; ?>
 </main>
 
 <div id="toast" class="toast"></div>
 
 <script>
-// Show toast notification
+
 function showToast(message) {
    const toast = document.getElementById('toast');
    toast.textContent = message;
@@ -133,7 +187,7 @@ function showToast(message) {
    setTimeout(() => { toast.classList.remove('show'); }, 3000);
 }
 
-// Update quantity function
+
 function updateQuantity(productId, change) {
    const quantityInput = document.getElementById(`quantity-${productId}`);
    let newQuantity = parseInt(quantityInput.value) + change;
@@ -142,10 +196,10 @@ function updateQuantity(productId, change) {
 
    quantityInput.value = newQuantity;
 
-   // Update total price
+   
    updateTotalPrice();
 
-   // Send AJAX request to update session
+  
    fetch('update-cart.php', {
        method: 'POST',
        headers: { 'Content-Type': 'application/json' },
@@ -156,7 +210,7 @@ function updateQuantity(productId, change) {
    .catch(error => console.error('Error:', error));
 }
 
-// Remove from cart function
+
 function removeFromCart(productId) {
    const cartItem = document.querySelector(`.cart-item[data-product-id="${productId}"]`);
    if (cartItem) {

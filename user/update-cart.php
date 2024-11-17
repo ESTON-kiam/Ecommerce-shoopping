@@ -8,12 +8,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $productId = intval($data['productId']);
         $quantity = intval($data['quantity']);
 
-        // Update the session cart
+        
         if ($quantity > 0) {
-           $_SESSION['cart'][$productId] = $quantity; // Update quantity
+           $_SESSION['cart'][$productId] = $quantity; 
            echo json_encode(['message' => 'Cart updated successfully!']);
         } else {
-           unset($_SESSION['cart'][$productId]); // Remove item if quantity is zero
+           unset($_SESSION['cart'][$productId]); 
            echo json_encode(['message' => 'Item removed from cart!']);
         }
         

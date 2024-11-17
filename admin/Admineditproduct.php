@@ -1,4 +1,5 @@
 <?php
+session_name('admin_session');
 session_start();
 
 $servername = "localhost";
@@ -34,16 +35,16 @@ if (isset($_GET['id'])) {
     exit();
 }
 
-// Handle form submission for updating product
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $conn->real_escape_string($_POST['name']);
     $description = $conn->real_escape_string($_POST['description']);
     $price = $conn->real_escape_string($_POST['price']);
     $stock_quantity = $conn->real_escape_string($_POST['stock_quantity']);
     $category = $conn->real_escape_string($_POST['category']);
-    $image = $product['image']; // Default to current image
+    $image = $product['image']; 
 
-    // Check if a new image was uploaded
+    
     if (!empty($_FILES['image']['name'])) {
         $image = basename($_FILES['image']['name']);
         $target_dir = "Products/";
@@ -51,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         move_uploaded_file($_FILES['image']['tmp_name'], $target_file);
     }
 
-    // Update product information in the database
+    
     $update_query = "UPDATE products SET name='$name', description='$description', price='$price', stock_quantity='$stock_quantity', category='$category', image='$image' WHERE id='$product_id'";
     
     if ($conn->query($update_query)) {

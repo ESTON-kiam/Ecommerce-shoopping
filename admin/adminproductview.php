@@ -1,4 +1,5 @@
 <?php
+session_name('admin_session');
 session_start();
 
 $servername = "localhost";
@@ -11,13 +12,13 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Check if admin is logged in
+
 if (!isset($_SESSION['admin_id'])) {
     header('Location: admin_login.php');
     exit();
 }
 
-// Handle Delete Action
+
 if (isset($_POST['delete_id'])) {
     $delete_id = $conn->real_escape_string($_POST['delete_id']);
     $delete_query = "DELETE FROM products WHERE id = '$delete_id'";
@@ -42,174 +43,7 @@ $result = $conn->query($query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products Management - Admin Panel</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f9;
-        }
-
-        .container {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .sidebar {
-            width: 250px;
-            background-color: #343a40;
-            color: white;
-            padding: 20px;
-        }
-
-        .sidebar h2 {
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .sidebar ul {
-            list-style: none;
-        }
-
-        .sidebar ul li {
-            margin-bottom: 15px;
-        }
-
-        .sidebar ul li a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            padding: 10px;
-            border-radius: 5px;
-        }
-
-        .sidebar ul li a:hover {
-            background-color: #495057;
-        }
-
-        .main-content {
-            flex: 1;
-            padding: 20px;
-        }
-
-        .products-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .add-product-btn {
-            background-color: #28a745;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-
-        .products-table {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #dee2e6;
-        }
-
-        th {
-            background-color: #f8f9fa;
-            font-weight: bold;
-        }
-
-        .product-image {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 4px;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn {
-            padding: 6px 12px;
-            border-radius: 4px;
-            text-decoration: none;
-            cursor: pointer;
-            border: none;
-            font-size: 14px;
-        }
-
-        .btn-edit {
-            background-color: #ffc107;
-            color: #000;
-        }
-
-        .btn-delete {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .alert {
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 4px;
-        }
-
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .product-price {
-            font-weight: bold;
-            color: #28a745;
-        }
-
-        .stock-status {
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .in-stock {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .low-stock {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-
-        .out-of-stock {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-    </style>
+   <link rel="stylesheet" href="assets/css/adminviewproduct.css">
 </head>
 <body>
     <div class="container">

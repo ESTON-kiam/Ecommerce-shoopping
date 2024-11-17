@@ -1,4 +1,5 @@
 <?php
+session_name('admin_session');
 session_start();
 
 
@@ -12,7 +13,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Check if admin is logged in
+
 if (!isset($_SESSION['admin_id'])) {
     header('Location: admin_login.php');
     exit();
@@ -41,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stock_quantity = intval($_POST['stock_quantity']);
     $price = floatval($_POST['price']);
     
-    // Image upload handling
+    
     $target_dir = "Products/";
     if (!file_exists($target_dir)) {
         mkdir($target_dir, 0777, true);
@@ -56,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $target_file = $target_dir . $image_name;
             
             if (move_uploaded_file($_FILES['product_image']['tmp_name'], $target_file)) {
-                // File uploaded successfully
+                
                 $query = "INSERT INTO products (name, category, description, stock_quantity,price, image) 
                          VALUES ('$product_name', '$category', '$description',$stock_quantity, $price, '$image_name')";
                 

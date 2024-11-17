@@ -1,242 +1,133 @@
-<?php
-session_start();
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "ecommerce";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = array();
-}
-
-$search = isset($_GET['search']) ? trim($_GET['search']) : '';
-$sort = isset($_GET['sort']) ? $_GET['sort'] : 'default';
-
-$query = "SELECT id, category, name, description, price, image FROM products WHERE 1=1";
-
-if ($search) {
-    $search = $conn->real_escape_string($search);
-    $query .= " AND (name LIKE '%$search%' OR description LIKE '%$search%' OR category LIKE '%$search%')";
-}
-
-switch ($sort) {
-    case 'price_asc':
-        $query .= " ORDER BY price ASC";
-        break;
-    case 'price_desc':
-        $query .= " ORDER BY price DESC";
-        break;
-    case 'name_asc':
-        $query .= " ORDER BY name ASC";
-        break;
-    default:
-        $query .= " ORDER BY id DESC";
-}
-
-$result = $conn->query($query);
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern eCommerce - Your Ultimate Shopping Destination</title>
-    <link href="assets/img/logo.jpeg" rel="icon">
-    <link href="assets/img/logo.jpeg" rel="apple-touch-icon">
-    <meta name="description" content="Discover amazing products at great prices on our modern eCommerce platform">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/index.css">
+    <title>Login Selection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .login-button {
+            width: 280px;
+            padding: 2rem;
+            border: none;
+            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .icon {
+            width: 64px;
+            height: 64px;
+            background: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        .button-text {
+            font-size: 1.25rem;
+            color: #1a202c;
+            font-weight: 600;
+        }
+
+        .button-description {
+            color: #4a5568;
+            font-size: 0.9rem;
+            max-width: 200px;
+        }
+
+        @media (max-width: 640px) {
+            .buttons-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .login-button {
+                width: 100%;
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-
-<header class="header">
-    <div class="header-content">
-        <a href="/" class="logo">
-            <i class="fas fa-shopping-bag"></i>
-            ModernCart
-        </a>
-        <form class="search-bar" method="GET">
-            <input type="text" name="search" placeholder="Search products..." value="<?php echo htmlspecialchars($search); ?>" />
-        </form>
-        <div class="header-icons">
-            <div class="account-dropdown">
-                <a href="#" class="account-link">
-                    <i class="fas fa-user"></i>
-                    <span>Account</span>
-                </a>
-                <div class="dropdown-content">
-                    <a href="signin.php">Sign In</a>
-                    <a href="myaccount.php">My Account</a>
-                    <a href="orders.php">Orders</a>
-                    <a href="saveditems.php">Saved Items</a>
+    <div class="container">
+        <h1>Welcome to Our Modern Cart</h1>
+        <div class="buttons-container">
+            <button onclick="window.location.href='http://localhost:8000/user'" class="login-button">
+                <div class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
                 </div>
-            </div>
-            <a href="cart.php">
-                <i class="fas fa-shopping-cart"></i>
-                <span>Cart (<?php echo count($_SESSION['cart']); ?>)</span>
-            </a>
-        </div>
-    </div>
-</header>
+                <span class="button-text">Customer Login</span>
+                <span class="button-description">Shop and manage your orders</span>
+            </button>
 
-<div class="filters">
-    <div class="filters-content">
-        <div class="results-count">
-            <?php if ($search): ?>
-                for "<?php echo htmlspecialchars($search); ?>"
-            <?php endif; ?>
-        </div>
-        <div class="sort-options">
-            <select name="sort" onchange="window.location.href='?sort='+this.value<?php echo $search ? '&search='.urlencode($search) : ''; ?>">
-                <option value="default" <?php echo $sort === 'default' ? 'selected' : ''; ?>>Sort by</option>
-                <option value="price_asc" <?php echo $sort === 'price_asc' ? 'selected' : ''; ?>>Price: Low to High</option>
-                <option value="price_desc" <?php echo $sort === 'price_desc' ? 'selected' : ''; ?>>Price: High to Low</option>
-                <option value="name_asc" <?php echo $sort === 'name_asc' ? 'selected' : ''; ?>>Name: A to Z</option>
-            </select>
-        </div>
-    </div>
-</div>
-
-<div class="products">
-    <?php if ($result->num_rows > 0): ?>
-        <?php while($row = $result->fetch_assoc()): ?>
-            <div class="product-card" data-product-id="<?php echo $row['id']; ?>">
-                <div class="product-image">
-                    <img src="Products/<?php echo htmlspecialchars($row['image']); ?>" 
-                         alt="<?php echo htmlspecialchars($row['name']); ?>"
-                         loading="lazy">
+            <button onclick="window.location.href='http://localhost:8000/admin'" class="login-button">
+                <div class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
                 </div>
-                <div class="product-details">
-                    <span class="product-category"><?php echo htmlspecialchars($row['category']); ?></span>
-                    <h2 class="product-name"><?php echo htmlspecialchars($row['name']); ?></h2>
-                    <p class="product-description"><?php echo htmlspecialchars($row['description']); ?></p>
-                    <div class="product-price">Ksh <?php echo number_format($row['price'], 1); ?></div>
-                    <button class="add-to-cart" onclick="addToCart(<?php echo $row['id']; ?>)">
-                        Add to Cart
-                    </button>
-                </div>
-            </div>
-        <?php endwhile; ?>
-    <?php else: ?>
-        <div class="empty-state">
-            <i class="fas fa-search"></i>
-            <h2>No products found</h2>
-            <p>Try adjusting your search or filters to find what you're looking for.</p>
-        </div>
-    <?php endif; ?>
-</div>
-
-<footer class="footer">
-    <div class="footer-content">
-        <div class="footer-section">
-            <h3>About Us</h3>
-            <ul>
-                <li><a href="#">Our Story</a></li>
-                <li><a href="#">Careers</a></li>
-                <li><a href="#">Press</a></li>
-            </ul>
-        </div>
-        <div class="footer-section">
-            <h3>Customer Service</h3>
-            <ul>
-                <li><a href="adminlogin.php">Admin Login</a></li>
-                <li><a href="#">Shipping Info</a></li>
-                <li><a href="#">Returns</a></li>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Track Order</a></li>
-            </ul>
-        </div>
-        <div class="footer-section">
-            <h3>Shop</h3>
-            <ul>
-                <li><a href="#">New Arrivals</a></li>
-                <li><a href="#">Best Sellers</a></li>
-                <li><a href="#">Sale</a></li>
-                <li><a href="#">Gift Cards</a></li>
-            </ul>
-        </div>
-        <div class="footer-section">
-            <h3>Connect</h3>
-            <ul>
-                <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
-                <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
-                <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
-                <li><a href="#"><i class="fab fa-pinterest"></i> Pinterest</a></li>
-            </ul>
+                <span class="button-text">Admin Login</span>
+                <span class="button-description">Manage store and inventory</span>
+            </button>
         </div>
     </div>
-    <div class="footer-bottom">
-        <p>&copy; <?php echo date("Y"); ?> ModernCart. All rights reserved.</p>
-        <p>Designed with <i class="fas fa-heart" style="color: #ff6600;"></i> for our customers</p>
-    </div>
-</footer>
-
-<?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
-    header('Content-Type: application/json');
-    
-    $input = json_decode(file_get_contents('php://input'), true);
-    $productId = isset($input['productId']) ? (int)$input['productId'] : 0;
-    
-    if ($productId > 0) {
-        
-        $_SESSION['cart'][$productId] = 1; 
-        
-        echo json_encode([
-            'success' => true,
-            'cartCount' => array_sum($_SESSION['cart'])
-        ]);
-    } else {
-        echo json_encode([
-            'success' => false,
-            'message' => 'Invalid product ID'
-        ]);
-    }
-    exit;
-}
-
-$conn->close();
-?>
-<script>
-    function addToCart(productId) {
-        fetch('<?php echo $_SERVER["SCRIPT_NAME"]; ?>', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
-            },
-            body: JSON.stringify({ action: 'add_to_cart', productId: productId })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Product added to cart! Total items: ' + data.cartCount);
-                updateCartCount(data.cartCount);
-            } else {
-                alert(data.message);
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
-
-    function updateCartCount(count) {
-        document.querySelector('.header-icons span').innerText = 'Cart (' + count + ')';
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', () => {
-                const productId = button.closest('.product-card').dataset.productId;
-                addToCart(productId);
-            });
-        });
-    });
-</script>
+</body>
+</html>

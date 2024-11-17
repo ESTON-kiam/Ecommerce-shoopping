@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($data['productId'])) {
         $productId = intval($data['productId']);
 
-        // Remove item from the session cart
+        
         unset($_SESSION['cart'][$productId]);
         
         echo json_encode(['message' => 'Item removed from cart!']);

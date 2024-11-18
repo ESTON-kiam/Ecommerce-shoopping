@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 
 
 if (!isset($_SESSION['admin_id'])) {
-    header('Location: admin_login.php');
+    header('Location: index.php');
     exit();
 }
 
@@ -42,6 +42,8 @@ $result = $conn->query($query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products Management - Admin Panel</title>
+    <link href="assets/img/cart.jpg" rel="icon">
+    <link href="assets/img/cart.jpg" rel="apple-touch-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
    <link rel="stylesheet" href="assets/css/adminviewproduct.css">
 </head>
@@ -50,21 +52,21 @@ $result = $conn->query($query);
         <div class="sidebar">
             <h2>Admin Panel</h2>
             <ul>
-                <li><a href="Admindashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="adminaddproducts.php"><i class="fas fa-box"></i> Add Products</a></li>
-                <li><a href="admin_products.php"><i class="fas fa-boxes"></i> Products</a></li>
+            <li><a href="dashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="addproducts.php"><i class="fas fa-box"></i>Add Products</a></li>
+                <li><a href="productview.php"><i class="fas fa-box"></i>Products</a></li>
                 <li><a href="orders.php"><i class="fas fa-shopping-cart"></i> Orders</a></li>
                 <li><a href="customers.php"><i class="fas fa-users"></i> Customers</a></li>
                 <li><a href="reports.php"><i class="fas fa-chart-bar"></i> Reports</a></li>
                 <li><a href="settings.php"><i class="fas fa-cog"></i> Settings</a></li>
-                <li><a href="adminlogout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                <li><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
         </div>
 
         <div class="main-content">
             <div class="products-header">
                 <h1>Products Management</h1>
-                <a href="adminaddproducts.php" class="add-product-btn">
+                <a href="addproducts.php" class="add-product-btn">
                     <i class="fas fa-plus"></i> Add New Product
                 </a>
             </div>
@@ -135,7 +137,7 @@ $result = $conn->query($query);
 
                                 <td><?php echo htmlspecialchars($row['category']); ?></td>
                                 <td class="action-buttons">
-                                    <a href="admineditproduct.php?id=<?php echo $row['id']; ?>" 
+                                    <a href="editproduct.php?id=<?php echo $row['id']; ?>" 
                                        class="btn btn-edit">
                                         <i class="fas fa-edit"></i> Edit
                                     </a>

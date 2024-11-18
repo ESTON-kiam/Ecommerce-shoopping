@@ -1,15 +1,18 @@
 <?php
-session_start();
-//session_set_cookie_params([
-   // 'lifetime' => 1800,
-    //'path' => '/',
-    //'domain' => '',
-    //'secure' => false, 
-    //'httponly' => true,
-   //'samesite' => 'Strict'
-//]);
+session_name('customer_session');
+session_start([
+    'cookie_lifetime' => 1800, 
+    'cookie_path' => '/',
+    'cookie_secure' => false, 
+    'cookie_httponly' => true,
+    'cookie_samesite' => 'Strict',
+]);
 
-
+// Check if the customer is logged in by checking if 'customer_id' is in the session
+if (!isset($_SESSION['customers']) || !isset($_SESSION['customers']['customer_id'])) {
+    header("Location: index.php"); // Redirect to login page if not logged in
+    exit();
+}
 
 $servername = "localhost";
 $username = "root";
@@ -20,53 +23,57 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 $sort = isset($_GET['sort']) ? $_GET['sort'] : 'default';
 
-
 $query = "SELECT id, category, name, description, price, image FROM products WHERE 1=1";
 
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = array();
-}
-
-$isLoggedIn = isset($_SESSION['customers']) && isset($_SESSION['customers']['first_name']);
-
+// Search functionality
 if ($search) {
     $search = $conn->real_escape_string($search);
     $query .= " AND (name LIKE '%$search%' OR description LIKE '%$search%' OR category LIKE '%$search%')";
 }
 
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = array(); // Initialize the cart if not set
+}
+
+$isLoggedIn = isset($_SESSION['customers']) && isset($_SESSION['customers']['first_name']);
+
+// Fetch the cart items
 $cartItems = isset($_SESSION['cart']) ? $_SESSION['cart'] : array();
 $productIds = array_keys($cartItems);
 
 if (!empty($productIds)) {
-   
-    $productIds = array_filter($productIds, 'is_int');
+    $productIds = array_filter($productIds, 'is_int'); // Ensure product IDs are integers
     
-   
     if (!empty($productIds)) {
         $productQuery = "SELECT id, name, price, image FROM products WHERE id IN (" . implode(",", $productIds) . ")";
         $productResult = $conn->query($productQuery);
         
-       
         if ($productResult->num_rows > 0) {
-            $products = $productResult->fetch_all(MYSQLI_ASSOC);
+            $products = $productResult->fetch_all(MYSQLI_ASSOC); // Fetch products in the cart
         } else {
             $products = [];
         }
     } else {
-        $products = [];
+        $products = []; // No valid product IDs in the cart
     }
 } else {
-    $products = [];
+    $products = []; // No products in the cart
 }
 
 $totalPrice = 0;
 foreach ($products as $product) {
-    $totalPrice += $product['price'] * $cartItems[$product['id']];
+    // Calculate total price based on the cart quantities
+    if (isset($cartItems[$product['id']])) {
+        $totalPrice += $product['price'] * $cartItems[$product['id']];
+    }
 }
+
 ?>
+
 
 
 <!DOCTYPE html>
@@ -109,7 +116,7 @@ foreach ($products as $product) {
                         <a href="myaccount.php">My Account</a>
                         <a href="orders.php">Orders</a>
                         <a href="saveditems.php">Saved Items</a>
-                        <a href="customerlogout.php">Sign Out</a>
+                        <a href="logout.php">Sign Out</a>
                     </div>
                 <?php else: ?>
                     <div class="dropdown-content">
@@ -131,7 +138,7 @@ foreach ($products as $product) {
        <?php foreach ($products as $product): ?>
        <div class="cart-item" data-product-id="<?php echo $product['id']; ?>">
            <div class="product-image">
-               <img src="Products/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" loading="lazy">
+               <img src="/admin/Products/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" loading="lazy">
            </div>
            <div class="product-details">
                <h2 class="product-name"><?php echo htmlspecialchars($product['name']); ?></h2>
@@ -170,7 +177,7 @@ foreach ($products as $product) {
 " 
     onmouseover="this.style.backgroundColor='#ff4500'; this.style.transform='scale(1.05)';" 
     onmouseout="this.style.backgroundColor='#ff6600'; this.style.transform='scale(1)';">
-    <a href="index.php" style="color: #fff; text-decoration: none;">Go Shopping</a>
+    <a href="dashboard.php" style="color: #fff; text-decoration: none;">Go Shopping</a>
 </button>
 
    <?php endif; ?>

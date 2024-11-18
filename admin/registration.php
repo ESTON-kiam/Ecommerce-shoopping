@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("ssss", $username, $hashedPassword, $phone, $email);
 
             if ($stmt->execute()) {
-                header("Location: adminlogin.php");
+                header("Location: index.php");
                 exit();
             } else {
                 $error = "Registration failed: " . $stmt->error;
@@ -55,6 +55,8 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Registration</title>
+    <link href="assets/img/cart.jpg" rel="icon">
+    <link href="assets/img/cart.jpg" rel="apple-touch-icon">
     <link rel="stylesheet" href="assets/css/adminreg.css">
 </head>
 <body>

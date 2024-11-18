@@ -1,5 +1,7 @@
 <?php
-session_start();
+session_name('customer_session');
+session_start(); 
+
 
 $servername = "localhost";
 $username = "root";
@@ -7,15 +9,18 @@ $password = "";
 $dbname = "ecommerce";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
+
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$error = '';
+$error = ''; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $conn->real_escape_string($_POST['email']);
-    $password = $_POST['password'];
+   
+    $email = $conn->real_escape_string(trim($_POST['email']));
+    $password = trim($_POST['password']);
+    
     
     $sql = "SELECT * FROM customers WHERE email = ?";
     $stmt = $conn->prepare($sql);
@@ -23,28 +28,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
     $result = $stmt->get_result();
     
+    
     if ($result->num_rows > 0) {
         $customer = $result->fetch_assoc();
-        // Verify password using password_verify if passwords are hashed
-        // For plain text passwords (not recommended), use direct comparison
-        if (password_verify($password, $customer['password']) || $password === $customer['password']) {
+        
+       
+        if (password_verify($password, $customer['password'])) {
+            
             $_SESSION['customers'] = [
                 'id' => $customer['id'],
                 'first_name' => $customer['first_name'],
                 'last_name' => $customer['last_name'],
                 'email' => $customer['email']
             ];
-            header("Location: index.php");
+
+            
+            header("Location: dashboard.php");
             exit();
         } else {
-            $error = "Invalid password";
+            
+            $error = "Invalid password. Please try again.";
         }
     } else {
-        $error = "Email not found";
+        
+        $error = "Email not found. Please register first.";
     }
+    
     $stmt->close();
 }
+
+$conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -52,8 +67,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Login - ModernCart</title>
-    <link href="assets/img/logo.jpeg" rel="icon">
-    <link href="assets/img/logo.jpeg" rel="apple-touch-icon">
+    <link href="assets/img/cart.jpg" rel="icon">
+    <link href="assets/img/cart.jpg" rel="apple-touch-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -244,7 +259,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="additional-links">
                 <a href="forgot-password.php">Forgot Password?</a>
                 <span>•</span>
-                <a href="http://localhost:8000/user/customerreg.php">Create Account</a>
+                <a href="http://localhost:8000/user/registration.php">Create Account</a>
             </div>
         </div>
     </div>

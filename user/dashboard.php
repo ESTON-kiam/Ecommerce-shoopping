@@ -1,6 +1,17 @@
 <?php
-session_start();
+session_name('customer_session');
+session_start([
+    'cookie_lifetime' => 1800, 
+    'cookie_path' => '/',
+    'cookie_secure' => false, 
+    'cookie_httponly' => true,
+    'cookie_samesite' => 'Strict',
+]);
 
+if (!isset($_SESSION['customers']) || !isset($_SESSION['customers']['customer_id'])) {
+    header("Location: index.php"); 
+    exit();
+}
 
 $servername = "localhost";
 $username = "root";
@@ -11,6 +22,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
 
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = array();
@@ -23,10 +35,12 @@ $sort = isset($_GET['sort']) ? $_GET['sort'] : 'default';
 
 $query = "SELECT id, category, name, description, price, image FROM products WHERE 1=1";
 
+
 if ($search) {
     $search = $conn->real_escape_string($search);
     $query .= " AND (name LIKE '%$search%' OR description LIKE '%$search%' OR category LIKE '%$search%')";
 }
+
 
 switch ($sort) {
     case 'price_asc':
@@ -39,11 +53,13 @@ switch ($sort) {
         $query .= " ORDER BY name ASC";
         break;
     default:
-        $query .= " ORDER BY id DESC";
+        $query .= " ORDER BY id DESC"; 
 }
 
 $result = $conn->query($query);
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -51,8 +67,8 @@ $result = $conn->query($query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern eCommerce - Your Ultimate Shopping Destination</title>
-    <link href="assets/img/logo.jpeg" rel="icon">
-    <link href="assets/img/logo.jpeg" rel="apple-touch-icon">
+    <link href="assets/img/cart.jpg" rel="icon">
+    <link href="assets/img/cart.jpg" rel="apple-touch-icon">
     <meta name="description" content="Discover amazing products at great prices on our modern eCommerce platform">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="assets/css/index.css">
@@ -83,10 +99,10 @@ $result = $conn->query($query);
                     </span>
                 </a>
                 <div class="dropdown-content">
-                    <a href="customerlogin.php">Sign In</a>
                     <a href="myaccount.php">My Account</a>
                     <a href="orders.php">Orders</a>
                     <a href="saveditems.php">Saved Items</a>
+                    <a href="logout.php">Sign Out</a>
                 </div>
             </div>
             <a href="cart.php">
@@ -120,7 +136,7 @@ $result = $conn->query($query);
         <?php while($row = $result->fetch_assoc()): ?>
             <div class="product-card" data-product-id="<?php echo $row['id']; ?>">
                 <div class="product-image">
-                    <img src="Products/<?php echo htmlspecialchars($row['image']); ?>" 
+                    <img src="/admin/Products/<?php echo htmlspecialchars($row['image']); ?>" 
                          alt="<?php echo htmlspecialchars($row['name']); ?>"
                          loading="lazy">
                 </div>

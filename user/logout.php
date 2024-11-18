@@ -1,5 +1,5 @@
 <?php
-session_name('admin_session');
+session_name('customer_session');
 session_start();
 
 
@@ -9,6 +9,6 @@ session_unset();
 session_destroy();
 
 
-header("Location: adminlogin.php");
+header("Location: index.php");
 exit();
 ?>

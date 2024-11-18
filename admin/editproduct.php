@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 
 
 if (!isset($_SESSION['admin_id'])) {
-    header('Location: admin_login.php');
+    header('Location: index.php');
     exit();
 }
 
@@ -27,11 +27,11 @@ if (isset($_GET['id'])) {
 
     if (!$product) {
         $_SESSION['error'] = "Product not found.";
-        header('Location: adminproductview.php');
+        header('Location: productview.php');
         exit();
     }
 } else {
-    header('Location: adminproductview.php');
+    header('Location: productview.php');
     exit();
 }
 
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $_SESSION['error'] = "Error updating product!";
     }
-    header('Location: adminproductview.php');
+    header('Location: productview.php');
     exit();
 }
 ?>
@@ -71,6 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Product - Admin Panel</title>
+    <link href="assets/img/cart.jpg" rel="icon">
+    <link href="assets/img/cart.jpg" rel="apple-touch-icon">
     <style>
         body {
             font-family: Arial, sans-serif;

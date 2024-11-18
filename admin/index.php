@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->fetch();
         if (password_verify($password, $hashedPassword)) {
             $_SESSION['admin_id'] = $id;
-            header("Location: Admindashboard.php");
+            header("Location: dashboard.php");
             exit();
         } else {
             $error = "Invalid password.";
@@ -46,6 +46,8 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
+    <link href="assets/img/cart.jpg" rel="icon">
+    <link href="assets/img/cart.jpg" rel="apple-touch-icon">
     <style>
         
         body {
@@ -150,7 +152,7 @@ $conn->close();
             <input type="text" id="username" name="username" placeholder="Username" required>
             <input type="password" id="password" name="password" placeholder="Password" required>
             <button type="submit">Login</button>
-            <a href="http://localhost:8000/admin/adminregistration.php" class="register-link">Register as Admin</a>
+            <a href="registration.php" class="register-link">Register as Admin</a>
         </form>
     </div>
 

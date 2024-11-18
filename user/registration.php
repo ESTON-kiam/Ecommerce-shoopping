@@ -1,9 +1,62 @@
+<?php
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "ecommerce";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$errors = [];
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $first_name = $conn->real_escape_string($_POST['first_name']);
+    $last_name = $conn->real_escape_string($_POST['last_name']);
+    $email = $conn->real_escape_string($_POST['email']);
+    $password = $conn->real_escape_string($_POST['password']);
+    $phone = $conn->real_escape_string($_POST['phone']);
+    $address_line1 = $conn->real_escape_string($_POST['address_line1']);
+    $address_line2 = $conn->real_escape_string($_POST['address_line2']);
+    $city = $conn->real_escape_string($_POST['city']);
+    $state = $conn->real_escape_string($_POST['state']);
+    $postal_code = $conn->real_escape_string($_POST['postal_code']);
+    $country = $conn->real_escape_string($_POST['country']);
+
+    if (strlen($password) < 6) {
+        $errors[] = "Password must be at least 6 characters long.";
+    }
+
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+    if (empty($errors)) {
+        $sql = "INSERT INTO customers (first_name, last_name, email, password, phone, address_line1, address_line2, city, state, postal_code, country)
+                VALUES ('$first_name', '$last_name', '$email', '$hashed_password', '$phone', '$address_line1', '$address_line2', '$city', '$state', '$postal_code', '$country')";
+
+        if ($conn->query($sql) === TRUE) {
+            header("Location:user"); 
+            exit(); 
+        } else {
+            echo "<div class='alert alert-danger'>Error: " . $conn->error . "</div>";
+        }
+    }
+}
+
+$conn->close();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Registration</title>
+    <link href="assets/img/cart.jpg" rel="icon">
+    <link href="assets/img/cart.jpg" rel="apple-touch-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>

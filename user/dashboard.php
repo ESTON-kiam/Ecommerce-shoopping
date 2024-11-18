@@ -1,4 +1,5 @@
 <?php
+
 session_name('customer_session');
 session_start([
     'cookie_lifetime' => 1800, 
@@ -8,55 +9,109 @@ session_start([
     'cookie_samesite' => 'Strict',
 ]);
 
-if (!isset($_SESSION['customers']) || !isset($_SESSION['customers']['customer_id'])) {
-    header("Location: index.php"); 
+
+function redirectToLogin() {
+    
+    session_unset();
+    session_destroy();
+    
+    
+    while (ob_get_level()) {
+        ob_end_clean();
+    }
+    
+    header("Location: index.php");
     exit();
 }
+
+
+if (!isset($_SESSION['customers']) || 
+    !isset($_SESSION['customers']['id']) || 
+    empty($_SESSION['customers']['first_name']) || 
+    empty($_SESSION['customers']['email'])) {
+    redirectToLogin();
+}
+
 
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "ecommerce";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+try {
+   
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    
+    if ($conn->connect_error) {
+        throw new Exception("Connection failed: " . $conn->connect_error);
+    }
+    
+   
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = array();
+    }
+    
+    
+    $isLoggedIn = true;
+    
+    
+    $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+    $sort = isset($_GET['sort']) ? $_GET['sort'] : 'default';
+    
+    
+    $baseQuery = "SELECT id, category, name, description, price, image FROM products WHERE 1=1";
+    $params = [];
+    $types = "";
+    
+    
+    if ($search) {
+        $baseQuery .= " AND (name LIKE ? OR description LIKE ? OR category LIKE ?)";
+        $searchParam = "%{$search}%";
+        $params = array_merge($params, [$searchParam, $searchParam, $searchParam]);
+        $types .= "sss";
+    }
+    
+   
+    switch ($sort) {
+        case 'price_asc':
+            $baseQuery .= " ORDER BY price ASC";
+            break;
+        case 'price_desc':
+            $baseQuery .= " ORDER BY price DESC";
+            break;
+        case 'name_asc':
+            $baseQuery .= " ORDER BY name ASC";
+            break;
+        default:
+            $baseQuery .= " ORDER BY id DESC";
+    }
+    
+    $stmt = $conn->prepare($baseQuery);
+    
+    if ($params) {
+        $stmt->bind_param($types, ...$params);
+    }
+    
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+} catch (Exception $e) {
+    
+    error_log("Dashboard error: " . $e->getMessage());
+    
+    
+    $_SESSION['error'] = "An error occurred while loading the dashboard. Please try again.";
+    
+    
+    header("Location: /error.php");
+    exit();
+    
+} finally {
+    
+    if (isset($stmt) && $stmt instanceof mysqli_stmt) {
+        $stmt->close();
+    }
 }
-
-
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = array();
-}
-
-$isLoggedIn = isset($_SESSION['customers']) && isset($_SESSION['customers']['first_name']);
-
-$search = isset($_GET['search']) ? trim($_GET['search']) : '';
-$sort = isset($_GET['sort']) ? $_GET['sort'] : 'default';
-
-$query = "SELECT id, category, name, description, price, image FROM products WHERE 1=1";
-
-
-if ($search) {
-    $search = $conn->real_escape_string($search);
-    $query .= " AND (name LIKE '%$search%' OR description LIKE '%$search%' OR category LIKE '%$search%')";
-}
-
-
-switch ($sort) {
-    case 'price_asc':
-        $query .= " ORDER BY price ASC";
-        break;
-    case 'price_desc':
-        $query .= " ORDER BY price DESC";
-        break;
-    case 'name_asc':
-        $query .= " ORDER BY name ASC";
-        break;
-    default:
-        $query .= " ORDER BY id DESC"; 
-}
-
-$result = $conn->query($query);
 ?>
 
 
@@ -92,9 +147,7 @@ $result = $conn->query($query);
                         <?php 
                         if ($isLoggedIn) {
                             echo htmlspecialchars($_SESSION['customers']['first_name']);
-                        } else {
-                            echo 'Account';
-                        }
+                        } 
                         ?>
                     </span>
                 </a>

@@ -20,26 +20,29 @@ if (!isset($_SESSION['admin_id'])) {
 }
 
 // Fetch summary statistics
-//$total_orders = $conn->query("SELECT COUNT(*) as count FROM orders")->fetch_assoc()['count'];
-//$total_revenue = $conn->query("SELECT SUM(total_amount) as sum FROM orders")->fetch_assoc()['sum'];
+$total_orders = $conn->query("SELECT COUNT(*) as count FROM orders")->fetch_assoc()['count'];
+$total_revenue = $conn->query("SELECT SUM(total_amount) as sum FROM orders")->fetch_assoc()['sum'];
 $total_customers = $conn->query("SELECT COUNT(*) as count FROM customers")->fetch_assoc()['count'];
 $total_products = $conn->query("SELECT COUNT(*) as count FROM products")->fetch_assoc()['count'];
 
-// Fetch recent orders
-//$recent_orders = $db_conn->query("
-  //  SELECT o.*, c.name as customer_name 
-    //FROM orders o 
-    //JOIN customers c ON o.customer_id = c.id 
-    //ORDER BY o.order_date DESC 
-    //LIMIT 5
-//");
+//Fetch recent orders
+$recent_orders = $conn->query("
+    SELECT 
+        o.*, 
+        CONCAT(c.first_name, ' ', c.last_name) AS customer_name 
+    FROM orders o 
+    JOIN customers c ON o.customer_id = c.customer_id 
+    ORDER BY o.created_at DESC 
+    LIMIT 5
+");
+
 
 // Fetch low stock products
-//$low_stock_products = $db_conn->query("
-  //  SELECT * FROM products 
-    //WHERE stock_quantity < 10 
-    //ORDER BY stock_quantity ASC
-//");
+$low_stock_products = $conn->query("
+    SELECT * FROM products 
+    WHERE stock_quantity < 10 
+    ORDER BY stock_quantity ASC
+");
 ?>
 
 <!DOCTYPE html>
@@ -78,7 +81,7 @@ $total_products = $conn->query("SELECT COUNT(*) as count FROM products")->fetch_
                 </div>
                 <div class="stat-card">
                     <h3>Total Revenue</h3>
-                    <div class="value">$<?php echo number_format($total_revenue, 2); ?></div>
+                    <div class="value">KSH<?php echo number_format($total_revenue, 2); ?></div>
                 </div>
                 <div class="stat-card">
                     <h3>Total Customers</h3>
@@ -106,10 +109,10 @@ $total_products = $conn->query("SELECT COUNT(*) as count FROM products")->fetch_
                     <tbody>
                         <?php while($order = $recent_orders->fetch_assoc()): ?>
                         <tr>
-                            <td>#<?php echo $order['id']; ?></td>
+                            <td><?php echo $order['id']; ?></td>
                             <td><?php echo htmlspecialchars($order['customer_name']); ?></td>
-                            <td>$<?php echo number_format($order['total_amount'], 2); ?></td>
-                            <td><?php echo date('M d, Y', strtotime($order['order_date'])); ?></td>
+                            <td>KSH<?php echo number_format($order['total_amount'], 2); ?></td>
+                            <td><?php echo date('M d, Y', strtotime($order['created_at'])); ?></td>
                             <td>
                                 <span class="status <?php echo strtolower($order['status']); ?>">
                                     <?php echo $order['status']; ?>
@@ -118,7 +121,7 @@ $total_products = $conn->query("SELECT COUNT(*) as count FROM products")->fetch_
                             <td>
                                 <a href="view_order.php?id=<?php echo $order['id']; ?>" class="btn btn-primary">View</a>
                             </td>
-                        </tr>
+                        </tr>  
                         <?php endwhile; ?>
                     </tbody>
                 </table>
@@ -142,7 +145,7 @@ $total_products = $conn->query("SELECT COUNT(*) as count FROM products")->fetch_
                             <td><?php echo htmlspecialchars($product['sku']); ?></td>
                             <td><?php echo $product['stock_quantity']; ?></td>
                             <td>
-                                <a href="edit_product.php?id=<?php echo $product['id']; ?>" class="btn btn-primary">Update Stock</a>
+                                <a href="editproduct.php?id=<?php echo $product['id']; ?>" class="btn btn-primary">Update Stock</a>
                             </td>
                         </tr>
                         <?php endwhile; ?>
@@ -155,5 +158,5 @@ $total_products = $conn->query("SELECT COUNT(*) as count FROM products")->fetch_
 </html>
 
 <?php
-$db_conn->close();
+$conn->close();
 ?>

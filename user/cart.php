@@ -8,72 +8,148 @@ session_start([
     'cookie_samesite' => 'Strict',
 ]);
 
-// Check if the customer is logged in by checking if 'customer_id' is in the session
-if (!isset($_SESSION['customers']) || !isset($_SESSION['customers']['customer_id'])) {
-    header("Location: index.php"); // Redirect to login page if not logged in
+
+function redirectToLogin() {
+    session_unset();
+    session_destroy();
+    
+    while (ob_get_level()) {
+        ob_end_clean();
+    }
+    
+    header("Location: index.php");
     exit();
 }
+
+
+if (!isset($_SESSION['customers']) || !isset($_SESSION['customers']['id'])) {
+    redirectToLogin();
+}
+
 
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "ecommerce";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$search = isset($_GET['search']) ? trim($_GET['search']) : '';
-$sort = isset($_GET['sort']) ? $_GET['sort'] : 'default';
-
-$query = "SELECT id, category, name, description, price, image FROM products WHERE 1=1";
-
-// Search functionality
-if ($search) {
-    $search = $conn->real_escape_string($search);
-    $query .= " AND (name LIKE '%$search%' OR description LIKE '%$search%' OR category LIKE '%$search%')";
-}
-
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = array(); // Initialize the cart if not set
-}
-
-$isLoggedIn = isset($_SESSION['customers']) && isset($_SESSION['customers']['first_name']);
-
-// Fetch the cart items
-$cartItems = isset($_SESSION['cart']) ? $_SESSION['cart'] : array();
-$productIds = array_keys($cartItems);
-
-if (!empty($productIds)) {
-    $productIds = array_filter($productIds, 'is_int'); // Ensure product IDs are integers
+try {
+  
+    $conn = new mysqli($servername, $username, $password, $dbname);
     
-    if (!empty($productIds)) {
-        $productQuery = "SELECT id, name, price, image FROM products WHERE id IN (" . implode(",", $productIds) . ")";
-        $productResult = $conn->query($productQuery);
+    if ($conn->connect_error) {
+        throw new Exception("Connection failed: " . $conn->connect_error);
+    }
+    
+    
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = array();
+    }
+    
+   
+    $cartItems = $_SESSION['cart'];
+    $products = [];
+    $totalPrice = 0;
+    
+    if (!empty($cartItems)) {
         
-        if ($productResult->num_rows > 0) {
-            $products = $productResult->fetch_all(MYSQLI_ASSOC); // Fetch products in the cart
-        } else {
-            $products = [];
+        $productIds = array_keys($cartItems);
+        $productIds = array_filter($productIds, function($id) {
+            return is_numeric($id) && $id > 0;
+        });
+        
+        if (!empty($productIds)) {
+            
+            $placeholders = str_repeat('?,', count($productIds) - 1) . '?';
+            $query = "SELECT id, name, price, image FROM products WHERE id IN ($placeholders)";
+            
+            $stmt = $conn->prepare($query);
+            if ($stmt) {
+                
+                $types = str_repeat('i', count($productIds));
+                $stmt->bind_param($types, ...$productIds);
+                
+                
+                $stmt->execute();
+                $result = $stmt->get_result();
+                
+                if ($result) {
+                    $products = $result->fetch_all(MYSQLI_ASSOC);
+                    
+                   
+                    foreach ($products as $product) {
+                        if (isset($cartItems[$product['id']])) {
+                            $quantity = max(1, intval($cartItems[$product['id']]));
+                            $totalPrice += $product['price'] * $quantity;
+                        }
+                    }
+                }
+                
+                $stmt->close();
+            }
         }
-    } else {
-        $products = []; // No valid product IDs in the cart
     }
-} else {
-    $products = []; // No products in the cart
-}
-
-$totalPrice = 0;
-foreach ($products as $product) {
-    // Calculate total price based on the cart quantities
-    if (isset($cartItems[$product['id']])) {
-        $totalPrice += $product['price'] * $cartItems[$product['id']];
+    $isLoggedIn = true;
+    $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+    $sort = isset($_GET['sort']) ? $_GET['sort'] : 'default';
+    
+    
+    $baseQuery = "SELECT id, category, name, description, price, image FROM products WHERE 1=1";
+    $params = [];
+    $types = "";
+    
+    
+    if ($search) {
+        $baseQuery .= " AND (name LIKE ? OR description LIKE ? OR category LIKE ?)";
+        $searchParam = "%{$search}%";
+        $params = array_merge($params, [$searchParam, $searchParam, $searchParam]);
+        $types .= "sss";
+    }
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['action'])) {
+            switch ($_POST['action']) {
+                case 'update':
+                    if (isset($_POST['product_id'], $_POST['quantity'])) {
+                        $productId = intval($_POST['product_id']);
+                        $quantity = max(1, intval($_POST['quantity']));
+                        
+                        if ($quantity > 0) {
+                            $_SESSION['cart'][$productId] = $quantity;
+                        } else {
+                            unset($_SESSION['cart'][$productId]);
+                        }
+                    }
+                    break;
+                    
+                case 'remove':
+                    if (isset($_POST['product_id'])) {
+                        $productId = intval($_POST['product_id']);
+                        unset($_SESSION['cart'][$productId]);
+                    }
+                    break;
+                    
+                case 'clear':
+                    $_SESSION['cart'] = array();
+                    break;
+            }
+            
+        
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit();
+        }
+    }
+    
+} catch (Exception $e) {
+    error_log("Cart error: " . $e->getMessage());
+    $_SESSION['error'] = "An error occurred while processing your cart. Please try again.";
+    header("Location: /error.php");
+    exit();
+} finally {
+    if (isset($conn) && $conn instanceof mysqli) {
+        
     }
 }
-
 ?>
-
 
 
 <!DOCTYPE html>

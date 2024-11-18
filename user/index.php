@@ -1,7 +1,6 @@
 <?php
 session_name('customer_session');
-session_start(); 
-
+session_start();
 
 $servername = "localhost";
 $username = "root";
@@ -9,49 +8,40 @@ $password = "";
 $dbname = "ecommerce";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
-
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$error = ''; 
+$error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-   
-    $email = $conn->real_escape_string(trim($_POST['email']));
-    $password = trim($_POST['password']);
+    $email = $_POST['email'];
+    $password = $_POST['password'];
     
-    
-    $sql = "SELECT * FROM customers WHERE email = ?";
-    $stmt = $conn->prepare($sql);
+    $stmt = $conn->prepare("SELECT customer_id, password, first_name, last_name, email FROM customers WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
-    $result = $stmt->get_result();
+    $stmt->store_result();
     
-    
-    if ($result->num_rows > 0) {
-        $customer = $result->fetch_assoc();
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($id, $hashedPassword, $first_name, $last_name, $email);
+        $stmt->fetch();
         
-       
-        if (password_verify($password, $customer['password'])) {
-            
+        if (password_verify($password, $hashedPassword)) {
             $_SESSION['customers'] = [
-                'id' => $customer['id'],
-                'first_name' => $customer['first_name'],
-                'last_name' => $customer['last_name'],
-                'email' => $customer['email']
+                'id' => $id,
+                'first_name' => $first_name,
+                'last_name' => $last_name,
+                'email' => $email
             ];
-
             
             header("Location: dashboard.php");
             exit();
         } else {
-            
-            $error = "Invalid password. Please try again.";
+            $error = "Invalid password.";
         }
     } else {
-        
-        $error = "Email not found. Please register first.";
+        $error = "No account found with that email.";
     }
     
     $stmt->close();

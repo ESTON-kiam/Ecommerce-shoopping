@@ -12,13 +12,13 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-
+// Redirect if not logged in
 if (!isset($_SESSION['admin_id'])) {
     header('Location: index.php');
     exit();
 }
 
-
+// Fetch product details
 if (isset($_GET['id'])) {
     $product_id = $conn->real_escape_string($_GET['id']);
     $query = "SELECT * FROM products WHERE id = '$product_id'";
@@ -35,8 +35,9 @@ if (isset($_GET['id'])) {
     exit();
 }
 
-
+// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $sku = $conn->real_escape_string($_POST['sku']);
     $name = $conn->real_escape_string($_POST['name']);
     $description = $conn->real_escape_string($_POST['description']);
     $price = $conn->real_escape_string($_POST['price']);
@@ -44,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $category = $conn->real_escape_string($_POST['category']);
     $image = $product['image']; 
 
-    
+    // Handle image upload
     if (!empty($_FILES['image']['name'])) {
         $image = basename($_FILES['image']['name']);
         $target_dir = "Products/";
@@ -52,8 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         move_uploaded_file($_FILES['image']['tmp_name'], $target_file);
     }
 
-    
-    $update_query = "UPDATE products SET name='$name', description='$description', price='$price', stock_quantity='$stock_quantity', category='$category', image='$image' WHERE id='$product_id'";
+    // Update query
+    $update_query = "UPDATE products 
+                     SET sku='$sku', name='$name', description='$description', price='$price', stock_quantity='$stock_quantity', category='$category', image='$image' 
+                     WHERE id='$product_id'";
     
     if ($conn->query($update_query)) {
         $_SESSION['message'] = "Product updated successfully!";
@@ -117,6 +120,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="container">
         <h2>Edit Product</h2>
         <form action="" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="sku">SKU:</label>
+                <input type="text" name="sku" value="<?php echo htmlspecialchars($product['sku']); ?>" required>
+            </div>
             <div class="form-group">
                 <label for="name">Product Name:</label>
                 <input type="text" name="name" value="<?php echo htmlspecialchars($product['name']); ?>" required>

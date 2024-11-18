@@ -62,12 +62,12 @@ try {
         throw new Exception("Error decoding product details");
     }
 
-    // Fetch product images based on product IDs
+    
     foreach ($product_details as &$item) {
         $product_stmt = $pdo->prepare("SELECT image FROM products WHERE id = :product_id");
         $product_stmt->execute(['product_id' => $item['id']]);
         $product_data = $product_stmt->fetch(PDO::FETCH_ASSOC);
-        $item['image'] = $product_data ? $product_data['image'] : 'default.jpg'; // Fallback image
+        $item['image'] = $product_data ? $product_data['image'] : 'default.jpg'; 
     }
 
 } catch (Exception $e) {

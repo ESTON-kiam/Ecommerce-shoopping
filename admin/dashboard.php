@@ -19,13 +19,13 @@ if (!isset($_SESSION['admin_id'])) {
     exit();
 }
 
-// Fetch summary statistics
+
 $total_orders = $conn->query("SELECT COUNT(*) as count FROM orders")->fetch_assoc()['count'];
 $total_revenue = $conn->query("SELECT SUM(total_amount) as sum FROM orders")->fetch_assoc()['sum'];
 $total_customers = $conn->query("SELECT COUNT(*) as count FROM customers")->fetch_assoc()['count'];
 $total_products = $conn->query("SELECT COUNT(*) as count FROM products")->fetch_assoc()['count'];
 
-//Fetch recent orders
+
 $recent_orders = $conn->query("
     SELECT 
         o.*, 
@@ -37,7 +37,7 @@ $recent_orders = $conn->query("
 ");
 
 
-// Fetch low stock products
+
 $low_stock_products = $conn->query("
     SELECT * FROM products 
     WHERE stock_quantity < 10 

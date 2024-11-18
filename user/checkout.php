@@ -54,7 +54,7 @@ try {
           $itemTotal = round($itemPrice * $quantity, 2);
           $totalPrice += $itemTotal;
 
-          // Fetch product image
+          
           $image_stmt = $conn->prepare("SELECT image FROM products WHERE id = ?");
           $image_stmt->bind_param("i", $productId);
           $image_stmt->execute();
@@ -88,10 +88,10 @@ try {
       if (empty($errors)) {
           $conn->begin_transaction();
           try {
-              // Encode product details as JSON
+              
               $productDetailsJson = json_encode($productDetails);
 
-              // Prepare the SQL statement for inserting the order
+              
               $stmt = $conn->prepare(
                   "INSERT INTO orders (
                       customer_id, 
@@ -105,7 +105,7 @@ try {
                   ) VALUES (?, ?, ?, ?, ?, ?, 'pending', ?)"
               );
 
-              // Bind parameters correctly
+              
               $stmt->bind_param(
                   "dssssss", 
                   $customerId, 
@@ -121,7 +121,7 @@ try {
               $orderId = $conn->insert_id;
               $stmt->close();
 
-              // Update stock quantities
+              
               foreach ($productDetails as $product) {
                   $newStockQuantity = $product['stock_quantity'] - $product['quantity'];
                   $stmt = $conn->prepare("UPDATE products SET stock_quantity = ? WHERE id = ?");

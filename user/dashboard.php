@@ -11,10 +11,8 @@ session_start([
 
 
 function redirectToLogin() {
-    
     session_unset();
     session_destroy();
-    
     
     while (ob_get_level()) {
         ob_end_clean();
@@ -39,30 +37,25 @@ $password = "";
 $dbname = "ecommerce";
 
 try {
-   
     $conn = new mysqli($servername, $username, $password, $dbname);
     
     if ($conn->connect_error) {
         throw new Exception("Connection failed: " . $conn->connect_error);
     }
     
-   
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = array();
     }
     
-    
     $isLoggedIn = true;
-    
     
     $search = isset($_GET['search']) ? trim($_GET['search']) : '';
     $sort = isset($_GET['sort']) ? $_GET['sort'] : 'default';
     
-    
-    $baseQuery = "SELECT id, category, name, description, price, image FROM products WHERE 1=1";
+    // Updated base query to include stock_quantity check
+    $baseQuery = "SELECT id, category, name, description, price, image FROM products WHERE stock_quantity > 0";
     $params = [];
     $types = "";
-    
     
     if ($search) {
         $baseQuery .= " AND (name LIKE ? OR description LIKE ? OR category LIKE ?)";
@@ -71,7 +64,6 @@ try {
         $types .= "sss";
     }
     
-   
     switch ($sort) {
         case 'price_asc':
             $baseQuery .= " ORDER BY price ASC";
@@ -96,22 +88,16 @@ try {
     $result = $stmt->get_result();
     
 } catch (Exception $e) {
-    
     error_log("Dashboard error: " . $e->getMessage());
-    
-    
     $_SESSION['error'] = "An error occurred while loading the dashboard. Please try again.";
-    
-    
     header("Location: /error.php");
     exit();
-    
 } finally {
-    
     if (isset($stmt) && $stmt instanceof mysqli_stmt) {
         $stmt->close();
     }
 }
+
 ?>
 
 

@@ -41,8 +41,7 @@ try {
             c.first_name, 
             c.last_name, 
             c.email, 
-            c.phone,
-            o.product_details
+            c.phone
         FROM 
             orders o
         JOIN 
@@ -57,18 +56,18 @@ try {
         throw new Exception("Order not found");
     }
 
+    // Decode the JSON data from product_details column
     $product_details = json_decode($order['product_details'], true);
     if (json_last_error() !== JSON_ERROR_NONE) {
         throw new Exception("Error decoding product details");
     }
 
-    
-    foreach ($product_details as &$item) {
-        $product_stmt = $pdo->prepare("SELECT image FROM products WHERE id = :product_id");
-        $product_stmt->execute(['product_id' => $item['id']]);
-        $product_data = $product_stmt->fetch(PDO::FETCH_ASSOC);
-        $item['image'] = $product_data ? $product_data['image'] : 'default.jpg'; 
-    }
+    // Get product images
+    $product_ids = array_column($product_details, 'id');
+    $placeholders = str_repeat('?,', count($product_ids) - 1) . '?';
+    $product_stmt = $pdo->prepare("SELECT id, image FROM products WHERE id IN ($placeholders)");
+    $product_stmt->execute($product_ids);
+    $product_images = $product_stmt->fetchAll(PDO::FETCH_KEY_PAIR);
 
 } catch (Exception $e) {
     logError($e->getMessage());
@@ -82,7 +81,8 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order #<?php echo $order_id; ?> Details</title>
-    <link href="assets/img/favicon.ico" rel="icon">
+    <link href="assets/img/cart.jpg" rel="icon">
+    <link href="assets/img/cart.jpg" rel="apple-touch-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .order-status {
@@ -137,14 +137,14 @@ try {
                                 <?php foreach($product_details as $item): ?>
                                 <tr>
                                     <td>
-                                        <img src="Products/<?php echo htmlspecialchars($item['image']); ?>" 
+                                        <img src="Products/<?php echo htmlspecialchars($product_images[$item['id']] ?? 'default.jpg'); ?>" 
                                              alt="<?php echo htmlspecialchars($item['name']); ?>" 
                                              style="max-width: 50px; max-height: 50px;">
                                         <?php echo htmlspecialchars($item['name']); ?>
                                     </td>
                                     <td><?php echo htmlspecialchars($item['quantity']); ?></td>
                                     <td>KSH <?php echo number_format($item['price'], 2); ?></td>
-                                    <td>KSH <?php echo number_format($item['quantity'] * $item['price'], 2); ?></td>
+                                    <td>KSH <?php echo number_format($item['item_total'], 2); ?></td>
                                 </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>

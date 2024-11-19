@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $description = $conn->real_escape_string($_POST['description']);
     $stock_quantity = intval($_POST['stock_quantity']);
     $price = floatval($_POST['price']);
-    
+    $sku = $conn->real_escape_string($_POST['sku']);
     
     $target_dir = "Products/";
     if (!file_exists($target_dir)) {
@@ -58,8 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             if (move_uploaded_file($_FILES['product_image']['tmp_name'], $target_file)) {
                 
-                $query = "INSERT INTO products (name, category, description, stock_quantity,price, image) 
-                         VALUES ('$product_name', '$category', '$description',$stock_quantity, $price, '$image_name')";
+                $query = "INSERT INTO products (name, category, description, stock_quantity, price, image, sku) 
+                         VALUES ('$product_name', '$category', '$description', $stock_quantity, $price, '$image_name', '$sku')";
                 
                 if ($conn->query($query)) {
                     $message = '<div class="alert alert-success">Product added successfully!</div>';
@@ -220,7 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="sidebar">
             <h2>Admin Panel</h2>
             <ul>
-            <li><a href="dashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="dashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
                 <li><a href="addproducts.php"><i class="fas fa-box"></i>Add Products</a></li>
                 <li><a href="productview.php"><i class="fas fa-box"></i>Products</a></li>
                 <li><a href="orders.php"><i class="fas fa-shopping-cart"></i> Orders</a></li>
@@ -243,6 +243,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
 
                     <div class="form-group">
+                        <label for="sku">SKU *</label>
+                        <input type="text" id="sku" name="sku" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
                         <label for="category">Category *</label>
                         <select id="category" name="category" class="form-control" required>
                             <option value="">Select Category</option>
@@ -258,10 +263,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <label for="description">Description *</label>
                         <textarea id="description" name="description" class="form-control" required></textarea>
                     </div>
+
                     <div class="form-group">
-    <label for="stock_quantity">Stock Quantity *</label>
-    <input type="number" id="stock_quantity" name="stock_quantity" class="form-control" required>
-</div>
+                        <label for="stock_quantity">Stock Quantity *</label>
+                        <input type="number" id="stock_quantity" name="stock_quantity" class="form-control" required>
+                    </div>
 
                     <div class="form-group">
                         <label for="price">Price *</label>

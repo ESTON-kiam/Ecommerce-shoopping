@@ -1,0 +1,209 @@
+/* General Body Styles */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+}
+
+/* Profile Container */
+.profile-container {
+    width: 50%;
+    max-width: 900px;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.profile-container:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Heading */
+h2 {
+    font-size: 32px;
+    font-weight: 600;
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Form Group */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label Styling */
+label {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+/* Input Fields */
+input[type="text"],
+input[type="email"],
+input[type="phone"] {
+    padding: 12px 18px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="phone"]:focus {
+    border-color: #ffa500;
+    box-shadow: 0 0 8px rgba(255, 165, 0, 0.5);
+}
+
+
+.error-message {
+    color: #ff3b3b;
+    font-size: 16px;
+    background-color: #fbe9e9;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.success-message {
+    color: #4caf50;
+    font-size: 16px;
+    background-color: #e8f5e9;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Action Buttons */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+input[type="submit"] {
+    padding: 12px 24px;
+    font-size: 18px;
+    background-color: #ffa500;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #ff7f00;
+    transform: translateY(-2px);
+}
+
+.btn-cancel {
+    padding: 12px 24px;
+    font-size: 18px;
+    text-decoration: none;
+    color: #ffa500;
+    border: 2px solid #ffa500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-cancel:hover {
+    background-color: #ffa500;
+    color: white;
+    transform: translateY(-2px);
+}
+
+
+@media (max-width: 768px) {
+    .profile-container {
+        width: 80%;
+        padding: 20px;
+    }
+    
+    h2 {
+        font-size: 28px;
+    }
+    
+    .form-group input {
+        font-size: 14px;
+    }
+}
+
+.btn-edit, .btn-change-password {
+    background-color: #4CAF50; 
+    color: white; 
+    padding: 12px 20px; 
+    font-size: 16px; 
+    border: none; 
+    border-radius: 5px; 
+    text-align: center; 
+    text-decoration: none;
+    display: inline-block; 
+    margin: 10px 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.3s ease; 
+}
+
+
+.btn-edit:hover, .btn-change-password:hover {
+    background-color: #45a049; 
+    transform: scale(1.05); 
+}
+
+
+.btn-edit:active, .btn-change-password:active {
+    background-color: #388e3c; 
+    transform: scale(0.98); 
+}
+
+
+.btn-edit {
+    background-color: #007BFF; 
+}
+
+.btn-edit:hover {
+    background-color: #0056b3; 
+}
+
+
+.btn-change-password {
+    background-color: #FF5722; 
+}
+
+.btn-change-password:hover {
+    background-color: #e64a19; 
+}
+
+
+@media screen and (max-width: 600px) {
+    .btn-edit, .btn-change-password {
+        width: 100%; 
+        font-size: 18px; 
+        padding: 14px; 
+    }
+}
+

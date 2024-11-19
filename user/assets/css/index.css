@@ -67,7 +67,7 @@
             --transition-speed: 0.3s;
         }
 
-        /* Reset and Base Styles */
+        
         * {
             margin: 0;
             padding: 0;
@@ -81,7 +81,7 @@
             line-height: 1.6;
         }
 
-        /* Header Styles */
+        
         .header {
             background-color: var(--primary-color);
             padding: 1rem 5%;
@@ -150,7 +150,7 @@
             color: rgba(255, 255, 255, 0.8);
         }
 
-        /* Filters Section */
+       
         .filters {
             background-color: white;
             padding: 1rem 5%;
@@ -172,7 +172,7 @@
             font-size: 0.9rem;
         }
 
-        /* Products Grid */
+    
         .products {
             max-width: 1400px;
             margin: 2rem auto;
@@ -259,7 +259,7 @@
             background-color: #e65c00;
         }
 
-        /* Empty State */
+       
         .empty-state {
             text-align: center;
             padding: 3rem;
@@ -272,7 +272,7 @@
             margin-bottom: 1rem;
         }
 
-        /* Footer */
+       
         .footer {
             background-color: var(--secondary-color);
             color: white;
@@ -318,7 +318,7 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Responsive Design */
+        
         @media (max-width: 768px) {
             .header-content {
                 grid-template-columns: 1fr;
@@ -340,7 +340,7 @@
             }
         }
 
-        /* Loading Animation */
+        
         .skeleton {
             background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
             background-size: 200% 100%;
@@ -356,7 +356,7 @@
             }
         }
 
-        /* Toast Notifications */
+        
         .toast {
             position: fixed;
             bottom: 2rem;

@@ -30,7 +30,7 @@ if (!isset($_SESSION['customers']) ||
     redirectToLogin();
 }
 
-
+$isLoggedIn=true;
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -127,7 +127,7 @@ try {
         </form>
         <div class="header-icons">
             <div class="account-dropdown">
-                <a href="<?php echo $isLoggedIn ? 'account.php' : '#'; ?>" class="account-link">
+                <a href="<?php echo $isLoggedIn ? 'edit_profile.php' : '#'; ?>" class="account-link">
                     <i class="fas fa-user"></i>
                     <span>
                         <?php 
@@ -138,7 +138,7 @@ try {
                     </span>
                 </a>
                 <div class="dropdown-content">
-                    <a href="myaccount.php">My Account</a>
+                    <a href="view_profile.php">My Account</a>
                     <a href="orders.php">Orders</a>
                     <a href="saveditems.php">Saved Items</a>
                     <a href="logout.php">Sign Out</a>

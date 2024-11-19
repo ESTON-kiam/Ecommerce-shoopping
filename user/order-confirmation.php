@@ -10,7 +10,7 @@ session_start([
 
 
 if (!isset($_SESSION['customers']) || !isset($_SESSION['customers']['id']) || !isset($_SESSION['order_success'])) {
-    header("Location: index.php");
+    header("Location: dashboard.php");
     exit();
 }
 
@@ -79,6 +79,8 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Confirmation - ModernCart</title>
+    <link href="assets/img/cart.jpg" rel="icon">
+    <link href="assets/img/cart.jpg" rel="apple-touch-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="assets/css/index.css">
     <style>
@@ -248,6 +250,30 @@ try {
             <p>1. You will receive an M-Pesa prompt shortly on your registered phone number.</p>
             <p>2. Enter your M-Pesa PIN to complete the payment.</p>
             <p>3. You will receive a confirmation message once the payment is processed.</p>
+            <button 
+    style="background: none; 
+           color: #FFA500; 
+           border: none; 
+           padding: 12px 24px; 
+           text-decoration: none; 
+           font-size: 18px; 
+           cursor: pointer; 
+           font-family: 'Arial', sans-serif; 
+           border-radius: 8px; 
+           transition: all 0.3s ease-in-out; 
+           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+           text-transform: uppercase; 
+           letter-spacing: 1px; 
+           display: inline-block;"
+    onclick="window.location.href='makepayment.php';" 
+    onmouseover="this.style.color='#ff7f00'; this.style.transform='scale(1.05)';" 
+    onmouseout="this.style.color='#FFA500'; this.style.transform='scale(1)';"
+>
+    Make Payment
+</button>
+
+
+
         </div>
         <?php endif; ?>
 
@@ -255,7 +281,7 @@ try {
             <button onclick="window.print()" class="continue-shopping" style="margin-right: 10px;">
                 <i class="fas fa-print"></i> Print Order
             </button>
-            <a href="index.php" class="continue-shopping">
+            <a href="dashboard.php" class="continue-shopping">
                 <i class="fas fa-shopping-cart"></i> Continue Shopping
             </a>
         </div>

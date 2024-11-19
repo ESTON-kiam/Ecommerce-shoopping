@@ -247,7 +247,7 @@ $conn->close();
             </form>
 
             <div class="additional-links">
-                <a href="forgot-password.php">Forgot Password?</a>
+                <a href="http://localhost:8000/user/forgot-password.php">Forgot Password?</a>
                 <span>•</span>
                 <a href="http://localhost:8000/user/registration.php">Create Account</a>
             </div>

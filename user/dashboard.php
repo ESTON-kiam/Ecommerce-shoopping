@@ -52,7 +52,7 @@ try {
     $search = isset($_GET['search']) ? trim($_GET['search']) : '';
     $sort = isset($_GET['sort']) ? $_GET['sort'] : 'default';
     
-    // Updated base query to include stock_quantity check
+    
     $baseQuery = "SELECT id, category, name, description, price, image FROM products WHERE stock_quantity > 0";
     $params = [];
     $types = "";
@@ -156,7 +156,7 @@ try {
     <div class="filters-content">
         <div class="results-count">
             <?php if ($search): ?>
-                for "<?php echo htmlspecialchars($search); ?>"
+                
             <?php endif; ?>
         </div>
         <div class="sort-options">

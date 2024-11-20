@@ -212,7 +212,7 @@ try {
         <div class="footer-section">
             <h3>Customer Service</h3>
             <ul>
-                <li><a href="adminlogin.php">Admin Login</a></li>
+                <li><a href="#">Contact</a></li>
                 <li><a href="#">Shipping Info</a></li>
                 <li><a href="#">Returns</a></li>
                 <li><a href="#">FAQ</a></li>

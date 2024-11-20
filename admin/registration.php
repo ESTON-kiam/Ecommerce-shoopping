@@ -1,4 +1,8 @@
 <?php
+session_name('admin_session');
+session_start();
+
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -7,6 +11,12 @@ $dbname = "ecommerce";
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
+}
+
+
+if (!isset($_SESSION['admin_id'])) {
+    header('Location: index.php');
+    exit();
 }
 
 $error = "";
@@ -37,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("ssss", $username, $hashedPassword, $phone, $email);
 
             if ($stmt->execute()) {
-                header("Location: index.php");
+                header("Location: dashboard.php");
                 exit();
             } else {
                 $error = "Registration failed: " . $stmt->error;
@@ -60,6 +70,7 @@ $conn->close();
     <link rel="stylesheet" href="assets/css/adminreg.css">
 </head>
 <body>
+ <?php include('include/sidebar.php') ?>
     <div class="form-container">
         <h2>Admin Registration</h2>
         <?php if ($error): ?>

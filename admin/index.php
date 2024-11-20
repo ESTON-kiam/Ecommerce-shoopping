@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->fetch();
         if (password_verify($password, $hashedPassword)) {
             $_SESSION['admin_id'] = $id;
-            header("Location: dashboard.php");
+            header("Location: http://localhost:8000/admin/dashboard.php");
             exit();
         } else {
             $error = "Invalid password.";

@@ -117,6 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </style>
 </head>
 <body>
+    
     <div class="container">
         <h2>Edit Product</h2>
         <form action="" method="POST" enctype="multipart/form-data">

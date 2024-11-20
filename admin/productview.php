@@ -48,20 +48,7 @@ $result = $conn->query($query);
    <link rel="stylesheet" href="assets/css/adminviewproduct.css">
 </head>
 <body>
-    <div class="container">
-        <div class="sidebar">
-            <h2>Admin Panel</h2>
-            <ul>
-            <li><a href="dashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="addproducts.php"><i class="fas fa-box"></i>Add Products</a></li>
-                <li><a href="productview.php"><i class="fas fa-box"></i>Products</a></li>
-                <li><a href="orders.php"><i class="fas fa-shopping-cart"></i> Orders</a></li>
-                <li><a href="customers.php"><i class="fas fa-users"></i> Customers</a></li>
-                <li><a href="reports.php"><i class="fas fa-chart-bar"></i> Reports</a></li>
-                <li><a href="settings.php"><i class="fas fa-cog"></i> Settings</a></li>
-                <li><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-            </ul>
-        </div>
+<?php include('include/sidebar.php'); ?>
 
         <div class="main-content">
             <div class="products-header">

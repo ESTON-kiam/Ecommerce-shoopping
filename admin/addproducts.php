@@ -63,6 +63,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 
                 if ($conn->query($query)) {
                     $message = '<div class="alert alert-success">Product added successfully!</div>';
+                    header("Location: dashboard.php");
+                    exit;
                 } else {
                     $message = '<div class="alert alert-danger">Error adding product: ' . $db_conn->error . '</div>';
                 }

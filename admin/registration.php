@@ -70,7 +70,7 @@ $conn->close();
     <link rel="stylesheet" href="assets/css/adminreg.css">
 </head>
 <body>
- <?php include('include/sidebar.php') ?>
+
     <div class="form-container">
         <h2>Admin Registration</h2>
         <?php if ($error): ?>

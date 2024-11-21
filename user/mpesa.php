@@ -1,3 +1,105 @@
+<?php
+
+session_name('customer_session');
+session_start([
+    'cookie_lifetime' => 1800, 
+    'cookie_path' => '/',
+    'cookie_secure' => false, 
+    'cookie_httponly' => true,
+    'cookie_samesite' => 'Strict',
+]);
+
+
+function redirectToLogin() {
+    session_unset();
+    session_destroy();
+    
+    while (ob_get_level()) {
+        ob_end_clean();
+    }
+    
+    header("Location: index.php");
+    exit();
+}
+
+
+if (!isset($_SESSION['customers']) || 
+    !isset($_SESSION['customers']['id']) || 
+    empty($_SESSION['customers']['first_name']) || 
+    empty($_SESSION['customers']['email'])) {
+    redirectToLogin();
+}
+
+$isLoggedIn=true;
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "ecommerce";
+
+try {
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    
+    if ($conn->connect_error) {
+        throw new Exception("Connection failed: " . $conn->connect_error);
+    }
+    
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = array();
+    }
+    
+    $isLoggedIn = true;
+    
+    $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+    $sort = isset($_GET['sort']) ? $_GET['sort'] : 'default';
+    
+    
+    $baseQuery = "SELECT id, category, name, description, price, image FROM products WHERE stock_quantity > 0";
+    $params = [];
+    $types = "";
+    
+    if ($search) {
+        $baseQuery .= " AND (name LIKE ? OR description LIKE ? OR category LIKE ?)";
+        $searchParam = "%{$search}%";
+        $params = array_merge($params, [$searchParam, $searchParam, $searchParam]);
+        $types .= "sss";
+    }
+    
+    switch ($sort) {
+        case 'price_asc':
+            $baseQuery .= " ORDER BY price ASC";
+            break;
+        case 'price_desc':
+            $baseQuery .= " ORDER BY price DESC";
+            break;
+        case 'name_asc':
+            $baseQuery .= " ORDER BY name ASC";
+            break;
+        default:
+            $baseQuery .= " ORDER BY id DESC";
+    }
+    
+    $stmt = $conn->prepare($baseQuery);
+    
+    if ($params) {
+        $stmt->bind_param($types, ...$params);
+    }
+    
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+} catch (Exception $e) {
+    error_log("Dashboard error: " . $e->getMessage());
+    $_SESSION['error'] = "An error occurred while loading the dashboard. Please try again.";
+    header("Location: /error.php");
+    exit();
+} finally {
+    if (isset($stmt) && $stmt instanceof mysqli_stmt) {
+        $stmt->close();
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +107,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Make Payment - Nitumie Bob</title>
-    <link href="images/1200px-M-PESA_LOGO-01.svg.png" rel="icon">
-    <link href="images/1200px-M-PESA_LOGO-01.svg.png" rel="apple-touch-icon">
+    <link href="assets/img/cart.jpg" rel="icon">
+    <link href="assets/img/cart.jpg" rel="apple-touch-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -82,16 +184,17 @@
                                 </button>
                             </div>
                         </form>
+                        <div class="text-center mt-4">
+            <a href="dashboard.php" class="btn btn-outline-primary">
+                <i class="fas fa-history"></i> Continue Shopping
+            </a>
+        </div>
                     </div>
                 </div>
             </div>
         </div>
         
-        <div class="text-center mt-4">
-            <a href="transactions.php" class="btn btn-outline-primary">
-                <i class="fas fa-history"></i> View Transactions
-            </a>
-        </div>
+    
     </div>
 
     <script>

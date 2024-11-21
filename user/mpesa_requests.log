@@ -1,0 +1,240 @@
+[2024-11-21 09:52:47] [INFO] Starting payment status check request
+[2024-11-21 09:52:47] [INFO] Raw input: {"checkoutRequestId":"ws_CO_21112024115324609757196660"}
+[2024-11-21 11:52:49] [INFO] Access token generated successfully
+[2024-11-21 11:52:49] [INFO] Starting transaction query for CheckoutRequestID: ws_CO_21112024115324609757196660
+[2024-11-21 11:52:49] [INFO] Query payload: {"BusinessShortCode":"174379","Password":"MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQxMTIxMTE1MjQ5","Timestamp":"20241121115249","CheckoutRequestID":"ws_CO_21112024115324609757196660"}
+[2024-11-21 11:52:50] [INFO] MPesa API Response: {
+            "ResponseCode": "0",
+            "ResponseDescription":"The service request has been accepted successsfully",
+            "MerchantRequestID":"94fc-460e-a970-797968bf6a851414747",
+            "CheckoutRequestID":"ws_CO_21112024115324609757196660",
+            "ResultCode": "1032",
+            "ResultDesc":"Request cancelled by user"
+        }
+        
+[2024-11-21 11:52:50] [INFO] Database connection established successfully
+[2024-11-21 11:52:50] [INFO] Successfully updated payment status for CheckoutRequestID: ws_CO_21112024115324609757196660
+[2024-11-21 09:55:06] [INFO] Starting payment status check request
+[2024-11-21 09:55:06] [INFO] Raw input: {"checkoutRequestId":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:07] [INFO] Access token generated successfully
+[2024-11-21 11:55:07] [INFO] Starting transaction query for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 11:55:07] [INFO] Query payload: {"BusinessShortCode":"174379","Password":"MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQxMTIxMTE1NTA3","Timestamp":"20241121115507","CheckoutRequestID":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:07] [INFO] MPesa API Response: {
+            "ResponseCode": "0",
+            "ResponseDescription":"The service request has been accepted successsfully",
+            "MerchantRequestID":"9b85-4b30-ba72-7f3656486f92609237",
+            "CheckoutRequestID":"ws_CO_21112024115542509757196660",
+            "ResultCode": "1032",
+            "ResultDesc":"Request cancelled by user"
+        }
+        
+[2024-11-21 11:55:07] [INFO] Database connection established successfully
+[2024-11-21 11:55:07] [INFO] Successfully updated payment status for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 09:55:12] [INFO] Starting payment status check request
+[2024-11-21 09:55:12] [INFO] Raw input: {"checkoutRequestId":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:12] [INFO] Access token generated successfully
+[2024-11-21 11:55:12] [INFO] Starting transaction query for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 11:55:12] [INFO] Query payload: {"BusinessShortCode":"174379","Password":"MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQxMTIxMTE1NTEy","Timestamp":"20241121115512","CheckoutRequestID":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:12] [INFO] MPesa API Response: {
+            "ResponseCode": "0",
+            "ResponseDescription":"The service request has been accepted successsfully",
+            "MerchantRequestID":"9b85-4b30-ba72-7f3656486f92609237",
+            "CheckoutRequestID":"ws_CO_21112024115542509757196660",
+            "ResultCode": "1032",
+            "ResultDesc":"Request cancelled by user"
+        }
+        
+[2024-11-21 11:55:13] [INFO] Database connection established successfully
+[2024-11-21 11:55:13] [INFO] Successfully updated payment status for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 09:55:17] [INFO] Starting payment status check request
+[2024-11-21 09:55:17] [INFO] Raw input: {"checkoutRequestId":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:17] [INFO] Access token generated successfully
+[2024-11-21 11:55:17] [INFO] Starting transaction query for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 11:55:17] [INFO] Query payload: {"BusinessShortCode":"174379","Password":"MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQxMTIxMTE1NTE3","Timestamp":"20241121115517","CheckoutRequestID":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:18] [INFO] MPesa API Response: {
+            "ResponseCode": "0",
+            "ResponseDescription":"The service request has been accepted successsfully",
+            "MerchantRequestID":"9b85-4b30-ba72-7f3656486f92609237",
+            "CheckoutRequestID":"ws_CO_21112024115542509757196660",
+            "ResultCode": "1032",
+            "ResultDesc":"Request cancelled by user"
+        }
+        
+[2024-11-21 11:55:18] [INFO] Database connection established successfully
+[2024-11-21 11:55:18] [INFO] Successfully updated payment status for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 09:55:22] [INFO] Starting payment status check request
+[2024-11-21 09:55:22] [INFO] Raw input: {"checkoutRequestId":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:22] [INFO] Access token generated successfully
+[2024-11-21 11:55:22] [INFO] Starting transaction query for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 11:55:22] [INFO] Query payload: {"BusinessShortCode":"174379","Password":"MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQxMTIxMTE1NTIy","Timestamp":"20241121115522","CheckoutRequestID":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:22] [INFO] MPesa API Response: {
+            "ResponseCode": "0",
+            "ResponseDescription":"The service request has been accepted successsfully",
+            "MerchantRequestID":"9b85-4b30-ba72-7f3656486f92609237",
+            "CheckoutRequestID":"ws_CO_21112024115542509757196660",
+            "ResultCode": "1032",
+            "ResultDesc":"Request cancelled by user"
+        }
+        
+[2024-11-21 11:55:22] [INFO] Database connection established successfully
+[2024-11-21 11:55:22] [INFO] Successfully updated payment status for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 09:55:27] [INFO] Starting payment status check request
+[2024-11-21 09:55:27] [INFO] Raw input: {"checkoutRequestId":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:27] [INFO] Access token generated successfully
+[2024-11-21 11:55:27] [INFO] Starting transaction query for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 11:55:27] [INFO] Query payload: {"BusinessShortCode":"174379","Password":"MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQxMTIxMTE1NTI3","Timestamp":"20241121115527","CheckoutRequestID":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:28] [INFO] MPesa API Response: {
+            "ResponseCode": "0",
+            "ResponseDescription":"The service request has been accepted successsfully",
+            "MerchantRequestID":"9b85-4b30-ba72-7f3656486f92609237",
+            "CheckoutRequestID":"ws_CO_21112024115542509757196660",
+            "ResultCode": "1032",
+            "ResultDesc":"Request cancelled by user"
+        }
+        
+[2024-11-21 11:55:28] [INFO] Database connection established successfully
+[2024-11-21 11:55:28] [INFO] Successfully updated payment status for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 09:55:32] [INFO] Starting payment status check request
+[2024-11-21 09:55:32] [INFO] Raw input: {"checkoutRequestId":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:32] [INFO] Access token generated successfully
+[2024-11-21 11:55:32] [INFO] Starting transaction query for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 11:55:32] [INFO] Query payload: {"BusinessShortCode":"174379","Password":"MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQxMTIxMTE1NTMy","Timestamp":"20241121115532","CheckoutRequestID":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:33] [INFO] MPesa API Response: {
+            "ResponseCode": "0",
+            "ResponseDescription":"The service request has been accepted successsfully",
+            "MerchantRequestID":"9b85-4b30-ba72-7f3656486f92609237",
+            "CheckoutRequestID":"ws_CO_21112024115542509757196660",
+            "ResultCode": "1032",
+            "ResultDesc":"Request cancelled by user"
+        }
+        
+[2024-11-21 11:55:33] [INFO] Database connection established successfully
+[2024-11-21 11:55:33] [INFO] Successfully updated payment status for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 09:55:37] [INFO] Starting payment status check request
+[2024-11-21 09:55:37] [INFO] Raw input: {"checkoutRequestId":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:37] [INFO] Access token generated successfully
+[2024-11-21 11:55:37] [INFO] Starting transaction query for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 11:55:37] [INFO] Query payload: {"BusinessShortCode":"174379","Password":"MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQxMTIxMTE1NTM3","Timestamp":"20241121115537","CheckoutRequestID":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:38] [INFO] MPesa API Response: {
+            "ResponseCode": "0",
+            "ResponseDescription":"The service request has been accepted successsfully",
+            "MerchantRequestID":"9b85-4b30-ba72-7f3656486f92609237",
+            "CheckoutRequestID":"ws_CO_21112024115542509757196660",
+            "ResultCode": "1032",
+            "ResultDesc":"Request cancelled by user"
+        }
+        
+[2024-11-21 11:55:38] [INFO] Database connection established successfully
+[2024-11-21 11:55:38] [INFO] Successfully updated payment status for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 09:55:43] [INFO] Starting payment status check request
+[2024-11-21 09:55:43] [INFO] Raw input: {"checkoutRequestId":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:43] [INFO] Access token generated successfully
+[2024-11-21 11:55:43] [INFO] Starting transaction query for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 11:55:43] [INFO] Query payload: {"BusinessShortCode":"174379","Password":"MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQxMTIxMTE1NTQz","Timestamp":"20241121115543","CheckoutRequestID":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:44] [INFO] MPesa API Response: {
+            "ResponseCode": "0",
+            "ResponseDescription":"The service request has been accepted successsfully",
+            "MerchantRequestID":"9b85-4b30-ba72-7f3656486f92609237",
+            "CheckoutRequestID":"ws_CO_21112024115542509757196660",
+            "ResultCode": "1032",
+            "ResultDesc":"Request cancelled by user"
+        }
+        
+[2024-11-21 11:55:44] [INFO] Database connection established successfully
+[2024-11-21 11:55:44] [INFO] Successfully updated payment status for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 09:55:47] [INFO] Starting payment status check request
+[2024-11-21 09:55:47] [INFO] Raw input: {"checkoutRequestId":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:47] [INFO] Access token generated successfully
+[2024-11-21 11:55:47] [INFO] Starting transaction query for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 11:55:47] [INFO] Query payload: {"BusinessShortCode":"174379","Password":"MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQxMTIxMTE1NTQ3","Timestamp":"20241121115547","CheckoutRequestID":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:48] [INFO] MPesa API Response: {
+            "ResponseCode": "0",
+            "ResponseDescription":"The service request has been accepted successsfully",
+            "MerchantRequestID":"9b85-4b30-ba72-7f3656486f92609237",
+            "CheckoutRequestID":"ws_CO_21112024115542509757196660",
+            "ResultCode": "1032",
+            "ResultDesc":"Request cancelled by user"
+        }
+        
+[2024-11-21 11:55:48] [INFO] Database connection established successfully
+[2024-11-21 11:55:48] [INFO] Successfully updated payment status for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 09:55:52] [INFO] Starting payment status check request
+[2024-11-21 09:55:52] [INFO] Raw input: {"checkoutRequestId":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:52] [INFO] Access token generated successfully
+[2024-11-21 11:55:52] [INFO] Starting transaction query for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 11:55:52] [INFO] Query payload: {"BusinessShortCode":"174379","Password":"MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQxMTIxMTE1NTUy","Timestamp":"20241121115552","CheckoutRequestID":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:53] [INFO] MPesa API Response: {
+            "ResponseCode": "0",
+            "ResponseDescription":"The service request has been accepted successsfully",
+            "MerchantRequestID":"9b85-4b30-ba72-7f3656486f92609237",
+            "CheckoutRequestID":"ws_CO_21112024115542509757196660",
+            "ResultCode": "1032",
+            "ResultDesc":"Request cancelled by user"
+        }
+        
+[2024-11-21 11:55:53] [INFO] Database connection established successfully
+[2024-11-21 11:55:53] [INFO] Successfully updated payment status for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 09:55:57] [INFO] Starting payment status check request
+[2024-11-21 09:55:57] [INFO] Raw input: {"checkoutRequestId":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:57] [INFO] Access token generated successfully
+[2024-11-21 11:55:57] [INFO] Starting transaction query for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 11:55:57] [INFO] Query payload: {"BusinessShortCode":"174379","Password":"MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQxMTIxMTE1NTU3","Timestamp":"20241121115557","CheckoutRequestID":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:55:57] [INFO] MPesa API Response: {
+            "ResponseCode": "0",
+            "ResponseDescription":"The service request has been accepted successsfully",
+            "MerchantRequestID":"9b85-4b30-ba72-7f3656486f92609237",
+            "CheckoutRequestID":"ws_CO_21112024115542509757196660",
+            "ResultCode": "1032",
+            "ResultDesc":"Request cancelled by user"
+        }
+        
+[2024-11-21 11:55:57] [INFO] Database connection established successfully
+[2024-11-21 11:55:57] [INFO] Successfully updated payment status for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 09:56:02] [INFO] Starting payment status check request
+[2024-11-21 09:56:02] [INFO] Raw input: {"checkoutRequestId":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:56:02] [INFO] Access token generated successfully
+[2024-11-21 11:56:02] [INFO] Starting transaction query for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 11:56:02] [INFO] Query payload: {"BusinessShortCode":"174379","Password":"MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQxMTIxMTE1NjAy","Timestamp":"20241121115602","CheckoutRequestID":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:56:02] [INFO] MPesa API Response: {
+            "ResponseCode": "0",
+            "ResponseDescription":"The service request has been accepted successsfully",
+            "MerchantRequestID":"9b85-4b30-ba72-7f3656486f92609237",
+            "CheckoutRequestID":"ws_CO_21112024115542509757196660",
+            "ResultCode": "1032",
+            "ResultDesc":"Request cancelled by user"
+        }
+        
+[2024-11-21 11:56:02] [INFO] Database connection established successfully
+[2024-11-21 11:56:02] [INFO] Successfully updated payment status for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 09:56:07] [INFO] Starting payment status check request
+[2024-11-21 09:56:07] [INFO] Raw input: {"checkoutRequestId":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:56:07] [INFO] Access token generated successfully
+[2024-11-21 11:56:07] [INFO] Starting transaction query for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 11:56:07] [INFO] Query payload: {"BusinessShortCode":"174379","Password":"MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQxMTIxMTE1NjA3","Timestamp":"20241121115607","CheckoutRequestID":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:56:07] [INFO] MPesa API Response: {
+            "ResponseCode": "0",
+            "ResponseDescription":"The service request has been accepted successsfully",
+            "MerchantRequestID":"9b85-4b30-ba72-7f3656486f92609237",
+            "CheckoutRequestID":"ws_CO_21112024115542509757196660",
+            "ResultCode": "1032",
+            "ResultDesc":"Request cancelled by user"
+        }
+        
+[2024-11-21 11:56:07] [INFO] Database connection established successfully
+[2024-11-21 11:56:07] [INFO] Successfully updated payment status for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 09:56:26] [INFO] Starting payment status check request
+[2024-11-21 09:56:26] [INFO] Raw input: {"checkoutRequestId":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:56:26] [INFO] Access token generated successfully
+[2024-11-21 11:56:26] [INFO] Starting transaction query for CheckoutRequestID: ws_CO_21112024115542509757196660
+[2024-11-21 11:56:26] [INFO] Query payload: {"BusinessShortCode":"174379","Password":"MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQxMTIxMTE1NjI2","Timestamp":"20241121115626","CheckoutRequestID":"ws_CO_21112024115542509757196660"}
+[2024-11-21 11:56:27] [INFO] MPesa API Response: {
+            "ResponseCode": "0",
+            "ResponseDescription":"The service request has been accepted successsfully",
+            "MerchantRequestID":"9b85-4b30-ba72-7f3656486f92609237",
+            "CheckoutRequestID":"ws_CO_21112024115542509757196660",
+            "ResultCode": "1032",
+            "ResultDesc":"Request cancelled by user"
+        }
+        
+[2024-11-21 11:56:27] [INFO] Database connection established successfully
+[2024-11-21 11:56:27] [INFO] Successfully updated payment status for CheckoutRequestID: ws_CO_21112024115542509757196660

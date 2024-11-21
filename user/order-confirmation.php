@@ -265,7 +265,7 @@ try {
            text-transform: uppercase; 
            letter-spacing: 1px; 
            display: inline-block;"
-    onclick="window.location.href='makepayment.php';" 
+    onclick="window.location.href='mpesa.php';" 
     onmouseover="this.style.color='#ff7f00'; this.style.transform='scale(1.05)';" 
     onmouseout="this.style.color='#FFA500'; this.style.transform='scale(1)';"
 >

@@ -41,16 +41,16 @@ try {
     
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
-        $first_name = filter_input(INPUT_POST, 'first_name', FILTER_SANITIZE_STRING);
-        $last_name = filter_input(INPUT_POST, 'last_name', FILTER_SANITIZE_STRING);
-        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-        $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING);
-        $address_line1 = filter_input(INPUT_POST, 'address_line1', FILTER_SANITIZE_STRING);
-        $address_line2 = filter_input(INPUT_POST, 'address_line2', FILTER_SANITIZE_STRING);
-        $city = filter_input(INPUT_POST, 'city', FILTER_SANITIZE_STRING);
-        $state = filter_input(INPUT_POST, 'state', FILTER_SANITIZE_STRING);
-        $postal_code = filter_input(INPUT_POST, 'postal_code', FILTER_SANITIZE_STRING);
-        $country = filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING);
+        $first_name = filter_input(INPUT_POST, 'first_name');
+        $last_name = filter_input(INPUT_POST, 'last_name');
+        $email = filter_input(INPUT_POST, 'email');
+        $phone = filter_input(INPUT_POST, 'phone');
+        $address_line1 = filter_input(INPUT_POST, 'address_line1');
+        $address_line2 = filter_input(INPUT_POST, 'address_line2');
+        $city = filter_input(INPUT_POST, 'city');
+        $state = filter_input(INPUT_POST, 'state');
+        $postal_code = filter_input(INPUT_POST, 'postal_code');
+        $country = filter_input(INPUT_POST, 'country');
 
         
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {

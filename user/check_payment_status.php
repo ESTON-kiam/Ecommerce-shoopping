@@ -268,8 +268,8 @@ class DatabaseHandler {
             
             
             $updateQuery = "UPDATE orders SET 
-                            payment_status = 'PAID',
-                            status = 'PROCESSING',
+                            payment_status = 'paid',
+                            status = 'pending',
                             updated_at = NOW()
                            WHERE id = ?";
                            

@@ -90,6 +90,7 @@ try {
                 <div class="profile-actions">
                     <a href="edit_profile.php" class="btn-edit">Edit Profile</a>
                     <a href="changepassword.php" class="btn-change-password">Change Password</a>
+                    <a href="dashboard.php" class="btn-edit">Continue Shopping</a>
                 </div>
             </div>
         <?php endif; ?>

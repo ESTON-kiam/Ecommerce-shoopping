@@ -50,6 +50,7 @@ try {
           $productId = $row['id'];
           $quantity = isset($cartItems[$productId]) ? max(1, intval($cartItems[$productId])) : 0;
           
+          
           $itemPrice = floatval($row['price']);
           $itemTotal = round($itemPrice * $quantity, 2);
           $totalPrice += $itemTotal;

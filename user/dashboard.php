@@ -118,7 +118,7 @@ try {
 
 <header class="header">
     <div class="header-content">
-        <a href="/" class="logo">
+        <a href="dashboard.php" class="logo">
             <i class="fas fa-shopping-bag"></i>
             ModernCart
         </a>
@@ -127,7 +127,7 @@ try {
         </form>
         <div class="header-icons">
             <div class="account-dropdown">
-                <a href="<?php echo $isLoggedIn ? 'edit_profile.php' : '#'; ?>" class="account-link">
+                <a href="<?php echo $isLoggedIn ? 'edit_profile.php' : 'http://localhost:8000/user/'; ?>" class="account-link">
                     <i class="fas fa-user"></i>
                     <span>
                         <?php 
@@ -139,8 +139,8 @@ try {
                 </a>
                 <div class="dropdown-content">
                     <a href="view_profile.php">My Account</a>
-                    <a href="orders.php">Orders</a>
-                    <a href="saveditems.php">Saved Items</a>
+                    <a href="checkout.php">Orders</a>
+                    <a href="cart.php">Saved Items</a>
                     <a href="logout.php">Sign Out</a>
                 </div>
             </div>

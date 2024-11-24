@@ -271,9 +271,6 @@ try {
 >
     Make Payment
 </button>
-
-
-
         </div>
         <?php endif; ?>
 

@@ -1,5 +1,5 @@
 <?php
-http_response_code(404); // Set the HTTP status code to 404
+http_response_code(404);
 ?>
 <!DOCTYPE html>
 <html lang="en">

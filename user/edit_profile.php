@@ -211,7 +211,7 @@ try {
             color: green;
         }
 
-        /* Two-column layout */
+       
         .form-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -232,7 +232,7 @@ try {
             width: 100%;
         }
 
-        /* Responsive design for smaller screens */
+       
         @media (max-width: 768px) {
             .form-container {
                 grid-template-columns: 1fr;

@@ -56,13 +56,13 @@ try {
         throw new Exception("Order not found");
     }
 
-    // Decode the JSON data from product_details column
+   
     $product_details = json_decode($order['product_details'], true);
     if (json_last_error() !== JSON_ERROR_NONE) {
         throw new Exception("Error decoding product details");
     }
 
-    // Get product images
+    
     $product_ids = array_column($product_details, 'id');
     $placeholders = str_repeat('?,', count($product_ids) - 1) . '?';
     $product_stmt = $pdo->prepare("SELECT id, image FROM products WHERE id IN ($placeholders)");

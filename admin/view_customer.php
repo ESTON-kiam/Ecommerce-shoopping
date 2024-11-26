@@ -2,13 +2,12 @@
 session_name('admin_session');
 session_start();
 
-// Database configuration
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "ecommerce";
 
-// Create connection using try-catch for better error handling
+
 try {
     $conn = new mysqli($servername, $username, $password, $dbname);
     
@@ -16,15 +15,15 @@ try {
         throw new Exception("Connection failed: " . $conn->connect_error);
     }
     
-    // Check admin session
+    
     if (!isset($_SESSION['admin_id'])) {
         header('Location: index.php');
         exit();
     }
     
-    // Validate and get customer data
+    
     if (isset($_GET['customer_id'])) {
-        // Use prepared statement to prevent SQL injection
+        
         $stmt = $conn->prepare("SELECT * FROM customers WHERE customer_id = ?");
         if (!$stmt) {
             throw new Exception("Prepare failed: " . $conn->error);

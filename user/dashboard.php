@@ -140,7 +140,7 @@ try {
                 <div class="dropdown-content">
                     <a href="view_profile.php">My Account</a>
                     <a href="checkout.php">Orders</a>
-                    <a href="cart.php">Saved Items</a>
+                    <a href="saved_items.php">Saved Items</a>
                     <a href="logout.php">Sign Out</a>
                 </div>
             </div>

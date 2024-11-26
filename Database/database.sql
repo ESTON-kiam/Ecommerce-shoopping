@@ -90,3 +90,12 @@ ALTER TABLE `mpesa_payments`
 ALTER TABLE `mpesa_payments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 COMMIT;
+CREATE TABLE saved_items (
+    customer_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (customer_id, product_id),
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);

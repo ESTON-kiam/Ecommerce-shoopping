@@ -173,7 +173,7 @@ try {
                                 <div class="phone-input-group">
                                     <span class="phone-prefix">+254</span>
                                     <input type="tel" class="form-control phone-input" name="phone" id="phone" 
-                                           pattern="^[0-9]{9}$" required placeholder="07XXXXXXXX">
+                                           pattern="^[0-9]{9}$" required placeholder="7XXXXXXXX">
                                 </div>
                                 <small class="text-muted">Enter Your Mpesa Number</small>
                             </div>

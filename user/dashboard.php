@@ -207,6 +207,7 @@ try {
                 <li><a href="#">Our Story</a></li>
                 <li><a href="#">Careers</a></li>
                 <li><a href="#">Press</a></li>
+                <li><a href="logout.php">Logout</a></li>
             </ul>
         </div>
         <div class="footer-section">
@@ -217,6 +218,7 @@ try {
                 <li><a href="#">Returns</a></li>
                 <li><a href="#">FAQ</a></li>
                 <li><a href="#">Track Order</a></li>
+               
             </ul>
         </div>
         <div class="footer-section">

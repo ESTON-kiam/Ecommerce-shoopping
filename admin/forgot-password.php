@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
 
-                $mail->setFrom('no-reply@gmail.com', 'Ecommerce');
+                $mail->setFrom('no-reply@gmail.com', 'ModernCart');
                 $mail->addAddress($email);
                 $mail->isHTML(true);
                 $mail->Subject = "Password Reset Request";
@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <p><a href='$resetLink'>$resetLink</a></p>
                     <p>This link will expire in 1 hour.</p>
                     <p>If you didn't request this, please ignore this email.</p>
-                    <p>Best regards,<br>Admin Team</p>
+                    <p>Best regards,<br>ModernCart Support Team</p>
                 ";
 
                 $mail->send();
@@ -143,7 +143,7 @@ $conn->close();
             padding: 12px;
             margin-bottom: 15px;
             font-size: 16px;
-            border-radius: 6px;
+            border-radius: 20px;
             border: 1px solid #ccc;
             transition: 0.3s;
         }

@@ -143,7 +143,7 @@ $conn->close();
             padding: 12px;
             margin-bottom: 15px;
             font-size: 16px;
-            border-radius: 6px;
+            border-radius: 25px;
             border: 1px solid #ccc;
             transition: 0.3s;
         }

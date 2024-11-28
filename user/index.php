@@ -162,7 +162,7 @@ $conn->close();
             width: 100%;
             padding: 0.75rem;
             border: 2px solid #e2e8f0;
-            border-radius: 0.5rem;
+            border-radius: 25px;
             font-size: 1rem;
             transition: all 0.3s;
         }

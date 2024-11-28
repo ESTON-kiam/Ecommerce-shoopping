@@ -109,7 +109,7 @@ header h1 {
 input[type="number"],
 input[type="tel"],
 input[type="text"] {
-    border-radius: 10px;
+    border-radius: 25px;
     border: 1px solid #ddd;
     padding: 12px;
     font-size: 1rem;

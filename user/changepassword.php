@@ -29,7 +29,6 @@ try {
     $error = '';
     $success = '';
 
-    
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $current_password = filter_input(INPUT_POST, 'current_password');
         $new_password = filter_input(INPUT_POST, 'new_password');
@@ -65,7 +64,6 @@ try {
     $error = "An error occurred: " . $e->getMessage();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

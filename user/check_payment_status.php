@@ -242,7 +242,6 @@ class DatabaseHandler {
             }
         }
     }
-    
     private function updateOrderStatus($checkoutRequestId) {
         try {
            

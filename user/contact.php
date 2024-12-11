@@ -21,8 +21,6 @@ function redirectToLogin() {
     header("Location: index.php");
     exit();
 }
-
-
 if (!isset($_SESSION['customers']) || 
     !isset($_SESSION['customers']['id']) || 
     empty($_SESSION['customers']['first_name']) || 

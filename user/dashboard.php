@@ -100,8 +100,6 @@ try {
 
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -268,7 +266,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WI
     }
     exit;
 }
-
 $conn->close();
 ?>
 <script>

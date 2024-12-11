@@ -244,7 +244,6 @@ try {
         </a>
     </div>
 </header>
-
 <main class="checkout-container">
     <div class="checkout-form">
         <h1>Checkout</h1>

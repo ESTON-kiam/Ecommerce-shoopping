@@ -150,8 +150,6 @@ try {
     }
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -262,7 +260,6 @@ try {
 <div id="toast" class="toast"></div>
 
 <script>
-
 function showToast(message) {
    const toast = document.getElementById('toast');
    toast.textContent = message;

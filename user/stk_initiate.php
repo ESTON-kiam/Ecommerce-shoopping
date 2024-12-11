@@ -35,7 +35,6 @@ function insertInitialPayment($conn, $phone, $amount, $checkoutRequestId) {
     return $conn->insert_id;
 }
 
-
 $json_data = file_get_contents('php://input');
 $data = json_decode($json_data);
 

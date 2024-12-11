@@ -90,6 +90,7 @@ ALTER TABLE `mpesa_payments`
 ALTER TABLE `mpesa_payments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 COMMIT;
+
 CREATE TABLE saved_items (
     customer_id INT NOT NULL,
     product_id INT NOT NULL,

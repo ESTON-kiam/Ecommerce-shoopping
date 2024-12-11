@@ -12,7 +12,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-
 if (!isset($_SESSION['admin_id'])) {
     header('Location: index.php');
     exit();
@@ -76,45 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Edit Product - Admin Panel</title>
     <link href="assets/img/cart.jpg" rel="icon">
     <link href="assets/img/cart.jpg" rel="apple-touch-icon">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f9;
-        }
-        .container {
-            max-width: 600px;
-            margin: 30px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        h2 {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            font-weight: bold;
-        }
-        input[type="text"], input[type="number"], input[type="file"], textarea, select {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        .btn-submit {
-            background-color: #28a745;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-        }
-    </style>
+<link href="assets/css/editproduct.css" rel="stylesheet">
 </head>
 <body>
     

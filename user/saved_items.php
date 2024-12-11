@@ -21,7 +21,7 @@ try {
 
     $customer_id = $_SESSION['customers']['id'];
 
-    // Handle POST actions
+    
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['action'])) {
             switch ($_POST['action']) {
@@ -34,7 +34,7 @@ try {
                     $stmt->execute();
                     $stmt->close();
                     
-                    // Recalculate total cost
+                    
                     $total_cost = calculateTotalCost($conn, $customer_id);
                     
                     echo json_encode([
@@ -52,8 +52,7 @@ try {
                     $stmt->execute();
                     $stmt->close();
                     
-                    // Recalculate total cost
-                    $total_cost = calculateTotalCost($conn, $customer_id);
+                 $total_cost = calculateTotalCost($conn, $customer_id);
                     
                     echo json_encode([
                         'status' => 'success', 
@@ -63,7 +62,7 @@ try {
                     exit();
 
                 case 'place_order':
-                    // Fetch saved items to create order
+
                     $query = "
                         SELECT si.product_id, si.quantity, p.name, p.price 
                         FROM saved_items si 
@@ -77,11 +76,11 @@ try {
                     $savedItems = $result->fetch_all(MYSQLI_ASSOC);
                     $stmt->close();
 
-                    // Start transaction
+
                     $conn->begin_transaction();
 
                     try {
-                        // Create order
+
                         $order_total = 0;
                         $insert_order = $conn->prepare("INSERT INTO orders (customer_id, total_amount, order_date) VALUES (?, ?, NOW())");
                         $insert_order->bind_param("id", $customer_id, $order_total);
@@ -89,7 +88,6 @@ try {
                         $order_id = $conn->insert_id;
                         $insert_order->close();
 
-                        // Insert order items
                         $insert_item = $conn->prepare("INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)");
                         
                         foreach ($savedItems as $item) {
@@ -101,13 +99,12 @@ try {
                         }
                         $insert_item->close();
 
-                        // Update order total
                         $update_order = $conn->prepare("UPDATE orders SET total_amount = ? WHERE id = ?");
                         $update_order->bind_param("di", $order_total, $order_id);
                         $update_order->execute();
                         $update_order->close();
 
-                        // Clear saved items
+                        
                         $clear_saved = $conn->prepare("DELETE FROM saved_items WHERE customer_id = ?");
                         $clear_saved->bind_param("i", $customer_id);
                         $clear_saved->execute();
@@ -130,7 +127,7 @@ try {
         }
     }
 
-    // Function to calculate total cost of saved items
+    
     function calculateTotalCost($conn, $customer_id) {
         $query = "
             SELECT SUM(p.price * si.quantity) as total_cost
@@ -147,7 +144,6 @@ try {
         return $total ?? 0;
     }
 
-    // Fetch saved items
     $query = "
         SELECT si.product_id, si.quantity, p.name, p.price, p.image 
         FROM saved_items si 
@@ -161,7 +157,6 @@ try {
     $savedItems = $result->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
 
-    // Calculate total cost
     $totalCost = calculateTotalCost($conn, $customer_id);
 
 } catch (Exception $e) {

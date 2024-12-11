@@ -8,7 +8,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $productId = intval($data['productId']);
         $quantity = intval($data['quantity']);
 
-        
         if ($quantity > 0) {
            $_SESSION['cart'][$productId] = $quantity; 
            echo json_encode(['message' => 'Cart updated successfully!']);

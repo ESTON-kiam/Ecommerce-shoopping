@@ -7,8 +7,6 @@ session_start([
     'cookie_httponly' => true,
     'cookie_samesite' => 'Strict'
 ]);
-
-
 if (!isset($_SESSION['customers']) || !isset($_SESSION['customers']['id']) || !isset($_SESSION['order_success'])) {
     header("Location: dashboard.php");
     exit();
@@ -37,7 +35,6 @@ try {
         throw new Exception("Invalid order ID");
     }
 
-   
     $orderQuery = "SELECT o.*, c.first_name, c.last_name, c.email 
                   FROM orders o 
                   JOIN customers c ON o.customer_id = c.customer_id 

@@ -19,7 +19,6 @@ try {
         throw new Exception("Connection failed: " . $conn->connect_error);
     }
 
-    
     if (!isset($_SESSION['customers']['id'])) {
         header('Location: index.php');
         exit();

@@ -17,14 +17,11 @@ $messageType = "";
 $validToken = false;
 $token = "";
 
-
 date_default_timezone_set('Africa/Nairobi'); 
 
 if (isset($_GET['token'])) {
     $token = $_GET['token'];
-    
-    
-    $stmt = $conn->prepare("SELECT customer_id, first_name, reset_token_expiry FROM customers WHERE reset_token = ?");
+     $stmt = $conn->prepare("SELECT customer_id, first_name, reset_token_expiry FROM customers WHERE reset_token = ?");
     $stmt->bind_param("s", $token);
     $stmt->execute();
     $result = $stmt->get_result();

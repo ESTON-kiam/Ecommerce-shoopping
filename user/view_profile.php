@@ -39,7 +39,6 @@ try {
     $error = $e->getMessage();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,12 +77,10 @@ try {
                     ?>
                     <p><strong>Address:</strong> <?php echo htmlspecialchars(implode(', ', $address_parts) ?: 'No address provided'); ?></p>
                 </div>
-
                 <div class="profile-section">
                     <h3>Account Details</h3>
                     <p><strong>Account Created:</strong> <?php echo htmlspecialchars($user['created_at']); ?></p>
                 </div>
-
                 <div class="profile-actions">
                     <a href="edit_profile.php" class="btn-edit">Edit Profile</a>
                     <a href="changepassword.php" class="btn-change-password">Change Password</a>

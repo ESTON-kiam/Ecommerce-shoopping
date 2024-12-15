@@ -80,11 +80,9 @@ try {
     <link href="assets/img/cart.jpg" rel="apple-touch-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="assets/css/index.css">
-    <link rel="stylesheet" href="assets/css/orderconfirmation.css">
-   
+    <link rel="stylesheet" href="assets/css/orderconfirmation.css"> 
 </head>
 <body>
-
 <header class="header">
     <div class="header-content">
         <a href="/" class="logo">
@@ -101,7 +99,6 @@ try {
             <h1>Order Confirmed!</h1>
             <p>Thank you for your purchase. Your order has been successfully placed.</p>
         </div>
-
         <div class="order-details">
             <h2>Order Details</h2>
             <div class="detail-row">
@@ -129,7 +126,6 @@ try {
                 <span><?php echo htmlspecialchars($order['phone']); ?></span>
             </div>
         </div>
-
         <div class="order-items">
             <h2>Order Items</h2>
             <?php foreach ($orderItems as $item): ?>

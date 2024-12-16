@@ -319,7 +319,6 @@ document.getElementById('payment_method').addEventListener('change', function() 
 
 </body>
 </html>
-
 <?php
 $conn->close();
 ?>

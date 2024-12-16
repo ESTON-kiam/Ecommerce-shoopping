@@ -9,7 +9,6 @@ session_start([
     'cookie_samesite' => 'Strict',
 ]);
 
-
 function redirectToLogin() {
     session_unset();
     session_destroy();

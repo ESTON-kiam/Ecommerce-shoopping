@@ -21,7 +21,6 @@
                 <span class="button-text">Customer Login</span>
                 <span class="button-description">Shop and manage your orders</span>
             </button>
-
             <button onclick="window.location.href='admin'" class="login-button">
                 <div class="icon">
                     <svg viewBox="0 0 24 24">

@@ -121,8 +121,7 @@ try {
               $stmt->execute();
               $orderId = $conn->insert_id;
               $stmt->close();
-
-              
+            
               foreach ($productDetails as $product) {
                   $newStockQuantity = $product['stock_quantity'] - $product['quantity'];
                   $stmt = $conn->prepare("UPDATE products SET stock_quantity = ? WHERE id = ?");

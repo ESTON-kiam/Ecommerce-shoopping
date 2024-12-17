@@ -161,7 +161,6 @@ try {
     <link rel="stylesheet" href="assets/css/cart.css">
 </head>
 <body>
-
 <header class="header">
     <div class="header-content">
         <a href="/" class="logo">
@@ -227,7 +226,6 @@ try {
        </div>
        <?php endforeach; ?>
     </div>
-
     <div class="cart-summary">
        <h3>Total Price:</h3>
        <p id="total-price">Ksh <?php echo number_format($totalPrice, 2); ?></p>

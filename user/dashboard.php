@@ -194,7 +194,6 @@ try {
         </div>
     <?php endif; ?>
 </div>
-
 <footer class="footer">
     <div class="footer-content">
         <div class="footer-section">

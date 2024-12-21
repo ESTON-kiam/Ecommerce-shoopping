@@ -96,7 +96,7 @@ $conn->close();
             transition: 0.3s;
         }
         input:focus {
-            border-color: #5cb85c;
+            border-color:  #667eea;
             box-shadow: 0 0 8px rgba(92, 184, 92, 0.3);
         }
         
@@ -106,14 +106,14 @@ $conn->close();
             font-size: 16px;
             font-weight: bold;
             color: #fff;
-            background-color: #5cb85c;
+            background-color:  #667eea;
             border: none;
             border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #4cae4c;
+            background-color:  #667eea;
         }
         
         
@@ -127,12 +127,12 @@ $conn->close();
         .register-link {
             display: block;
             margin-top: 15px;
-            color: #5cb85c;
+            color:  #667eea;
             text-decoration: none;
             transition: color 0.3s;
         }
         .register-link:hover {
-            color: #4cae4c;
+            color:  #667eea;
         }
         
         

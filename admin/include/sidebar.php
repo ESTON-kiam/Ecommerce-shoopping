@@ -219,7 +219,7 @@ if (isset($_SESSION['admin_id'])) {
             </button>
             <div class="sidebar-header">
                 <img src="assets/img/cart.jpg" alt="Logo">
-                <h2>Admin Panel</h2>
+                <h2>Vendor Panel</h2>
             </div>
             <ul>
                 <li><a href="dashboard.php" class="active">
@@ -229,7 +229,7 @@ if (isset($_SESSION['admin_id'])) {
                     <i class="fas fa-plus-circle"></i><span>Add Products</span>
                 </a></li>
                 <li><a href="registration.php">
-                    <i class="fas fa-plus-circle"></i><span>Add Admin</span>
+                    <i class="fas fa-plus-circle"></i><span>Add Vendors</span>
                 </a></li>
                 <li><a href="productview.php">
                     <i class="fas fa-box"></i><span>Products</span>
@@ -254,7 +254,7 @@ if (isset($_SESSION['admin_id'])) {
                 <img src="assets/img/cart.jpg" alt="User Avatar">
                 <div class="user-info">
                     <h4><?php echo htmlspecialchars($admin_username); ?></h4>
-                    <p>Admin</p>
+                    <p>Vendor</p>
                 </div>
             </div>
         </div>

@@ -27,7 +27,7 @@ $customers = $conn->query("SELECT * FROM customers ORDER BY first_name");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customers - Admin Dashboard</title>
+    <title>Customers - Vendor Dashboard</title>
     <link href="assets/img/cart.jpg" rel="icon">
     <link href="assets/img/cart.jpg" rel="apple-touch-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">

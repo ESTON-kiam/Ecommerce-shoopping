@@ -64,7 +64,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Registration</title>
+    <title>Vendor Registration</title>
     <link href="assets/img/cart.jpg" rel="icon">
     <link href="assets/img/cart.jpg" rel="apple-touch-icon">
     <link rel="stylesheet" href="assets/css/adminreg.css">
@@ -72,7 +72,7 @@ $conn->close();
 <body>
 
     <div class="form-container">
-        <h2>Admin Registration</h2>
+        <h2>Vendor Registration</h2>
         <?php if ($error): ?>
             <p class="error"><?php echo htmlspecialchars($error); ?></p>
         <?php endif; ?>

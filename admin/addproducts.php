@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product - Ecommerce Admin</title>
+    <title>Add Product - Ecommerce vendor</title>
     <link href="assets/img/cart.jpg" rel="icon">
     <link href="assets/img/cart.jpg" rel="apple-touch-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -130,44 +130,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <label for="stock_quantity">Stock Quantity *</label>
                         <input type="number" id="stock_quantity" name="stock_quantity" class="form-control" required>
                     </div>
-
                     <div class="form-group">
                         <label for="price">Price *</label>
                         <input type="number" id="price" name="price" class="form-control" step="0.01" required>
                     </div>
-
                     <div class="form-group">
                         <label for="product_image">Product Image *</label>
                         <input type="file" id="product_image" name="product_image" class="form-control" accept="image/*" required onchange="previewImage(this)">
                         <img id="preview" class="preview-image">
                     </div>
-
                     <button type="submit" class="btn btn-primary">Add Product</button>
                 </form>
             </div>
         </div>
     </div>
-
-    <script>
-        function previewImage(input) {
-            const preview = document.getElementById('preview');
-            const file = input.files[0];
-            const reader = new FileReader();
-
-            reader.onloadend = function() {
-                preview.src = reader.result;
-                preview.style.display = 'block';
-            }
-
-            if (file) {
-                reader.readAsDataURL(file);
-            } else {
-                preview.src = '';
-                preview.style.display = 'none';
-            }
-        }
-    </script>
 </body>
+<script src="assets/js/add.js"></script>
 </html>
 
 <?php

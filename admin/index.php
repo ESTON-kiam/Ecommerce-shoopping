@@ -145,7 +145,7 @@ $conn->close();
 </head>
 <body>
     <div class="login-container">
-        <h2>Admin Login</h2>
+        <h2>Vendors Login</h2>
         <?php if ($error): ?>
             <p class="error"><?php echo htmlspecialchars($error); ?></p>
         <?php endif; ?>

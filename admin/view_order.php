@@ -84,18 +84,7 @@ try {
     <link href="assets/img/cart.jpg" rel="icon">
     <link href="assets/img/cart.jpg" rel="apple-touch-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .order-status {
-            font-weight: bold;
-            text-transform: uppercase;
-            padding: 5px 10px;
-            border-radius: 4px;
-        }
-        .status-pending { background-color: #ffc107; color: #000; }
-        .status-processing { background-color: #17a2b8; color: #fff; }
-        .status-completed { background-color: #28a745; color: #fff; }
-        .status-cancelled { background-color: #dc3545; color: #fff; }
-    </style>
+   <link href="assets/css/vieworder.css" rel="stylesheet">
 </head>
 <body>
     <div class="container mt-5">

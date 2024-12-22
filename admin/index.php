@@ -154,6 +154,7 @@ $conn->close();
             <input type="password" id="password" name="password" placeholder="Password" required>
             <button type="submit">Login</button>
             <a href="http://localhost:8000/admin/forgot-password.php" class="register-link">forgot password?</a>
+          
         </form>
     </div>
 

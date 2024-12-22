@@ -308,16 +308,16 @@ function updateQuantity(productId, change) {
     .then(response => response.json())
     .then(data => {
         if (data.status === 'success') {
-            // Update quantity input
+            
             quantityInput.value = newQuantity;
 
-            // Update item total
+            
             const itemTotalSpan = document.querySelector(`.saved-item[data-product-id="${productId}"] .item-total`);
             const price = parseFloat(itemTotalSpan.dataset.price);
             const itemTotal = (price * newQuantity).toFixed(2);
             itemTotalSpan.textContent = itemTotal;
 
-            // Update total cost
+            
             updateTotalCost(data.total_cost);
             showToast('Quantity updated successfully');
         }
@@ -341,15 +341,15 @@ function removeFromSavedItems(productId) {
     .then(response => response.json())
     .then(data => {
         if (data.status === 'success') {
-            // Remove the item from the DOM
+            
             savedItem.remove();
             
-            // Update total cost
+            
             updateTotalCost(data.total_cost);
 
             showToast('Item removed from saved items');
             
-            // Reload if no items left
+            
             if (document.querySelectorAll('.saved-item').length === 0) {
                 location.reload();
             }

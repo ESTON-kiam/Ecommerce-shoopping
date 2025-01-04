@@ -320,7 +320,6 @@ function updateTotalPrice() {
    document.getElementById('total-price').textContent = `Ksh ${totalPrice.toFixed(2)}`;
 }
 </script>
-
 </body>
 </html>
 

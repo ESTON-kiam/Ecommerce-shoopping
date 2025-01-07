@@ -148,9 +148,7 @@ try {
                     <p class="text-danger" id="error-details">Sorry, your payment could not be processed</p>
                     <button class="btn btn-primary mt-3" onclick="window.location.reload()">Try Again</button>
                 </div>
-
-                
-                <div class="card payment-card" id="payment-form-card">
+<div class="card payment-card" id="payment-form-card">
                     <div class="card-body p-4">
                         <h4 class="text-center mb-4 fw-bold">Make a Payment</h4>
                         
@@ -190,10 +188,8 @@ try {
                 </div>
             </div>
         </div>
-        
-    
+            
     </div>
-
     <script>
         let checkStatusInterval;
         let merchantRequestId = '';

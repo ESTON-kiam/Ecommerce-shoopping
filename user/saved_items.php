@@ -127,7 +127,6 @@ try {
         }
     }
 
-    
     function calculateTotalCost($conn, $customer_id) {
         $query = "
             SELECT SUM(p.price * si.quantity) as total_cost

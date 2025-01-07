@@ -1,14 +1,12 @@
 <?php
 header('Content-Type: application/json');
 
-
 $db_config = [
     'host' => 'localhost',
     'username' => 'root',
     'password' => '',
     'database' => 'ecommerce'
 ];
-
 
 function createDbConnection($config) {
     try {

@@ -53,6 +53,10 @@ INSERT INTO `admins` (`id`, `username`, `password`, `phone`, `email`, `created_a
 -- Table structure for table `customers`
 --
 
+ALTER TABLE mpesa_payments
+ADD COLUMN order_id INT,
+ADD CONSTRAINT fk_order_id FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE;
+
 CREATE TABLE `customers` (
   `customer_id` int(11) NOT NULL,
   `first_name` varchar(100) NOT NULL,

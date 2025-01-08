@@ -7,8 +7,6 @@ session_start([
     'cookie_httponly' => true,
     'cookie_samesite' => 'Strict',
 ]);
-
-
 function redirectToLogin() {
     session_unset();
     session_destroy();
@@ -287,8 +285,6 @@ function updateQuantity(productId, change) {
    .then(data => showToast(data.message))
    .catch(error => console.error('Error:', error));
 }
-
-
 function removeFromCart(productId) {
    const cartItem = document.querySelector(`.cart-item[data-product-id="${productId}"]`);
    if (cartItem) {
@@ -305,8 +301,6 @@ function removeFromCart(productId) {
        .catch(error => console.error('Error:', error));
    }
 }
-
-
 function updateTotalPrice() {
    let totalPrice = 0;
 
@@ -322,7 +316,6 @@ function updateTotalPrice() {
 </script>
 </body>
 </html>
-
 <?php
 $conn->close();
 ?>

@@ -234,7 +234,6 @@ try {
     </style>
 </head>
 <body>
-
 <header class="header">
     <div class="header-content">
         <a href="/" class="logo">
@@ -253,7 +252,6 @@ try {
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
-
         <form method="POST" action="">
             <div class="form-group">
                 <label for="shipping_address">Shipping Address</label>

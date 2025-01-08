@@ -79,7 +79,6 @@ class MpesaExpressQuery {
             }
         }
     }
-    
     public function queryTransaction($checkoutRequestId) {
         try {
             logMessage("Starting transaction query for CheckoutRequestID: " . $checkoutRequestId);

@@ -130,7 +130,6 @@ try {
                         <div class="progress-bar progress-bar-striped progress-bar-animated" id="timeout-progress" style="width: 100%"></div>
                     </div>
                 </div>
-
                 <div class="payment-status text-center bg-white payment-card" id="success-status">
                     <i class="fas fa-check-circle status-icon text-success"></i>
                     <h5>Payment Successful!</h5>

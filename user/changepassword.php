@@ -33,8 +33,6 @@ try {
         $current_password = filter_input(INPUT_POST, 'current_password');
         $new_password = filter_input(INPUT_POST, 'new_password');
         $confirm_password = filter_input(INPUT_POST, 'confirm_password');
-
-    
         $stmt = $conn->prepare("SELECT password FROM customers WHERE customer_id = ?");
         $stmt->bind_param("i", $customer_id);
         $stmt->execute();
@@ -48,8 +46,7 @@ try {
         } elseif (strlen($new_password) < 6) {
             $error = "Password must be at least 6 characters long.";
         } else {
-            
-            $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+         $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
             $stmt = $conn->prepare("UPDATE customers SET password = ? WHERE customer_id = ?");
             $stmt->bind_param("si", $hashed_password, $customer_id);
 

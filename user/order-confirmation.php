@@ -103,7 +103,7 @@ try {
             <h2>Order Details</h2>
             <div class="detail-row">
                 <span>Order Number:</span>
-                <span>#<?php echo str_pad($order['order_id'], 6, '0', STR_PAD_LEFT); ?></span>
+                <span>#<?php echo str_pad($order['id'], 6, '0', STR_PAD_LEFT); ?></span>
             </div>
             <div class="detail-row">
                 <span>Order Date:</span>

@@ -39,6 +39,7 @@ class MpesaExpressQuery {
             logMessage("MpesaExpressQuery initialization failed: " . $e->getMessage(), 'ERROR');
             throw $e;
         }
+        
     }
     
     private function generateAccessToken() {

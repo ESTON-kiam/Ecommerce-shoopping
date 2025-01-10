@@ -35,7 +35,6 @@ if (isset($_POST['delete_id'])) {
 $query = "SELECT * FROM products ORDER BY id DESC";
 $result = $conn->query($query);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

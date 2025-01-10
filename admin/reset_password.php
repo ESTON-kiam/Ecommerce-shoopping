@@ -91,7 +91,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['token'])) {
 }
 $conn->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -125,7 +124,6 @@ $conn->close();
         
         <a href="index.php" class="login-link">Back to Login</a>
     </div>
-
     <script>
         function validateForm() {
             const newPassword = document.getElementById('new_password').value;

@@ -14,12 +14,10 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-
 if (!isset($_SESSION['admin_id'])) {
     header('Location: index.php');
     exit();
 }
-
 
 $order_query = "SELECT orders.id, customers.first_name, customers.last_name, orders.created_at, orders.status, orders.total_amount 
                 FROM orders
@@ -27,7 +25,6 @@ $order_query = "SELECT orders.id, customers.first_name, customers.last_name, ord
 $order_result = $conn->query($order_query);
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +38,6 @@ $order_result = $conn->query($order_query);
 </head>
 <body>
 <?php include('include/sidebar.php'); ?>
-
         <div class="main-content">
             <h1>Order Report</h1>
 
@@ -78,7 +74,6 @@ $order_result = $conn->query($order_query);
     </div>
 </body>
 </html>
-
 <?php
 $conn->close();
 ?>

@@ -24,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $site_email = $_POST['site_email'];
    
     $maintenance_mode = isset($_POST['maintenance_mode']) ? 1 : 0;
-
     
     $update_query = "UPDATE settings SET 
                     site_title = '$site_name', 
@@ -40,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-
 $settings_query = "SELECT * FROM settings WHERE id = 1";
 $settings_result = $conn->query($settings_query);
 
@@ -53,7 +51,6 @@ if ($settings_result->num_rows > 0) {
 
 $conn->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -209,7 +206,6 @@ $conn->close();
         input:checked + .slider:before {
             transform: translateX(22px);
         }
-
         button {
             background: linear-gradient(45deg, #1a237e, #534bae);
             color: white;

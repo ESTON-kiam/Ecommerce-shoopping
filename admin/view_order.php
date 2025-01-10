@@ -55,7 +55,6 @@ try {
     if (!$order) {
         throw new Exception("Order not found");
     }
-
    
     $product_details = json_decode($order['product_details'], true);
     if (json_last_error() !== JSON_ERROR_NONE) {

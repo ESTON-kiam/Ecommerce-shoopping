@@ -55,7 +55,6 @@ try {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,8 +67,7 @@ try {
     <link rel="stylesheet" href="assets/css/admindash.css">
 </head>
 <body>
-<?php include('include/sidebar.php'); ?>
-        
+<?php include('include/sidebar.php'); ?>        
         <div class="main-content">
             <h1>Customer Details</h1>
             

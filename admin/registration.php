@@ -2,7 +2,6 @@
 session_name('admin_session');
 session_start();
 
-
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -58,7 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 $conn->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

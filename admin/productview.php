@@ -18,7 +18,6 @@ if (!isset($_SESSION['admin_id'])) {
     exit();
 }
 
-
 if (isset($_POST['delete_id'])) {
     $delete_id = $conn->real_escape_string($_POST['delete_id']);
     $delete_query = "DELETE FROM products WHERE id = '$delete_id'";
@@ -30,7 +29,6 @@ if (isset($_POST['delete_id'])) {
     header('Location: adminproductview.php');
     exit();
 }
-
 
 $query = "SELECT * FROM products ORDER BY id DESC";
 $result = $conn->query($query);

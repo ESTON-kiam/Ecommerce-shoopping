@@ -21,7 +21,6 @@ $total_customers = $conn->query("SELECT COUNT(*) as count FROM customers")->fetc
 $customers = $conn->query("SELECT * FROM customers ORDER BY first_name");
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -2,7 +2,6 @@
 session_name('admin_session');
 session_start();
 
-
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -25,7 +24,6 @@ $total_revenue = $conn->query("SELECT SUM(total_amount) as sum FROM orders")->fe
 $total_customers = $conn->query("SELECT COUNT(*) as count FROM customers")->fetch_assoc()['count'];
 $total_products = $conn->query("SELECT COUNT(*) as count FROM products")->fetch_assoc()['count'];
 
-
 $recent_orders = $conn->query("
     SELECT 
         o.*, 
@@ -36,15 +34,12 @@ $recent_orders = $conn->query("
     LIMIT 5
 ");
 
-
-
 $low_stock_products = $conn->query("
     SELECT * FROM products 
     WHERE stock_quantity < 10 
     ORDER BY stock_quantity ASC
 ");
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

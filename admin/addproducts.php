@@ -145,7 +145,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </body>
 <script src="assets/js/add.js"></script>
 </html>
-
 <?php
 $conn->close();
 ?>

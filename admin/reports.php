@@ -76,5 +76,4 @@ $order_result = $conn->query($order_query);
 </html>
 <?php
 $conn->close();
-?>
- 
+?> 

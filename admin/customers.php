@@ -78,7 +78,6 @@ $customers = $conn->query("SELECT * FROM customers ORDER BY first_name");
     </div>
 </body>
 </html>
-
 <?php
 $conn->close();
 ?>

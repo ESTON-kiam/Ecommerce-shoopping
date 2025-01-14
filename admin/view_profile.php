@@ -205,7 +205,6 @@ $orders_result = $orders_stmt->get_result();
                             <td>Ksh<?php echo number_format($customer['total_spent'], 2); ?></td>
                         </tr>
                     </table>
-
                     <h2>Recent Orders</h2>
                     <table>
                         <thead>

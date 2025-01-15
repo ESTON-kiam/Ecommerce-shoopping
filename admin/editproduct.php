@@ -17,7 +17,6 @@ if (!isset($_SESSION['admin_id'])) {
     exit();
 }
 
-
 if (isset($_GET['id'])) {
     $product_id = $conn->real_escape_string($_GET['id']);
     $query = "SELECT * FROM products WHERE id = '$product_id'";
@@ -33,7 +32,6 @@ if (isset($_GET['id'])) {
     header('Location: productview.php');
     exit();
 }
-
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sku = $conn->real_escape_string($_POST['sku']);

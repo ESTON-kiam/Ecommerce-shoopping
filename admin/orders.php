@@ -26,7 +26,6 @@ $recent_orders = $conn->query("
     LIMIT 5
 ");
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

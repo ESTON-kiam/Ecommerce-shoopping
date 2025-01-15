@@ -48,8 +48,7 @@ $conn->close();
     <link href="assets/img/cart.jpg" rel="icon">
     <link href="assets/img/cart.jpg" rel="apple-touch-icon">
    <link href="assets/css/adminlogin.css" rel="stylesheet">
-   <style>
-        
+   <style>       
         body {
             font-family: 'Roboto', sans-serif;
             display: flex;
@@ -59,8 +58,7 @@ $conn->close();
             margin: 0;
             background: linear-gradient(135deg, #5cb85c, #2e8b57);
         }
-        
-        
+              
         .login-container {
             background-color: #fff;
             padding: 30px;
@@ -69,8 +67,7 @@ $conn->close();
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
             text-align: center;
-        }
-        
+        }       
         
         h2 {
             margin-bottom: 20px;

@@ -33,11 +33,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows > 0) {
         $admin = $result->fetch_assoc();
-
         
         $token = bin2hex(random_bytes(32));
         $tokenExpiry = date('Y-m-d H:i:s', strtotime('+1 hour'));
-
         
         $updateStmt = $conn->prepare("UPDATE admins SET reset_token = ?, reset_token_expiry = ? WHERE id = ?");
         $updateStmt->bind_param("ssi", $token, $tokenExpiry, $admin['id']);
@@ -45,7 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($updateStmt->execute()) {
             
             $resetLink = "http://localhost:8000/admin/reset_password.php?token=" . $token;
-
             
             $mail = new PHPMailer(true);
             try {

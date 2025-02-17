@@ -25,7 +25,7 @@ if (isset($_POST['delete_id'])) {
     } else {
         $_SESSION['error'] = "Error deleting product!";
     }
-    header('Location: adminproductview.php');
+    header('Location: productview.php');
     exit();
 }
 

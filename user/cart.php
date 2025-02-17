@@ -166,7 +166,7 @@ try {
             ModernCart
         </a>
         <form class="search-bar" method="GET">
-            <input type="text" name="search" placeholder="Search products..." value="<?php echo htmlspecialchars($search); ?>" />
+            <input type="text" name="search" placeholder="Search products by Description or category..." value="<?php echo htmlspecialchars($search); ?>" />
         </form>
         <div class="header-icons">
             <div class="account-dropdown">

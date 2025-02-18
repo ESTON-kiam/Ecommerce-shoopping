@@ -1,5 +1,3 @@
-
-
     function addToCart(productId) {
   fetch('<?php echo $_SERVER["SCRIPT_NAME"]; ?>', {
     method: 'POST',
@@ -84,4 +82,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-

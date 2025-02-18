@@ -1,4 +1,3 @@
-
         function previewImage(input) {
             const preview = document.getElementById('preview');
             const file = input.files[0];
@@ -16,4 +15,3 @@
                 preview.style.display = 'none';
             }
         }
-   

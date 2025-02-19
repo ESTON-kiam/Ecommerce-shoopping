@@ -69,7 +69,6 @@ $order_result = $conn->query($order_query);
             <?php else: ?>
                 <p>No orders found.</p>
             <?php endif; ?>
-
         </div>
     </div>
 </body>

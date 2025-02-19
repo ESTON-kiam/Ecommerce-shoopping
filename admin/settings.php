@@ -17,7 +17,6 @@ if (!isset($_SESSION['admin_id'])) {
     header('Location: index.php');
     exit();
 }
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   
     $site_name = $_POST['site_name'];

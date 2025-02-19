@@ -70,7 +70,6 @@ try {
 <?php include('include/sidebar.php'); ?>        
         <div class="main-content">
             <h1>Customer Details</h1>
-            
             <?php if (isset($customer)): ?>
                 <div class="customer-details">
                     <table>
@@ -101,7 +100,6 @@ try {
                     </table>
                 </div>
             <?php endif; ?>
-            
             <a href="customers.php" class="btn btn-primary">Back to Customers</a>
         </div>
     </div>

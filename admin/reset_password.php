@@ -100,7 +100,6 @@ $conn->close();
     <link href="assets/img/cart.jpg" rel="icon">
     <link href="assets/img/cart.jpg" rel="apple-touch-icon">
     <link href="assets/css/resetpass.css" rel="stylesheet">
-    
 </head>
 <body>
     <div class="reset-password-container">

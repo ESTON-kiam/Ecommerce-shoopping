@@ -108,7 +108,6 @@ try {
                         <p><strong>Total Amount:</strong> KSH <?php echo number_format($order['total_amount'], 2); ?></p>
                     </div>
                 </div>
-
                 <h3 class="mt-4">Order Items</h3>
                 <div class="table-responsive">
                     <table class="table table-striped">

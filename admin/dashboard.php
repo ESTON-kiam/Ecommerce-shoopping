@@ -82,7 +82,7 @@ $low_stock_products = $conn->query("
                             <th>Order ID</th>
                             <th>Customer Name</th>
                             <th>Amount</th>
-                            <th>Date</th>
+                            <th>Date Of Order</th>
                             <th>Order Status</th>
                             <th>Action</th>
                         </tr>

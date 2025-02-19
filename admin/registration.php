@@ -91,6 +91,7 @@ $conn->close();
 
             <button type="submit">Register</button>
         </form>
+        <a href="dashboard.php" class="dashboard">Dashboard</a>
     </div>
     <script>
 document.addEventListener("contextmenu", function (e) {

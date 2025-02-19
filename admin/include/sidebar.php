@@ -225,12 +225,13 @@ if (isset($_SESSION['admin_id'])) {
                 <li><a href="dashboard.php" class="active">
                     <i class="fas fa-home"></i><span>Dashboard</span>
                 </a></li>
-                <li><a href="addproducts.php">
-                    <i class="fas fa-plus-circle"></i><span>Add Products</span>
-                </a></li>
                 <li><a href="registration.php">
                     <i class="fas fa-plus-circle"></i><span>Add Vendors</span>
                 </a></li>
+                <li><a href="addproducts.php">
+                    <i class="fas fa-plus-circle"></i><span>Add Products</span>
+                </a></li>
+                
                 <li><a href="productview.php">
                     <i class="fas fa-box"></i><span>Products</span>
                 </a></li>

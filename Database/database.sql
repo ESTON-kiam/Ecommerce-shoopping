@@ -76,11 +76,7 @@ CREATE TABLE `mpesa_payments` (
   `order_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `orders`
---
 
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,

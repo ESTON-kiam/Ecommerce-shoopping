@@ -218,8 +218,8 @@ if (isset($_SESSION['admin_id'])) {
                 <i class="fas fa-bars"></i>
             </button>
             <div class="sidebar-header">
-                <img src="assets/img/cart.jpg" alt="Logo">
-                <h2>Vendor Panel</h2>
+            <i class="fas fa-shopping-cart"></i>
+            <h2>Vendor Panel</h2>
             </div>
             <ul>
                 <li><a href="dashboard.php" class="active">

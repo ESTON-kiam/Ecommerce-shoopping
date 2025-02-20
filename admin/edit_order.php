@@ -35,42 +35,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_order"])) {
    
     $order_id = $_POST["order_id"];
     
-    $customer_id = filter_var($_POST["customer_id"], FILTER_SANITIZE_NUMBER_INT);
-    $total_amount = filter_var($_POST["total_amount"], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $shipping_address = htmlspecialchars($_POST["shipping_address"]);
     $city = htmlspecialchars($_POST["city"]);
     $phone = htmlspecialchars($_POST["phone"]);
-    $payment_method = $_POST["payment_method"];
     $payment_status = $_POST["payment_status"];
     $status = $_POST["status"];
     $transaction_id = htmlspecialchars($_POST["transaction_id"]);
     $product_details = $_POST["product_details"];
     
+   
     $sql1 = "UPDATE orders SET 
-            customer_id = ?, 
-            total_amount = ?, 
             shipping_address = ?, 
             city = ?, 
             phone = ?, 
-            payment_method = ?, 
             payment_status = ?, 
             status = ?, 
             transaction_id = ?
             WHERE id = ?";
     
     $stmt1 = $conn->prepare($sql1);
+    
     $stmt1->bind_param(
-        "idsssssssi", 
-        $customer_id, 
-        $total_amount,
+        "ssssssi", 
         $shipping_address,
         $city,
         $phone,
-        $payment_method,
         $payment_status,
         $status,
         $transaction_id,
-        $order_id  
+        $order_id
     );
     
     if ($stmt1->execute()) {
@@ -122,6 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_order"])) {
     $error_message = "No order ID specified.";
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

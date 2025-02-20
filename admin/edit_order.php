@@ -46,7 +46,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_order"])) {
     $transaction_id = htmlspecialchars($_POST["transaction_id"]);
     $product_details = $_POST["product_details"];
     
-    // Fix: Added 'i' at the end of type string to match the order_id parameter
     $sql1 = "UPDATE orders SET 
             customer_id = ?, 
             total_amount = ?, 

@@ -128,93 +128,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_order"])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="assets/img/cart.jpg" rel="icon">
+    <link href="assets/img/cart.jpg" rel="apple-touch-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Order</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        .admin-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #333;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
-        }
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .full-width {
-            grid-column: span 2;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input[type="text"],
-        input[type="number"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .form-actions {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-            grid-column: span 2;
-        }
-        .btn {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-        }
-        .btn-primary {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .btn-secondary {
-            background-color: #f1f1f1;
-            color: #333;
-        }
-        .error-message {
-            background-color: #ffebee;
-            color: #c62828;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-        .success-message {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-    </style>
+   <link href="assets/css/editorder.css" rel="stylesheet">
 </head>
 <body>
     <div class="admin-container">
@@ -232,16 +150,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_order"])) {
             <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <input type="hidden" name="order_id" value="<?php echo $order_id; ?>">
                 
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="customer_id">Customer ID:</label>
-                        <input type="number" id="customer_id" name="customer_id" value="<?php echo $customer_id; ?>" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="total_amount">Total Amount:</label>
-                        <input type="number" id="total_amount" name="total_amount" step="0.01" value="<?php echo $total_amount; ?>" required>
-                    </div>
+                <div class="form-grid">               
                     
                     <div class="form-group">
                         <label for="shipping_address">Shipping Address:</label>
@@ -262,16 +171,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_order"])) {
                         <label for="transaction_id">Transaction ID:</label>
                         <input type="text" id="transaction_id" name="transaction_id" value="<?php echo $transaction_id; ?>">
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="payment_method">Payment Method:</label>
-                        <select id="payment_method" name="payment_method" required>
-                            <option value="mpesa" <?php echo ($payment_method == 'mpesa') ? 'selected' : ''; ?>>M-Pesa</option>
-                            <option value="card" <?php echo ($payment_method == 'card') ? 'selected' : ''; ?>>Card</option>
-                            <option value="cash" <?php echo ($payment_method == 'cash') ? 'selected' : ''; ?>>Cash</option>
-                        </select>
-                    </div>
-                    
+                                   
                     <div class="form-group">
                         <label for="payment_status">Payment Status:</label>
                         <select id="payment_status" name="payment_status" required>
@@ -324,7 +224,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_order"])) {
     </script>
 </body>
 </html>
-
 <?php
 $conn->close();
 ?>

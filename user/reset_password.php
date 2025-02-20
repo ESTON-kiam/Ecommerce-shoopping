@@ -120,7 +120,6 @@ $conn->close();
         
         <a href="index.php" class="login-link">Back to Login</a>
     </div>
-
     <script>
         function validateForm() {
             const newPassword = document.getElementById('new_password').value;
@@ -134,8 +133,7 @@ $conn->close();
             if (newPassword !== confirmPassword) {
                 alert("Passwords do not match.");
                 return false;
-            }
-            
+            }  
             return true;
         }
     </script>

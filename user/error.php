@@ -12,7 +12,7 @@ http_response_code(404);
     <div class="error-container">
         <h1>404 - Page Not Found</h1>
         <p>Sorry, the page you are looking for might have been removed or is temporarily unavailable.</p>
-        <a href="/" class="home-link">Return to Home</a>
+        <a href="index.php" class="home-link">Return to Home</a>
     </div>
 </body>
 </html>

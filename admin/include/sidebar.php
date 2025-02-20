@@ -233,7 +233,7 @@ if (isset($_SESSION['admin_id'])) {
                 </a></li>
                 
                 <li><a href="productview.php">
-                    <i class="fas fa-box"></i><span>Products</span>
+                    <i class="fas fa-box"></i><span>Manage Products</span>
                 </a></li>
                 <li><a href="orders.php">
                     <i class="fas fa-shopping-cart"></i><span>Orders</span>

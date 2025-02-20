@@ -101,6 +101,7 @@ $low_stock_products = $conn->query("
                             </td>
                             <td>
                                 <a href="view_order.php?id=<?php echo $order['id']; ?>" class="btn btn-primary">View</a>
+                                <a href="edit_order.php?id=<?php echo $order['id']; ?>" class="btn btn-primary">Edit</a>
                             </td>
                         </tr>  
                         <?php endwhile; ?>

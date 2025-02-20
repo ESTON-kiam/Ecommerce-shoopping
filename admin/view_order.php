@@ -60,7 +60,6 @@ try {
     if (json_last_error() !== JSON_ERROR_NONE) {
         throw new Exception("Error decoding product details");
     }
-
     
     $product_ids = array_column($product_details, 'id');
     $placeholders = str_repeat('?,', count($product_ids) - 1) . '?';
@@ -73,7 +72,6 @@ try {
     die("An error occurred: " . $e->getMessage());
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

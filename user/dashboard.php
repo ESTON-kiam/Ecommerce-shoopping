@@ -90,14 +90,13 @@ try {
 } catch (Exception $e) {
     error_log("Dashboard error: " . $e->getMessage());
     $_SESSION['error'] = "An error occurred while loading the dashboard. Please try again.";
-    header("Location: /error.php");
+    header("Location: error.php");
     exit();
 } finally {
     if (isset($stmt) && $stmt instanceof mysqli_stmt) {
         $stmt->close();
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

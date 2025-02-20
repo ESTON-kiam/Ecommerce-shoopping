@@ -7,20 +7,17 @@ $username = "root";
 $password = "";
 $dbname = "ecommerce";
 
-
 try {
     $conn = new mysqli($servername, $username, $password, $dbname);
     
     if ($conn->connect_error) {
         throw new Exception("Connection failed: " . $conn->connect_error);
-    }
-    
+    }    
     
     if (!isset($_SESSION['admin_id'])) {
         header('Location: index.php');
         exit();
-    }
-    
+    }    
     
     if (isset($_GET['customer_id'])) {
         

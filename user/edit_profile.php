@@ -8,7 +8,6 @@ session_start([
     'cookie_samesite' => 'Strict',
 ]);
 
-
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -30,7 +29,6 @@ try {
     $customer_id = $_SESSION['customers']['id'];
     $error = '';
     $success = '';
-
    
     $stmt = $conn->prepare("SELECT * FROM customers WHERE customer_id = ?");
     $stmt->bind_param("i", $customer_id);

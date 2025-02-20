@@ -18,18 +18,12 @@ CREATE TABLE `admins` (
   `reset_token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `admins`
---
+
 
 INSERT INTO `admins` (`id`, `username`, `password`, `phone`, `email`, `created_at`, `reset_token`, `reset_token_expiry`) VALUES
 (1, 'estonkiam', '$2y$10$LhPH2oOjs86DP6Zav39Ga.5wT9Rvu45.fByLgMRTUFj5YqoXOAlN6', '254757196660', 'engestonbrandonkiama@gmail.com', '2024-11-11 11:29:48', NULL, NULL);
 
--- --------------------------------------------------------
 
---
--- Table structure for table `customers`
---
 
 CREATE TABLE `customers` (
   `customer_id` int(11) NOT NULL,
@@ -49,9 +43,6 @@ CREATE TABLE `customers` (
   `reset_token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `customers`
---
 
 INSERT INTO `customers` (`customer_id`, `first_name`, `last_name`, `email`, `password`, `phone`, `address_line1`, `address_line2`, `city`, `state`, `postal_code`, `country`, `created_at`, `reset_token`, `reset_token_expiry`) VALUES
 (1, 'Milton', 'Otieno', 'estonnmose@gmail.com', '$2y$10$D7ugX4e4nFCZoa701ZxxDOZtRknOUCpH7QmUrdNY7l6WNJmXleEMi', '0757196660', 'Temple', 'Kindaruma', 'Nairobi', '0100', '272002', 'Kenya', '2024-11-18 07:49:41', NULL, NULL),
@@ -94,18 +85,12 @@ CREATE TABLE `orders` (
   `product_details` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `orders`
---
+
 
 INSERT INTO `orders` (`id`, `customer_id`, `total_amount`, `shipping_address`, `city`, `phone`, `payment_method`, `payment_status`, `status`, `transaction_id`, `created_at`, `updated_at`, `product_details`) VALUES
 (95, 1, 16049.89, 'Temple', 'Nairobi', '0757196660', 'card', 'pending', 'pending', NULL, '2025-02-18 07:37:16', '2025-02-18 07:37:16', '[{\"id\":4,\"name\":\" Coffee Table\",\"price\":6750,\"quantity\":1,\"item_total\":6750,\"stock_quantity\":10,\"image\":\"6731f5142a191.jpg\"},{\"id\":18,\"name\":\"Ramtons RM\\/582\",\"price\":9299.89,\"quantity\":1,\"item_total\":9299.89,\"stock_quantity\":10,\"image\":\"673dc6610f148.jpg\"}]');
 
--- --------------------------------------------------------
 
---
--- Table structure for table `order_items`
---
 
 CREATE TABLE `order_items` (
   `id` int(11) NOT NULL,
@@ -136,12 +121,7 @@ END
 $$
 DELIMITER ;
 
--- --------------------------------------------------------
 
---
--- Stand-in structure for view `order_summaries`
--- (See below for the actual view)
---
 CREATE TABLE `order_summaries` (
 `order_id` int(11)
 ,`customer_id` int(11)

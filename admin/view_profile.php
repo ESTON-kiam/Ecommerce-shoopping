@@ -7,12 +7,10 @@ $username = "root";
 $password = "";
 $dbname = "ecommerce";
 
-
 if (!isset($_SESSION['admin_id'])) {
     header('Location: index.php');
     exit();
 }
-
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     echo "Invalid customer ID.";
@@ -20,7 +18,6 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 }
 
 $customer_id = intval($_GET['id']);
-
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
@@ -60,7 +57,6 @@ if ($result->num_rows === 0) {
 
 $customer = $result->fetch_assoc();
 
-
 $orders_stmt = $conn->prepare("
     SELECT 
         id, 
@@ -79,7 +75,6 @@ $orders_stmt->bind_param("i", $customer_id);
 $orders_stmt->execute();
 $orders_result = $orders_stmt->get_result();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -137,10 +132,10 @@ $orders_result = $orders_stmt->get_result();
 
             <div class="profile-container">
                 <div class="profile-details">
-                    <h2>Personal Information</h2>
+                    <h2>Customer Information</h2>
                     <table>
                         <tr>
-                            <th>Customer ID:</th>
+                            <th>ID:</th>
                             <td><?php echo $customer['customer_id']; ?></td>
                         </tr>
                         <tr>

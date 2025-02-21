@@ -250,6 +250,7 @@ if (isset($_SESSION['admin_id'])) {
                 <li><a href="logout.php">
                     <i class="fas fa-sign-out-alt"></i><span>Logout</span>
                 </a></li>
+                
             </ul>
             <div class="user-profile">
                 <img src="assets/img/cart.jpg" alt="User Avatar">

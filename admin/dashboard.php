@@ -82,6 +82,7 @@ $low_stock_products = $conn->query("
                             <th>Order ID</th>
                             <th>Customer Name</th>
                             <th>Amount</th>
+                            <th>Payment Status</th>
                             <th>Date Of Order</th>
                             <th>Order Status</th>
                             <th>Action</th>
@@ -93,6 +94,7 @@ $low_stock_products = $conn->query("
                             <td><?php echo $order['id']; ?></td>
                             <td><?php echo htmlspecialchars($order['customer_name']); ?></td>
                             <td>KSH<?php echo number_format($order['total_amount'], 2); ?></td>
+                            <td><?php echo htmlspecialchars($order['payment_status']); ?></td>
                             <td><?php echo date('M d, Y', strtotime($order['created_at'])); ?></td>
                             <td>
                                 <span class="status <?php echo strtolower($order['status']); ?>">

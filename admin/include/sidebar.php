@@ -85,7 +85,7 @@ if (isset($_SESSION['admin_id'])) {
             display: flex;
             align-items: center;
             padding: 20px 0;
-            margin-bottom: 30px;
+            margin-bottom: auto;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -247,10 +247,19 @@ if (isset($_SESSION['admin_id'])) {
                 <li><a href="settings.php">
                     <i class="fas fa-cog"></i><span>Settings</span>
                 </a></li>
-                <li><a href="logout.php">
+                <li>
+  <a href="change-password.php">
+    <i class="fas fa-key"></i><span>change password</span>
+  </a>
+</li>
+
+                
+                <li>
+ 
+<li><a href="logout.php">
                     <i class="fas fa-sign-out-alt"></i><span>Logout</span>
                 </a></li>
-                
+
             </ul>
             <div class="user-profile">
                 <img src="assets/img/cart.jpg" alt="User Avatar">

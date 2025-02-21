@@ -68,6 +68,7 @@ $customers = $conn->query("SELECT * FROM customers ORDER BY first_name");
                             </td>
                             <td>
                                 <a href="view_profile.php?id=<?php echo $customer['customer_id']; ?>" class="btn btn-primary">View</a>
+                                <a href="delete_customer.php?id=<?php echo $customer['customer_id']; ?>" class="btn btn-primary">Delete</a>
                             </td>
                         </tr>
                         <?php endwhile; ?>

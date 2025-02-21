@@ -104,6 +104,7 @@ try {
                         <h3>Order Details</h3>
                         <p><strong>Order Date:</strong> <?php echo date('M d, Y H:i', strtotime($order['created_at'])); ?></p>
                         <p><strong>Total Amount:</strong> KSH <?php echo number_format($order['total_amount'], 2); ?></p>
+                        <p><strong>Payment Status:</strong><?php echo $order['payment_status']; ?></p>
                     </div>
                 </div>
                 <h3 class="mt-4">Order Items</h3>

@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Change Password</title>
+    <title>Change Password -Vendor Dashboard</title>
     <style>
         body { font-family: Arial, sans-serif; }
         form { max-width: 400px; margin: 20px auto; }
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
-    <h2 style="text-align:center;">Change Password</h2>
+    <h2 style="text-align:center;">Change Password </h2>
     <?php if ($message): ?>
         <p class="message"><?php echo htmlspecialchars($message); ?></p>
     <?php endif; ?>
@@ -97,5 +97,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form action="logout.php" method="post" style="text-align:center; margin-top:20px;">
     <button type="submit">Logout</button>
 </form>
+
 </body>
 </html>

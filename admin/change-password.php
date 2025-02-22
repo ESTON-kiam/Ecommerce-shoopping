@@ -97,6 +97,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form action="logout.php" method="post" style="text-align:center; margin-top:20px;">
     <button type="submit">Logout</button>
 </form>
-
 </body>
 </html>

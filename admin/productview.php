@@ -19,7 +19,6 @@ if (!isset($_SESSION['admin_id'])) {
 
 if (isset($_POST['delete_id'])) {
     $delete_id = $conn->real_escape_string($_POST['delete_id']);
-
     
     $image_query = "SELECT image FROM products WHERE id = '$delete_id'";
     $image_result = $conn->query($image_query);

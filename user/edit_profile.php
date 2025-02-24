@@ -1,17 +1,5 @@
 <?php
-session_name('customer_session');
-session_start([
-    'cookie_lifetime' => 1800, 
-    'cookie_path' => '/',
-    'cookie_secure' => false, 
-    'cookie_httponly' => true,
-    'cookie_samesite' => 'Strict',
-]);
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "ecommerce";
+require 'include/db_connection.php';
 
 try {
     $conn = new mysqli($servername, $username, $password, $dbname);

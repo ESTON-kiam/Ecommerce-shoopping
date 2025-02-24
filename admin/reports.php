@@ -1,22 +1,5 @@
 <?php
-session_name('admin_session');
-session_start();
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "ecommerce";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-if (!isset($_SESSION['admin_id'])) {
-    header('Location: index.php');
-    exit();
-}
+require 'include/db_connection.php';
 
 $order_query = "SELECT orders.id,orders.payment_status,customers.first_name, customers.last_name, orders.created_at, orders.status, orders.total_amount 
                 FROM orders

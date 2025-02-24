@@ -1,17 +1,5 @@
 <?php
-session_name('customer_session');
-session_start();
-
-if (!isset($_SESSION['customers']) || !isset($_SESSION['customers']['id'])) {
-    header("Location: index.php");
-    exit();
-}
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "ecommerce";
-
+require 'include/db_connection.php';
 try {
     $conn = new mysqli($servername, $username, $password, $dbname);
     

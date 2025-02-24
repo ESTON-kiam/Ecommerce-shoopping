@@ -252,13 +252,12 @@ if (isset($_SESSION['admin_id'])) {
     <i class="fas fa-key"></i><span>change password</span>
   </a>
 </li>
-
-                
-                <li>
  
 <li><a href="logout.php">
                     <i class="fas fa-sign-out-alt"></i><span>Logout</span>
                 </a></li>
+
+                
 
             </ul>
             <div class="user-profile">

@@ -63,6 +63,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="assets/img/cart.jpg" rel="icon">
+    <link href="assets/img/cart.jpg" rel="apple-touch-icon">
     <title>Change Password -Vendor Dashboard</title>
     <style>
         body { font-family: Arial, sans-serif; }

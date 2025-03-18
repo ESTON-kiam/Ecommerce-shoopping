@@ -75,7 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <link href="assets/css/editproduct.css" rel="stylesheet">
 </head>
 <body>
-    
     <div class="container">
         <h2>Edit Product</h2>
         <form action="" method="POST" enctype="multipart/form-data">

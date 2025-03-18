@@ -6,7 +6,6 @@ if (!isset($_GET['id'])) {
 
 $order_id = $_GET['id'];
 
-
 $host = 'localhost';
 $db   = 'ecommerce';
 $user = 'root';

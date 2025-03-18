@@ -94,7 +94,6 @@ $low_stock_products = $conn->query("
                     </tbody>
                 </table>
             </div>
-
             <div class="low-stock">
                 <h2>Low Stock Products</h2>
                 <table>
@@ -124,7 +123,6 @@ $low_stock_products = $conn->query("
     </div>
 </body>
 </html>
-
 <?php
 $conn->close();
 ?>

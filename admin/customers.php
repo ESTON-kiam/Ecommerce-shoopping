@@ -28,7 +28,6 @@ $customers = $conn->query("SELECT * FROM customers ORDER BY first_name");
                     <div class="value"><?php echo $total_customers; ?></div>
                 </div>
             </div>
-
             <div class="customers-list">
                 <h2>All Customers</h2>
                 <table>

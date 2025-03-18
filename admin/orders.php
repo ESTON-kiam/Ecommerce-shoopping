@@ -71,7 +71,6 @@ $recent_orders = $conn->query("
     </div>
 </body>
 </html>
-
 <?php
 $conn->close();
 ?>

@@ -115,8 +115,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_order"])) {
     $error_message = "No order ID specified.";
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -200,7 +198,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_order"])) {
             <p>Return to <a href="orders.php">Orders List</a></p>
         <?php endif; ?>
     </div>
-    
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('form').addEventListener('submit', function(e) {

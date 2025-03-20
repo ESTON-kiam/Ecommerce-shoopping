@@ -24,7 +24,7 @@ try {
         
         if (!empty($productIds)) {
             $placeholders = str_repeat('?,', count($productIds) - 1) . '?';
-            // Updated query to include percentage_discount and calculate discounted price
+           
             $query = "SELECT id, name, price, image, percentage_discount, 
                      (price - (price * percentage_discount / 100)) AS discounted_price 
                      FROM products WHERE id IN ($placeholders)";
@@ -43,7 +43,7 @@ try {
                     foreach ($products as $product) {
                         if (isset($cartItems[$product['id']])) {
                             $quantity = max(1, intval($cartItems[$product['id']]));
-                            // Use discounted_price if available
+                            
                             $price = isset($product['discounted_price']) ? $product['discounted_price'] : $product['price'];
                             $totalPrice += $price * $quantity;
                         }
@@ -59,9 +59,9 @@ try {
     $search = isset($_GET['search']) ? trim($_GET['search']) : '';
     $sort = isset($_GET['sort']) ? $_GET['sort'] : 'default';
     
-    // Handle AJAX cart updates
+   
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Check for AJAX request
+       
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
             header('Content-Type: application/json');
             
@@ -71,7 +71,7 @@ try {
                 $productId = intval($input['productId']);
                 
                 if (isset($input['action']) && $input['action'] === 'remove') {
-                    // Remove item from cart
+                   
                     unset($_SESSION['cart'][$productId]);
                     echo json_encode([
                         'success' => true,
@@ -79,7 +79,7 @@ try {
                         'cartCount' => count($_SESSION['cart'])
                     ]);
                 } else if (isset($input['quantity'])) {
-                    // Update quantity
+                   
                     $quantity = max(1, intval($input['quantity']));
                     $_SESSION['cart'][$productId] = $quantity;
                     echo json_encode([
@@ -91,7 +91,7 @@ try {
                 exit;
             }
         } 
-        // Handle normal form submissions
+       
         else if (isset($_POST['action'])) {
             switch ($_POST['action']) {
                 case 'update':
@@ -291,10 +291,10 @@ function removeFromCart(productId) {
        cartItem.remove();
        showToast('Item removed from cart!');
        
-       // Update total price immediately
+       
        updateTotalPrice();
        
-       // Send AJAX request to update server-side cart
+      
        fetch('cart.php', {
            method: 'POST',
            headers: { 
@@ -308,7 +308,7 @@ function removeFromCart(productId) {
            if (data.success) {
                updateCartCount(data.cartCount);
                
-               // If cart is empty, refresh the page to show empty cart view
+              
                if (data.cartCount === 0) {
                    window.location.reload();
                }

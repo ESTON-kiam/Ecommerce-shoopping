@@ -22,7 +22,7 @@ try {
     if (!empty($productIds)) {
         $placeholders = implode(',', array_fill(0, count($productIds), '?'));
         
-        // Fetch products with discounts
+        
         $query = "SELECT id, name, price, stock_quantity, percentage_discount 
                   FROM products WHERE id IN ($placeholders)";
         $stmt = $conn->prepare($query);
@@ -36,17 +36,17 @@ try {
             $productId = $row['id'];
             $quantity = isset($cartItems[$productId]) ? max(1, intval($cartItems[$productId])) : 0;
 
-            // Calculate discounted price
+           
             $originalPrice = floatval($row['price']);
             $discount = floatval($row['percentage_discount']);
             $discountedPrice = $originalPrice - ($originalPrice * $discount / 100);
 
-            // Use discounted price for calculations
+           
             $itemPrice = ($discount > 0) ? $discountedPrice : $originalPrice;
             $itemTotal = round($itemPrice * $quantity, 2);
             $totalPrice += $itemTotal;
 
-            // Fetch product image
+          
             $image_stmt = $conn->prepare("SELECT image FROM products WHERE id = ?");
             $image_stmt->bind_param("i", $productId);
             $image_stmt->execute();
@@ -82,10 +82,10 @@ try {
         if (empty($errors)) {
             $conn->begin_transaction();
             try {
-                // Encode product details for storage
+              
                 $productDetailsJson = json_encode($productDetails);
 
-                // Insert order into the database
+               
                 $stmt = $conn->prepare(
                     "INSERT INTO orders (
                         customer_id, 
@@ -99,7 +99,7 @@ try {
                     ) VALUES (?, ?, ?, ?, ?, ?, 'pending', ?)"
                 );
 
-                // Bind parameters
+                
                 $stmt->bind_param(
                     "dssssss", 
                     $customerId, 
@@ -115,7 +115,7 @@ try {
                 $orderId = $conn->insert_id;
                 $stmt->close();
             
-                // Update product stock quantities
+               
                 foreach ($productDetails as $product) {
                     $newStockQuantity = $product['stock_quantity'] - $product['quantity'];
                     $stmt = $conn->prepare("UPDATE products SET stock_quantity = ? WHERE id = ?");

@@ -1,7 +1,7 @@
 <?php
 session_name('customer_session');
 session_start([
-    'cookie_lifetime' => 1800,
+    'cookie_lifetime' => 3600,
     'cookie_path' => '/',
     'cookie_secure' => false,
     'cookie_httponly' => true,

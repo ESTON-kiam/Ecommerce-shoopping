@@ -1,21 +1,5 @@
 <?php
-session_name('admin_session');
-session_start();
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "ecommerce";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-if (!isset($_SESSION['admin_id'])) {
-    header('Location: index.php');
-    exit();
-}
+include 'include/db_connection.php';
 
 if (isset($_GET['id'])) {
     $product_id = $conn->real_escape_string($_GET['id']);
@@ -40,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $price = $conn->real_escape_string($_POST['price']);
     $stock_quantity = $conn->real_escape_string($_POST['stock_quantity']);
     $category = $conn->real_escape_string($_POST['category']);
+    $percentage_discount = $conn->real_escape_string($_POST['percentage_discount']);
     $image = $product['image']; 
 
     
@@ -52,7 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     
     $update_query = "UPDATE products 
-                     SET sku='$sku', name='$name', description='$description', price='$price', stock_quantity='$stock_quantity', category='$category', image='$image' 
+                     SET sku='$sku', name='$name', description='$description', price='$price', 
+                         stock_quantity='$stock_quantity', category='$category', image='$image',
+                         percentage_discount='$percentage_discount' 
                      WHERE id='$product_id'";
     
     if ($conn->query($update_query)) {
@@ -93,6 +80,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-group">
                 <label for="price">Price (Ksh):</label>
                 <input type="number" name="price" step="0.01" value="<?php echo htmlspecialchars($product['price']); ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="percentage_discount">Discount (%):</label>
+                <input type="number" name="percentage_discount" step="0.01" min="0" max="100" value="<?php echo htmlspecialchars($product['percentage_discount'] ?? 0); ?>">
             </div>
             <div class="form-group">
                 <label for="stock_quantity">Stock Quantity:</label>

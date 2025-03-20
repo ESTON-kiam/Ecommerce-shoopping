@@ -19,7 +19,9 @@ try {
     $sort = isset($_GET['sort']) ? $_GET['sort'] : 'default';
     
     
-    $baseQuery = "SELECT id, category, name, description, price, image FROM products WHERE stock_quantity > 0";
+    $baseQuery = "SELECT id, category, name, description, price, image, percentage_discount, 
+                 (price - (price * percentage_discount / 100)) AS discounted_price 
+                 FROM products WHERE stock_quantity > 0";
     $params = [];
     $types = "";
     
@@ -32,10 +34,10 @@ try {
     
     switch ($sort) {
         case 'price_asc':
-            $baseQuery .= " ORDER BY price ASC";
+            $baseQuery .= " ORDER BY discounted_price ASC";
             break;
         case 'price_desc':
-            $baseQuery .= " ORDER BY price DESC";
+            $baseQuery .= " ORDER BY discounted_price DESC";
             break;
         case 'name_asc':
             $baseQuery .= " ORDER BY name ASC";
@@ -75,6 +77,7 @@ try {
     <meta name="description" content="Discover amazing products at great prices on our modern eCommerce platform">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="assets/css/index.css">
+    
 </head>
 <body>
 
@@ -140,12 +143,22 @@ try {
                     <img src="/admin/Products/<?php echo htmlspecialchars($row['image']); ?>" 
                          alt="<?php echo htmlspecialchars($row['name']); ?>"
                          loading="lazy">
+                    <?php if(isset($row['percentage_discount']) && $row['percentage_discount'] > 0): ?>
+                        <div class="discount-badge">-<?php echo $row['percentage_discount']; ?>%</div>
+                    <?php endif; ?>
                 </div>
                 <div class="product-details">
                     <span class="product-category"><?php echo htmlspecialchars($row['category']); ?></span>
                     <h2 class="product-name"><?php echo htmlspecialchars($row['name']); ?></h2>
                     <p class="product-description"><?php echo htmlspecialchars($row['description']); ?></p>
-                    <div class="product-price">Ksh <?php echo number_format($row['price'], 1); ?></div>
+                    <div class="product-price">
+                        <?php if(isset($row['percentage_discount']) && $row['percentage_discount'] > 0): ?>
+                            <span class="price-original">Ksh <?php echo number_format($row['price'], 1); ?></span>
+                            <span class="price-discounted">Ksh <?php echo number_format($row['discounted_price'], 1); ?></span>
+                        <?php else: ?>
+                            <span>Ksh <?php echo number_format($row['price'], 1); ?></span>
+                        <?php endif; ?>
+                    </div>
                     <button class="add-to-cart" onclick="addToCart(<?php echo $row['id']; ?>)">
                         Add to Cart
                     </button>

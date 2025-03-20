@@ -2,41 +2,37 @@
 require 'include/db_connection.php';
 
 try {
-  
     $conn = new mysqli($servername, $username, $password, $dbname);
     
     if ($conn->connect_error) {
         throw new Exception("Connection failed: " . $conn->connect_error);
     }
     
-    
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = array();
     }
     
-   
     $cartItems = $_SESSION['cart'];
     $products = [];
     $totalPrice = 0;
     
     if (!empty($cartItems)) {
-        
         $productIds = array_keys($cartItems);
         $productIds = array_filter($productIds, function($id) {
             return is_numeric($id) && $id > 0;
         });
         
         if (!empty($productIds)) {
-            
             $placeholders = str_repeat('?,', count($productIds) - 1) . '?';
-            $query = "SELECT id, name, price, image FROM products WHERE id IN ($placeholders)";
+            // Updated query to include percentage_discount and calculate discounted price
+            $query = "SELECT id, name, price, image, percentage_discount, 
+                     (price - (price * percentage_discount / 100)) AS discounted_price 
+                     FROM products WHERE id IN ($placeholders)";
             
             $stmt = $conn->prepare($query);
             if ($stmt) {
-                
                 $types = str_repeat('i', count($productIds));
                 $stmt->bind_param($types, ...$productIds);
-                
                 
                 $stmt->execute();
                 $result = $stmt->get_result();
@@ -44,11 +40,12 @@ try {
                 if ($result) {
                     $products = $result->fetch_all(MYSQLI_ASSOC);
                     
-                   
                     foreach ($products as $product) {
                         if (isset($cartItems[$product['id']])) {
                             $quantity = max(1, intval($cartItems[$product['id']]));
-                            $totalPrice += $product['price'] * $quantity;
+                            // Use discounted_price if available
+                            $price = isset($product['discounted_price']) ? $product['discounted_price'] : $product['price'];
+                            $totalPrice += $price * $quantity;
                         }
                     }
                 }
@@ -57,25 +54,45 @@ try {
             }
         }
     }
+    
     $isLoggedIn = true;
     $search = isset($_GET['search']) ? trim($_GET['search']) : '';
     $sort = isset($_GET['sort']) ? $_GET['sort'] : 'default';
     
-    
-    $baseQuery = "SELECT id, category, name, description, price, image FROM products WHERE 1=1";
-    $params = [];
-    $types = "";
-    
-    
-    if ($search) {
-        $baseQuery .= " AND (name LIKE ? OR description LIKE ? OR category LIKE ?)";
-        $searchParam = "%{$search}%";
-        $params = array_merge($params, [$searchParam, $searchParam, $searchParam]);
-        $types .= "sss";
-    }
-    
+    // Handle AJAX cart updates
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['action'])) {
+        // Check for AJAX request
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
+            header('Content-Type: application/json');
+            
+            $input = json_decode(file_get_contents('php://input'), true);
+            
+            if (isset($input['productId'])) {
+                $productId = intval($input['productId']);
+                
+                if (isset($input['action']) && $input['action'] === 'remove') {
+                    // Remove item from cart
+                    unset($_SESSION['cart'][$productId]);
+                    echo json_encode([
+                        'success' => true,
+                        'message' => 'Item removed from cart!',
+                        'cartCount' => count($_SESSION['cart'])
+                    ]);
+                } else if (isset($input['quantity'])) {
+                    // Update quantity
+                    $quantity = max(1, intval($input['quantity']));
+                    $_SESSION['cart'][$productId] = $quantity;
+                    echo json_encode([
+                        'success' => true,
+                        'message' => 'Cart updated!',
+                        'cartCount' => count($_SESSION['cart'])
+                    ]);
+                }
+                exit;
+            }
+        } 
+        // Handle normal form submissions
+        else if (isset($_POST['action'])) {
             switch ($_POST['action']) {
                 case 'update':
                     if (isset($_POST['product_id'], $_POST['quantity'])) {
@@ -102,7 +119,6 @@ try {
                     break;
             }
             
-        
             header("Location: " . $_SERVER['PHP_SELF']);
             exit();
         }
@@ -113,10 +129,6 @@ try {
     $_SESSION['error'] = "An error occurred while processing your cart. Please try again.";
     header("Location: /error.php");
     exit();
-} finally {
-    if (isset($conn) && $conn instanceof mysqli) {
-        
-    }
 }
 ?>
 <!DOCTYPE html>
@@ -128,11 +140,12 @@ try {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="assets/css/index.css">
     <link rel="stylesheet" href="assets/css/cart.css">
+    
 </head>
 <body>
 <header class="header">
     <div class="header-content">
-        <a href="/" class="logo">
+        <a href="dashboard.php" class="logo">
             <i class="fas fa-shopping-bag"></i>
             ModernCart
         </a>
@@ -157,7 +170,7 @@ try {
                     <div class="dropdown-content">
                         <a href="view_profile.php">My Account</a>
                         <a href="checkout.php">Orders</a>
-                        <a href="cart.php">Saved Items</a>
+                        <a href="saved_items.php">Saved Items</a>
                         <a href="logout.php">Sign Out</a>
                     </div>
                 <?php else: ?>
@@ -168,7 +181,7 @@ try {
             </div>
             <a href="cart.php">
                 <i class="fas fa-shopping-cart"></i>
-                <span>Cart (<?php echo count($_SESSION['cart']); ?>)</span>
+                <span id="cart-count">Cart (<?php echo count($_SESSION['cart']); ?>)</span>
             </a>
         </div>
     </div>
@@ -184,11 +197,18 @@ try {
            </div>
            <div class="product-details">
                <h2 class="product-name"><?php echo htmlspecialchars($product['name']); ?></h2>
-               <p class="product-price">Price Ksh <?php echo number_format($product['price'], 2); ?></p>
+               <div class="product-price">
+                    <?php if(isset($product['percentage_discount']) && $product['percentage_discount'] > 0): ?>
+                        <span class="price-original">Ksh <?php echo number_format($product['price'], 2); ?></span>
+                        <span class="price-discounted">Ksh <?php echo number_format($product['discounted_price'], 2); ?></span>
+                    <?php else: ?>
+                        <span>Ksh <?php echo number_format($product['price'], 2); ?></span>
+                    <?php endif; ?>
+                </div>
                <div class="product-quantity">
                    <button class="quantity-btn" onclick="updateQuantity(<?php echo $product['id']; ?>, -1)">-</button>
                    <input type="number" value="<?php echo $cartItems[$product['id']]; ?>" min="1" class="quantity-input" id="quantity-<?php echo $product['id']; ?>">
-                   <button class="quantity-btn" onclick="updateQuantity(<?php echo $product['id']; ?>, +1)">+</button>
+                   <button class="quantity-btn" onclick="updateQuantity(<?php echo $product['id']; ?>, 1)">+</button>
                </div>
                <button class="remove-from-cart" onclick="removeFromCart(<?php echo $product['id']; ?>)">Remove</button>
            </div>
@@ -234,7 +254,6 @@ function showToast(message) {
    setTimeout(() => { toast.classList.remove('show'); }, 3000);
 }
 
-
 function updateQuantity(productId, change) {
    const quantityInput = document.getElementById(`quantity-${productId}`);
    let newQuantity = parseInt(quantityInput.value) + change;
@@ -242,42 +261,74 @@ function updateQuantity(productId, change) {
    if (newQuantity <= 0) return;
 
    quantityInput.value = newQuantity;
-
    
+   // Update total price immediately for better UX
    updateTotalPrice();
-
-  
-   fetch('update-cart.php', {
+   
+   // Send AJAX request to update server-side cart
+   fetch('cart.php', {
        method: 'POST',
-       headers: { 'Content-Type': 'application/json' },
-       body: JSON.stringify({ productId, quantity: newQuantity })
+       headers: { 
+           'Content-Type': 'application/json',
+           'X-Requested-With': 'XMLHttpRequest'
+       },
+       body: JSON.stringify({ productId: productId, quantity: newQuantity })
    })
    .then(response => response.json())
-   .then(data => showToast(data.message))
+   .then(data => {
+       if (data.success) {
+           showToast(data.message);
+           updateCartCount(data.cartCount);
+       }
+   })
    .catch(error => console.error('Error:', error));
 }
+
 function removeFromCart(productId) {
    const cartItem = document.querySelector(`.cart-item[data-product-id="${productId}"]`);
+   
    if (cartItem) {
        cartItem.remove();
        showToast('Item removed from cart!');
-
-       fetch('remove-from-cart.php', {
+       
+       // Update total price immediately
+       updateTotalPrice();
+       
+       // Send AJAX request to update server-side cart
+       fetch('cart.php', {
            method: 'POST',
-           headers: { 'Content-Type': 'application/json' },
-           body: JSON.stringify({ productId })
+           headers: { 
+               'Content-Type': 'application/json',
+               'X-Requested-With': 'XMLHttpRequest'
+           },
+           body: JSON.stringify({ productId: productId, action: 'remove' })
        })
        .then(response => response.json())
-       .then(data => updateTotalPrice())
+       .then(data => {
+           if (data.success) {
+               updateCartCount(data.cartCount);
+               
+               // If cart is empty, refresh the page to show empty cart view
+               if (data.cartCount === 0) {
+                   window.location.reload();
+               }
+           }
+       })
        .catch(error => console.error('Error:', error));
    }
 }
+
+function updateCartCount(count) {
+   document.getElementById('cart-count').textContent = `Cart (${count})`;
+}
+
 function updateTotalPrice() {
    let totalPrice = 0;
 
    document.querySelectorAll('.cart-item').forEach(item => {
        const productId = item.dataset.productId;
-       const price = parseFloat(item.querySelector('.product-price').textContent.replace(/[^0-9.-]+/g,""));
+       const priceElement = item.querySelector('.price-discounted') || item.querySelector('.product-price span');
+       const price = parseFloat(priceElement.textContent.replace(/[^0-9.-]+/g,""));
        const quantity = parseInt(item.querySelector('.quantity-input').value);
        totalPrice += price * quantity;
    });

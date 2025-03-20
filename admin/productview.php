@@ -40,6 +40,33 @@ $result = $conn->query($query);
     <link href="assets/img/cart.jpg" rel="apple-touch-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/adminviewproduct.css">
+    <style>
+        .price-original {
+            text-decoration: line-through;
+            color: #777;
+            margin-right: 8px;
+        }
+        .price-discounted {
+            color: #e63946;
+            font-weight: bold;
+        }
+        .discount-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #e63946;
+            color: white;
+            padding: 2px 6px;
+            font-size: 0.8em;
+            font-weight: bold;
+            border-radius: 3px;
+        }
+        .product-image-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
 </head>
 <body>
 <?php include('include/sidebar.php'); ?>
@@ -89,13 +116,28 @@ $result = $conn->query($query);
                         <tr>
                             <td><?php echo $row['id']; ?></td>
                             <td>
-                                <img src="Products/<?php echo $row['image']; ?>" 
-                                     alt="<?php echo htmlspecialchars($row['name']); ?>" 
-                                     class="product-image">
+                                <div class="product-image-container">
+                                    <img src="Products/<?php echo $row['image']; ?>" 
+                                         alt="<?php echo htmlspecialchars($row['name']); ?>" 
+                                         class="product-image">
+                                    <?php if(isset($row['percentage_discount']) && $row['percentage_discount'] > 0): ?>
+                                        <span class="discount-badge">-<?php echo $row['percentage_discount']; ?>%</span>
+                                    <?php endif; ?>
+                                </div>
                             </td>
                             <td><?php echo htmlspecialchars($row['name']); ?></td>
                             <td><?php echo htmlspecialchars(substr($row['description'], 0, 100)) . '...'; ?></td>
-                            <td class="product-price">Ksh.<?php echo number_format($row['price'], 2); ?></td>
+                            <td class="product-price">
+                                <?php if(isset($row['percentage_discount']) && $row['percentage_discount'] > 0): ?>
+                                    <span class="price-original">Ksh.<?php echo number_format($row['price'], 2); ?></span>
+                                    <span class="price-discounted">Ksh.<?php 
+                                        $discounted_price = $row['price'] - ($row['price'] * $row['percentage_discount'] / 100);
+                                        echo number_format($discounted_price, 2); 
+                                    ?></span>
+                                <?php else: ?>
+                                    Ksh.<?php echo number_format($row['price'], 2); ?>
+                                <?php endif; ?>
+                            </td>
                             <td>
                                 <?php
                                     $stock_status = '';

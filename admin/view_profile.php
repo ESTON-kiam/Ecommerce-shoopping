@@ -236,9 +236,7 @@ $orders_result = $orders_stmt->get_result();
     </div>
 </body>
 </html>
-
 <?php
-
 $orders_stmt->close();
 $conn->close();
 ?>

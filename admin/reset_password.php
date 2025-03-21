@@ -17,12 +17,10 @@ $messageType = "";
 $validToken = false;
 $token = "";
 
-
 date_default_timezone_set('Africa/Nairobi'); 
 
 if (isset($_GET['token'])) {
     $token = $_GET['token'];
-    
     
     $stmt = $conn->prepare("SELECT id, username, reset_token_expiry FROM admins WHERE reset_token = ?");
     $stmt->bind_param("s", $token);
@@ -31,7 +29,6 @@ if (isset($_GET['token'])) {
     
     if ($result->num_rows > 0) {
         $admin = $result->fetch_assoc();
-        
         
         $currentTime = date('Y-m-d H:i:s');
         if ($admin['reset_token_expiry'] > $currentTime) {

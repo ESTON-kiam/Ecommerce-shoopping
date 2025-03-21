@@ -140,7 +140,6 @@ try {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="assets/css/index.css">
     <link rel="stylesheet" href="assets/css/cart.css">
-    
 </head>
 <body>
 <header class="header">
@@ -262,10 +261,10 @@ function updateQuantity(productId, change) {
 
    quantityInput.value = newQuantity;
    
-   // Update total price immediately for better UX
+   
    updateTotalPrice();
    
-   // Send AJAX request to update server-side cart
+   
    fetch('cart.php', {
        method: 'POST',
        headers: { 
@@ -290,11 +289,7 @@ function removeFromCart(productId) {
    if (cartItem) {
        cartItem.remove();
        showToast('Item removed from cart!');
-       
-       
-       updateTotalPrice();
-       
-      
+       updateTotalPrice();   
        fetch('cart.php', {
            method: 'POST',
            headers: { 

@@ -1,5 +1,4 @@
 <?php
-
 session_name('customer_session');
 session_start([
     'cookie_lifetime' => 1800, 
@@ -8,7 +7,6 @@ session_start([
     'cookie_httponly' => true,
     'cookie_samesite' => 'Strict',
 ]);
-
 
 function redirectToLogin() {
     session_unset();
@@ -34,13 +32,9 @@ $username = "root";
 $password = "";
 $dbname = "ecommerce";
 
-
     $conn = new mysqli($servername, $username, $password, $dbname);
     
     if ($conn->connect_error) {
         throw new Exception("Connection failed: " . $conn->connect_error);
     }
-    
-
-
 ?>

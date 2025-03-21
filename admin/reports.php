@@ -5,7 +5,6 @@ $order_query = "SELECT orders.id,orders.payment_status,customers.first_name, cus
                 FROM orders
                 JOIN customers ON orders.customer_id = customers.customer_id";
 $order_result = $conn->query($order_query);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

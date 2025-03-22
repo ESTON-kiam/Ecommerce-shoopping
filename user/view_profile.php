@@ -14,7 +14,6 @@ try {
     }
 
     $customer_id = $_SESSION['customers']['id'];
-
     $stmt = $conn->prepare("SELECT * FROM customers WHERE customer_id = ?");
     $stmt->bind_param("i", $customer_id);
     $stmt->execute();
@@ -40,7 +39,6 @@ try {
 <body>
     <div class="profile-container">
         <h2>My Profile</h2>
-        
         <?php if (isset($error)): ?>
             <p class="error-message"><?php echo htmlspecialchars($error); ?></p>
         <?php else: ?>
@@ -51,7 +49,6 @@ try {
                     <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
                     <p><strong>Phone:</strong> <?php echo htmlspecialchars($user['phone'] ?? 'Not provided'); ?></p>
                 </div>
-
                 <div class="profile-section">
                     <h3>Contact Information</h3>
                     <?php 

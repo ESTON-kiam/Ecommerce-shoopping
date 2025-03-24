@@ -134,6 +134,62 @@ try {
     </div>
 </div>
 
+
+<div class="discount-banner">
+    <div class="banner-content">
+        <div class="banner-header">
+            <h2>Flash Sale! <span class="highlight">Limited Time Offers</span></h2>
+            <p>Grab these exclusive deals before they're gone</p>
+        </div>
+        <div class="banner-products">
+            <?php
+            
+            $discountQuery = "SELECT id, name, image, price, percentage_discount, 
+                             (price - (price * percentage_discount / 100)) AS discounted_price 
+                             FROM products 
+                             WHERE percentage_discount > 0 AND stock_quantity > 0 
+                             ORDER BY percentage_discount DESC 
+                             LIMIT 4";
+            
+            $discountStmt = $conn->prepare($discountQuery);
+            $discountStmt->execute();
+            $discountResult = $discountStmt->get_result();
+            
+            if ($discountResult->num_rows > 0) {
+                while($discount = $discountResult->fetch_assoc()) {
+                    ?>
+                    <div class="banner-product">
+                        <div class="banner-product-image">
+                            <img src="/admin/Products/<?php echo htmlspecialchars($discount['image']); ?>" 
+                                alt="<?php echo htmlspecialchars($discount['name']); ?>">
+                            <div class="banner-discount-badge">-<?php echo $discount['percentage_discount']; ?>%</div>
+                        </div>
+                        <div class="banner-product-details">
+                            <h3><?php echo htmlspecialchars($discount['name']); ?></h3>
+                            <div class="banner-product-price">
+                                <span class="banner-price-original">Ksh <?php echo number_format($discount['price'], 1); ?></span>
+                                <span class="banner-price-discounted">Ksh <?php echo number_format($discount['discounted_price'], 1); ?></span>
+                            </div>
+                            <button class="banner-add-to-cart" onclick="addToCart(<?php echo $discount['id']; ?>)">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <?php
+                }
+            } else {
+                echo '<div class="no-discounts">No discounted products available at the moment.</div>';
+            }
+            
+            $discountStmt->close();
+            ?>
+        </div>
+        <div class="banner-cta">
+            <p>More deals available! <a href="?sort=price_asc">Shop All Discounts</a></p>
+        </div>
+    </div>
+</div>
+
 <div class="products">
     <?php if ($result->num_rows > 0): ?>
         <?php while($row = $result->fetch_assoc()): ?>
@@ -172,6 +228,7 @@ try {
         </div>
     <?php endif; ?>
 </div>
+
 <footer class="footer">
     <div class="footer-content">
         <div class="footer-section">

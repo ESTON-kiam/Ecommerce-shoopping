@@ -136,7 +136,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart - ModernCart</title>
+    <title>Cart - MyDuka</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="assets/css/index.css">
     <link rel="stylesheet" href="assets/css/cart.css">
@@ -146,7 +146,7 @@ try {
     <div class="header-content">
         <a href="dashboard.php" class="logo">
             <i class="fas fa-shopping-bag"></i>
-            ModernCart
+            MyDuka
         </a>
         <form class="search-bar" method="GET">
             <input type="text" name="search" placeholder="Search products by Description or category..." value="<?php echo htmlspecialchars($search); ?>" />

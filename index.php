@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to MyDuka We do Country wide Delivery</h1>
+        <h1>Welcome to ModernCart We do Country wide Delivery</h1>
         <div class="buttons-container">
             <button onclick="window.location.href='user'" class="login-button">
                 <div class="icon">

@@ -1,5 +1,16 @@
 <?php
-require 'include/db_connection.php';
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "ecommerce";
+
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if ($conn->connect_error) {
+        throw new Exception("Connection failed: " . $conn->connect_error);
+    }
+
 
 $errors = [];
 
@@ -115,7 +126,7 @@ $conn->close();
                     <label class="form-label">Phone Number</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                        <input type="tel" name="phone" class="form-control">
+                       <input type="tel" name="phone" class="form-control" pattern="[0-9]+" minlength="10" maxlength="15" placeholder="070XXXXXXXX" required>
                     </div>
                 </div>
 
@@ -127,7 +138,7 @@ $conn->close();
 
                 <div class="mb-3">
                     <label class="form-label">Address Line 2 (Optional)</label>
-                    <input type="text" name="address_line2" class="form-control">
+                    <input type="text" name="address_line2" class="form-control" required>
                 </div>
 
                 <div class="row">

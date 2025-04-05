@@ -84,7 +84,7 @@ try {
     <div class="header-content">
         <a href="dashboard.php" class="logo">
             <i class="fas fa-shopping-bag"></i>
-            MyDuka
+            ModernCart
         </a>
         <form class="search-bar" method="GET">
             <input type="text" name="search" placeholder="Search products by Description or category..." value="<?php echo htmlspecialchars($search); ?>" />
@@ -271,7 +271,7 @@ try {
         </div>
     </div>
     <div class="footer-bottom">
-        <p>&copy; <?php echo date("Y"); ?> MyDuka. All rights reserved.</p>
+        <p>&copy; <?php echo date("Y"); ?> ModernCart. All rights reserved.</p>
         <p>Designed with <i class="fas fa-heart" style="color: #ff6600;"></i> for our customers</p>
     </div>
 </footer>

@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
 
-                $mail->setFrom('no-reply@gmail.com', 'MyDuka');
+                $mail->setFrom('no-reply@gmail.com', 'ModernCart');
                 $mail->addAddress($email);
                 $mail->isHTML(true);
                 $mail->Subject = "Password Reset Request";
@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <p><a href='$resetLink'>$resetLink</a></p>
                     <p>This link will expire in 1 hour.</p>
                     <p>If you didn't request this, please ignore this email.</p>
-                    <p>Best regards,<br>MyDuka Support Team</p>
+                    <p>Best regards,<br>ModernCart Support Team</p>
                 ";
 
                 $mail->send();
